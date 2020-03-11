@@ -38,6 +38,13 @@
             $sql_tipo_le="DELETE FROM tipo_le WHERE id_tipo_le=$id_tipo_estable";
             echo mysqli_query($connection,$sql_tipo_le);
         break;
+
+        case "linea-base":
+            $id_lb = $_POST['id'];
+
+            $sql_linea_base ="DELETE FROM linea_base_le WHERE id_lb='$id_lb'";
+            echo mysqli_query($connection,$sql_linea_base);
+        break;
         
     }
 

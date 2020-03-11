@@ -205,7 +205,7 @@ function MasivoDatosComuna() {
             } else {
                 $('#frm-carga-comuna')[0].reset();
                 alertify.error("No es posible guardar los registros");
-            } 
+            }
         }
     });
 }
@@ -480,7 +480,176 @@ function MasivoDatosTipoLe() {
 //------------------------------------------------------------
 //------------------------------------------------------------
 
+//-------------- Mantenedor linea base -----------------------
+function AgregarDatosLineaBase(datos_linea_base) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_linea_base,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-nuevo-lines-base')[0].reset(); //limpia el formulario
+                $("#carga_linea-base").load("web/mant_linea_base.php");
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
 
+function AgrFormEditarLineaBase(id_linea_base) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_lb=" + id_linea_base + "&seccion=linea-base",
+        success: function (r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_linea_base').val(datos['id_lb']);
+            $('#estable_linea_base_up').val(datos['codigo_estable_lb']);
+            $('#cantidad_linea_base_up').val(datos['cantidad_lb']);
+            $('#anio_linea_base_up').val(datos['anio_lb']);
+        }
+    });
+}
+
+function EditarLineaBase(editar_linea_base) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_linea_base,
+        success: function (r) {
+            if (r == 1) {
+                $("#carga_linea-base").load("web/mant_linea_base.php");
+                alertify.success("Registro editado con exito");
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoLineaBase(id_linea_base) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarLineaBase(id_linea_base); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarLineaBase(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=linea-base",
+        success: function (r) {
+            if (r == 1) {
+                $("#carga_linea-base").load("web/mant_linea_base.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+function MasivoDatosLineaBase() {
+    var masivo_estable = new FormData($("#frm-carga-linea-base")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/sube.php",
+        data: masivo_estable,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#form-masivo-lb').hide();
+            $('#spinner-lb').show();
+        },
+        success: function (r) {
+            if (r == 1) {
+                $("#arch_lb").val(null); //limpia el formulario por id
+                $("#carga_linea-base").load("web/mant_linea_base.php");
+                alertify.success("Registros agregados y/o actualizados con exito");
+                $('#masivo_linea-base').modal('hide'); //cierra el modal carga masiva
+            } else if (r == 2) {
+                $("#arch_lb").val(null); //limpia el formulario por id
+                $("#carga_linea-base").load("web/mant_linea_base.php");
+                alertify.warning("No fue posible agregar y/o actualizar todos los registros");
+                $('#form-masivo-lb').show();
+                $('#spinner-lb').hide();
+            } else {
+                $('#form-masivo-lb').show();
+                $('#spinner-lb').hide();
+                alertify.error("No es posible incorporar los registros");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+
+//--------------------------------------------------------------
+//        carga mant_linea_base
+//--------------------------------------------------------------
+function mant_linea_base() {
+    $("#carga_linea-base").load("web/mant_linea_base.php");
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        carga tabs pagina no-ges
+//--------------------------------------------------------------
+function carga_no_ges() {
+
+    $('#contenido-no-ges').load('web/cne.php');
+
+    $('#cne').click(function () {
+        $('#contenido-no-ges').empty();
+        $('#contenido-no-ges').load('web/cne.php');
+    });
+
+    $('#cneo').click(function () {
+        $('#contenido-no-ges').empty();
+        $('#contenido-no-ges').load('web/cneo.php');
+    });
+
+    $('#proced').click(function () {
+        $('#contenido-no-ges').empty();
+        $('#contenido-no-ges').load('web/procedimiento.php');
+    });
+
+    $('#iq').click(function () {
+        $('#contenido-no-ges').empty();
+        $('#contenido-no-ges').load('web/iq.php');
+    });
+
+    $('a.nav-link').click(function () {
+        $('a.nav-link').removeClass("active");
+        $(this).addClass("active");
+    });
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        funciones tabs no-ges
+//--------------------------------------------------------------
+function ConsultaCNE(datosCNE) {
+    $.ajax({
+        type: "POST",
+        url: "web/cne_datos.php",
+        data: datosCNE,
+        success: function (r) {
+            $('#carga-cne-datos').html(r);
+        }
+    });
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 
 //--------------- llamado a las paginas desde el menu ----------
 $(document).ready(function () {
@@ -513,7 +682,12 @@ $(document).ready(function () {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/no_ges.php");
     });
-    
+
+    $('#menu-mant-linea-base').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_linea_base_card.php");
+    });
+
 });
 //--------------------------------------------------------------
 //--------------------------------------------------------------

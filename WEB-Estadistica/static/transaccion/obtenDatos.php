@@ -81,4 +81,20 @@ class obtdatos
         );
         return $datos_tipo_le;
     }
+
+    public function obtlb($id_lb)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_linea_base = "SELECT * FROM linea_base_le WHERE id_lb='$id_lb'";
+        $res_linea_base = mysqli_query($connection, $sql_linea_base);
+        $ver_linea_base = mysqli_fetch_array($res_linea_base);
+        $datos_linea_base = array(
+            'id_lb' => $ver_linea_base[0],
+            'codigo_estable_lb' => $ver_linea_base[1],
+            'cantidad_lb' => $ver_linea_base[2],
+            'anio_lb' => $ver_linea_base[3]
+        );
+        return $datos_linea_base;
+    }
 }

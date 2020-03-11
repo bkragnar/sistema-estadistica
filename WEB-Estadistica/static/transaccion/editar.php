@@ -56,4 +56,14 @@
             $sql_tipo_le="UPDATE tipo_le SET codigo_tipo_le='$codigo_tipo_le',nombre_tipo_le='$nombre_tipo_le' WHERE id_tipo_le=$id_tipo_le";
             echo mysqli_query($connection,$sql_tipo_le);
         break;
+
+        case "linea-base":
+            $id_lb = $_POST['id_linea_base'];
+            $codigo_estable_lb = $_POST['estable_linea_base_up'];
+            $cantidad_lb = $_POST['cantidad_linea_base_up'];
+            $anio_lb = $_POST['anio_linea_base_up'];
+
+            $sql_linea_base_up="UPDATE linea_base_le SET codigo_estable_lb=$codigo_estable_lb, cantidad_lb=$cantidad_lb, anio_lb=$anio_lb WHERE id_lb='$id_lb'";
+            echo mysqli_query($connection,$sql_linea_base_up);
+        break;
     }

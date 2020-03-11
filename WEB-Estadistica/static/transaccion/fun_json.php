@@ -26,5 +26,9 @@
         case "tipo-le":
             echo json_encode($obj->obttipole($_POST['id_tipo_le']));
         break;
+
+        case "linea-base":
+            echo json_encode($obj->obtlb($_POST['id_lb']));
+        break;
     }
 ?>

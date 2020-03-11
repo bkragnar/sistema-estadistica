@@ -2,6 +2,7 @@
 include "../../cnx/connection.php";
 
 require_once "../librerias/excel/vendor/autoload.php";
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 $seccion = $_POST["seccion"];
@@ -50,7 +51,6 @@ switch ($seccion) {
         $archivo = $_FILES["arch-estable"]["name"];
         $archivo_ruta = $_FILES["arch-estable"]["tmp_name"];
         //$archivo_guardado = "archivos_copiados/COPIA_" . $archivo;
-
         //if (copy($archivo_ruta, $archivo_guardado)) {
         //} else {
         //    echo "Archivo no copiado";
@@ -78,6 +78,47 @@ switch ($seccion) {
             echo "valido";
         } else {
             echo "rechazado";
+        }
+
+        break;
+
+    case "linea-base":
+        sleep(2);
+        $archivo = $_FILES["arch-linea-base"]["name"];
+        $archivo_ruta = $_FILES["arch-linea-base"]["tmp_name"];
+
+        $objPHPExcel = IOFactory::load($archivo_ruta);
+        $objPHPExcel->setActiveSheetIndex(0); //lee la hoja 1
+        $num_filas_linea_base = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow(); // obtiene la cantidad de filas de la hoja activa
+
+        $carga = 0;
+        for ($i = 2; $i <= $num_filas_linea_base; $i++) { // $i=2 para que comience a leer desde la segunda posicion y saltar los encabezados
+            $codigo_estable_lb = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
+            $cantidad_lb = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
+            $anio_lb = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
+
+            $id_lb = "lb" . "_" . $codigo_estable_lb . "_" . $anio_lb;
+
+            $sql_linea_base = $connection->query("SELECT * FROM linea_base_le WHERE id_lb='$id_lb'");
+            if (mysqli_num_rows($sql_linea_base) > 0) {
+                $sql_linea_base_up = "UPDATE linea_base_le SET codigo_estable_lb=$codigo_estable_lb, cantidad_lb=$cantidad_lb, anio_lb=$anio_lb WHERE id_lb='$id_lb'";
+                if (mysqli_query($connection, $sql_linea_base_up)) {
+                    $carga = $carga + 1;
+                }
+            } else {
+                $sql_linea_base_ins = "INSERT INTO linea_base_le (id_lb,codigo_estable_lb,cantidad_lb,anio_lb) VALUES('$id_lb',$codigo_estable_lb,$cantidad_lb,$anio_lb)";
+                if (mysqli_query($connection, $sql_linea_base_ins)) {
+                    $carga = $carga + 1;
+                }
+            }
+        }
+        /*--si todo salio bien $carga deberia tener valor 0 y devolvemos un true, de lo contrario false-*/
+        if ($carga == $num_filas_linea_base - 1) {
+            echo 1; // valido
+        } elseif ($carga > 0) {
+            echo 2; // incompleto
+        } elseif ($carga == 0) {
+            echo 3; // rechazado
         }
 
         break;

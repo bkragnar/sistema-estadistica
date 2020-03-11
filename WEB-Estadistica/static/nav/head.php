@@ -49,6 +49,7 @@
                 <li><a href="#" class="dropdown-item" id="menu-mant-tipo-estable">Tipo Establecimiento</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-estable">Establecimiento</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-tipo-le">Tipo L.E.</a></li>
+                <li><a href="#" class="dropdown-item" id="menu-mant-linea-base">Linea Base L.E.</a></li>
 
                 <!-- lvl 2 dropdown -->
                 <!--
