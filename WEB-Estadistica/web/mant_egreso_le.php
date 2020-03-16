@@ -1,20 +1,23 @@
 <?php
 include "../cnx/connection.php";
 
-$sql_linea_base = "SELECT l.id_lb,e.nombre_estable,l.cantidad_lb,l.anio_lb
-                FROM establecimiento e INNER JOIN linea_base_le l ON e.codigo_estable=l.codigo_estable_lb
-                ORDER BY l.codigo_estable_lb";
-$resul_linea_base = mysqli_query($connection, $sql_linea_base);
+$sql_egreso_le = "SELECT l.id_egreso,e.nombre_estable,l.cantidad_eg,l.mes_eg,l.anio_eg,t.nombre_tipo_le
+                FROM egresos_le l INNER JOIN establecimiento e on l.estable_eg=e.codigo_estable INNER JOIN tipo_le t on t.codigo_tipo_le=l.tipo_le_eg
+                WHERE l.tipo_le_eg=1
+                ORDER BY l.estable_eg ASC";
+$resul_egreso_le = mysqli_query($connection, $sql_egreso_le);
 ?>
 
 <div>
     <div class="table-responsive">
-        <table class="table table-hover table-condensed table-bordered table-sm" id="tabla-lina-base">
+        <table class="table table-hover table-condensed table-bordered table-sm" id="tabla-egreso-le">
             <thead style="background-color: #2C73FF; color:white; font-weight:bold;">
                 <tr>
                     <td>Establecimiento</td>
                     <td>Cantidad</td>
+                    <td>Mes</td>
                     <td>Año</td>
+                    <td>Tipo L.E</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
                 </tr>
@@ -23,26 +26,32 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
                 <tr>
                     <td>Establecimiento</td>
                     <td>Cantidad</td>
+                    <td>Mes</td>
                     <td>Año</td>
+                    <td>Tipo L.E</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
                 </tr>
             </tfoot>
             <tbody>
                 <?php
-                while ($most_linea_base = mysqli_fetch_array($resul_linea_base)) {
+                while ($most_egreso_le = mysqli_fetch_array($resul_egreso_le)) {
+                    $var_mes = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                    $mes = $var_mes[$most_egreso_le[3] - 1];
                 ?>
                     <tr>
-                        <td><?php echo $most_linea_base[1]; ?></td>
-                        <td><?php echo $most_linea_base[2]; ?></td>
-                        <td><?php echo $most_linea_base[3]; ?></td>
+                        <td><?php echo $most_egreso_le[1]; ?></td>
+                        <td class="text-center"><?php echo $most_egreso_le[2]; ?></td>
+                        <td class="text-capitalize"><?php echo $mes; ?></td>
+                        <td class="text-center"><?php echo $most_egreso_le[4]; ?></td>
+                        <td><?php echo $most_egreso_le[5]; ?></td>
                         <td style="text-align: center;">
-                            <span class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editar_linea-base" onclick="AgrFormEditarLineaBase('<?php echo $most_linea_base[0]; ?>')">
+                            <span class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editar_egreso_le" onclick="AgrFormEditarEgresoLE('<?php echo $most_egreso_le[0]; ?>')">
                                 <span class="far fa-edit fa-lg"></span>
                             </span>
                         </td>
                         <td style="text-align: center;">
-                            <span class="btn btn-danger btn-sm" onclick="PreguntarSioNoLineaBase('<?php echo $most_linea_base[0]; ?>')">
+                            <span class="btn btn-danger btn-sm" onclick="PreguntarSioNoEgresoLE('<?php echo $most_egreso_le[0]; ?>')">
                                 <span class="far fa-trash-alt fa-lg"></span>
                             </span>
                         </td>
@@ -57,7 +66,7 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
 
 <script>
     $(document).ready(function() {
-        $('#tabla-lina-base').DataTable({
+        $('#tabla-egreso-le').DataTable({
             "language": {
                 "decimal": ".",
                 "emptyTable": "No hay datos para mostrar",

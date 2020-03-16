@@ -1,19 +1,22 @@
 <?php
 include "../cnx/connection.php";
 
-$sql_linea_base = "SELECT l.id_lb,e.nombre_estable,l.cantidad_lb,l.anio_lb
-                FROM establecimiento e INNER JOIN linea_base_le l ON e.codigo_estable=l.codigo_estable_lb
-                ORDER BY l.codigo_estable_lb";
+$sql_linea_base = "SELECT p.id_porc_lb,e.nombre_tipo,p.pri_corte_porc_lb,p.seg_corte_porc_lb,p.ter_corte_porc_lb,p.cto_corte_porc_lb,p.anio_corte_porc_lb
+                FROM tipo_estable e INNER JOIN porcentaje_lb p ON e.codigo_tipo=p.tipo_estable_porc_lb
+                ORDER BY p.tipo_estable_porc_lb,p.anio_corte_porc_lb ASC";
 $resul_linea_base = mysqli_query($connection, $sql_linea_base);
 ?>
 
 <div>
     <div class="table-responsive">
-        <table class="table table-hover table-condensed table-bordered table-sm" id="tabla-lina-base">
+        <table class="table table-hover table-condensed table-bordered table-sm" id="tabla-porcentaje-lb">
             <thead style="background-color: #2C73FF; color:white; font-weight:bold;">
                 <tr>
-                    <td>Establecimiento</td>
-                    <td>Cantidad</td>
+                    <td>Tipo</td>
+                    <td>1º Corte</td>
+                    <td>2º Corte</td>
+                    <td>3º Corte</td>
+                    <td>4º Corte</td>
                     <td>Año</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
@@ -21,8 +24,11 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
             </thead>
             <tfoot style="background-color: #AEB2B9; color:white; font-weight:bold;">
                 <tr>
-                    <td>Establecimiento</td>
-                    <td>Cantidad</td>
+                    <td>Tipo</td>
+                    <td>1º Corte</td>
+                    <td>2º Corte</td>
+                    <td>3º Corte</td>
+                    <td>4º Corte</td>
                     <td>Año</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
@@ -34,15 +40,18 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
                 ?>
                     <tr>
                         <td><?php echo $most_linea_base[1]; ?></td>
-                        <td><?php echo $most_linea_base[2]; ?></td>
-                        <td><?php echo $most_linea_base[3]; ?></td>
+                        <td class="text-center"><?php echo $most_linea_base[2]."%"; ?></td>
+                        <td class="text-center"><?php echo $most_linea_base[3]."%"; ?></td>
+                        <td class="text-center"><?php echo $most_linea_base[4]."%"; ?></td>
+                        <td class="text-center"><?php echo $most_linea_base[5]."%"; ?></td>
+                        <td class="text-center"><?php echo $most_linea_base[6]; ?></td>
                         <td style="text-align: center;">
-                            <span class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editar_linea-base" onclick="AgrFormEditarLineaBase('<?php echo $most_linea_base[0]; ?>')">
+                            <span class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editar_porcentaje_lb" onclick="AgrFormEditarPorcentajeLB('<?php echo $most_linea_base[0]; ?>')">
                                 <span class="far fa-edit fa-lg"></span>
                             </span>
                         </td>
                         <td style="text-align: center;">
-                            <span class="btn btn-danger btn-sm" onclick="PreguntarSioNoLineaBase('<?php echo $most_linea_base[0]; ?>')">
+                            <span class="btn btn-danger btn-sm" onclick="PreguntarSioNoPorcentajeLB('<?php echo $most_linea_base[0]; ?>')">
                                 <span class="far fa-trash-alt fa-lg"></span>
                             </span>
                         </td>
@@ -57,7 +66,7 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
 
 <script>
     $(document).ready(function() {
-        $('#tabla-lina-base').DataTable({
+        $('#tabla-porcentaje-lb').DataTable({
             "language": {
                 "decimal": ".",
                 "emptyTable": "No hay datos para mostrar",

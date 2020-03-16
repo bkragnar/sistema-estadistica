@@ -122,4 +122,47 @@ switch ($seccion) {
         }
 
         break;
+
+        case "egreso-le":
+            sleep(2);
+            $archivo = $_FILES["arch_egreso_le"]["name"];
+            $archivo_ruta = $_FILES["arch_egreso_le"]["tmp_name"];
+    
+            $objPHPExcel = IOFactory::load($archivo_ruta);
+            $objPHPExcel->setActiveSheetIndex(0); //lee la hoja 1
+            $num_filas_egreso_le = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow(); // obtiene la cantidad de filas de la hoja activa
+    
+            $carga = 0;
+            for ($i = 2; $i <= $num_filas_egreso_le; $i++) { // $i=2 para que comience a leer desde la segunda posicion y saltar los encabezados
+                $estable_eg = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
+                $cantidad_eg = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
+                $mes_eg = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
+                $anio_eg = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
+                $tipo_le_eg = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
+    
+                $id_eg = "Eg_".$estable_eg."_".$mes_eg."_".$anio_eg;
+    
+                $sql_egreso_le = $connection->query("SELECT * FROM egresos_le WHERE id_egreso='$id_eg'");
+                if (mysqli_num_rows($sql_egreso_le) > 0) {
+                    $sql_linea_base_up = "UPDATE egresos_le SET estable_eg=$estable_eg,cantidad_eg=$cantidad_eg,mes_eg=$mes_eg,anio_eg=$anio_eg,tipo_le_eg=$tipo_le_eg WHERE id_egreso='$id_eg'";
+                    if (mysqli_query($connection, $sql_linea_base_up)) {
+                        $carga = $carga + 1;
+                    }
+                } else {
+                    $sql_linea_base_ins = "INSERT INTO egresos_le (id_egreso,estable_eg,cantidad_eg,mes_eg,anio_eg,tipo_le_eg) VALUES ('$id_eg',$estable_eg,$cantidad_eg,$mes_eg,$anio_eg,$tipo_le_eg)";
+                    if (mysqli_query($connection, $sql_linea_base_ins)) {
+                        $carga = $carga + 1;
+                    }
+                }
+            }
+            /*--si todo salio bien $carga deberia tener valor 0 y devolvemos un true, de lo contrario false-*/
+            if ($carga == $num_filas_egreso_le - 1) {
+                echo 1; // valido
+            } elseif ($carga > 0) {
+                echo 2; // incompleto
+            } elseif ($carga == 0) {
+                echo 3; // rechazado
+            }
+    
+            break;
 }

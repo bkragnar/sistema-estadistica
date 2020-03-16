@@ -522,6 +522,7 @@ function EditarLineaBase(editar_linea_base) {
             if (r == 1) {
                 $("#carga_linea-base").load("web/mant_linea_base.php");
                 alertify.success("Registro editado con exito");
+                $('#editar_linea-base').modal('hide'); //cierra el modal carga masiva
             } else {
                 alertify.error("No es posible editar el registro");
             }
@@ -571,6 +572,8 @@ function MasivoDatosLineaBase() {
                 $("#arch_lb").val(null); //limpia el formulario por id
                 $("#carga_linea-base").load("web/mant_linea_base.php");
                 alertify.success("Registros agregados y/o actualizados con exito");
+                $('#form-masivo-lb').show();
+                $('#spinner-lb').hide();
                 $('#masivo_linea-base').modal('hide'); //cierra el modal carga masiva
             } else if (r == 2) {
                 $("#arch_lb").val(null); //limpia el formulario por id
@@ -589,12 +592,254 @@ function MasivoDatosLineaBase() {
 //------------------------------------------------------------
 //------------------------------------------------------------
 
+//-------------- Mantenedor porcentaje LB -----------------------
+function AgregarDatosPorcentajeLB(datos_porcentaje_lb) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_porcentaje_lb,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-nuevo-porcentaje-lb')[0].reset(); //limpia el formulario
+                $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
+
+function AgrFormEditarPorcentajeLB(id_porcentaje_lb) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_porc=" + id_porcentaje_lb + "&seccion=porcentaje-lb",
+        success: function (r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_porc_lb').val(datos['id_porc']);
+            $('#tipo_estable_porcentaje_lb_up').val(datos['tipo_estable_porc']);
+            $('#primer_porcentaje_lb_up').val(datos['primer_porc']);
+            $('#segundo_porcentaje_lb_up').val(datos['segundo_porc']);
+            $('#tercer_porcentaje_lb_up').val(datos['tercer_porc']);
+            $('#cuarto_porcentaje_lb_up').val(datos['cuarto_porc']);
+            $('#anio_porcentaje_lb_up').val(datos['anio_porc']);
+        }
+    });
+}
+
+function EditarPorcentajeLB(editar_porcentaje_lb) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_porcentaje_lb,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-editar-porcentaje-lb')[0].reset(); //limpia el formulario
+                $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
+                alertify.success("Registro editado con exito");
+                $('#editar_porcentaje_lb').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoPorcentajeLB(id_porcentaje_lb) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarPorcentajeLB(id_porcentaje_lb); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarPorcentajeLB(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=porcentaje-lb",
+        success: function (r) {
+            if (r == 1) {
+                $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+function MasivoDatosPorcentajeLB() {
+    var masivo_estable = new FormData($("#frm-carga-porcentaje-lb")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/sube.php",
+        data: masivo_estable,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#form-masivo-porcentaje-lb').hide();
+            $('#spinner-porcentaje-lb').show();
+        },
+        success: function (r) {
+            if (r == 1) {
+                $("#arch_porcentaje_lb").val(null); //limpia el formulario por id
+                $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
+                alertify.success("Registros agregados y/o actualizados con exito");
+                $('#form-masivo-porcentaje-lb').show();
+                $('#spinner-porcentaje-lb').hide();
+                $('#masivo_porcentaje_lb').modal('hide'); //cierra el modal carga masiva
+            } else if (r == 2) {
+                $("#arch_porcentaje_lb").val(null); //limpia el formulario por id
+                $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
+                alertify.warning("No fue posible agregar y/o actualizar todos los registros");
+                $('#form-masivo-porcentaje-lb').show();
+                $('#spinner-porcentaje-lb').hide();
+            } else {
+                $('#form-masivo-porcentaje-lb').show();
+                $('#spinner-porcentaje-lb').hide();
+                alertify.error("No es posible incorporar los registros");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+//-------------- Mantenedor egreso le -----------------------
+function AgregarDatosEgresoLE(datos_egreso_le) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_egreso_le,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-nuevo-egreso-le')[0].reset(); //limpia el formulario
+                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
+
+function AgrFormEditarEgresoLE(id_egreso_le) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_egreso=" + id_egreso_le + "&seccion=egreso-le",
+        success: function (r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_egreso_le').val(datos['id_eg']);
+            $('#estable_egreso_le_up').val(datos['estable_eg']);
+            $('#cantidad_egreso_le_up').val(datos['cantidad_eg']);
+            $('#mes_egreso_le_up').val(datos['mes_eg']);
+            $('#anio_egreso_le_up').val(datos['anio_eg']);
+            $('#tipo_le_egreso_le_up').val(datos['tipo_le_eg']);
+        }
+    });
+}
+
+function EditarEgresoLE(editar_egreso_le) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_egreso_le,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-editar-egreso-le')[0].reset(); //limpia el formulario
+                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                alertify.success("Registro editado con exito");
+                $('#editar_egreso_le').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoEgresoLE(id_egreso_le) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarEgresoLE(id_egreso_le); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarEgresoLE(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=egreso-le",
+        success: function (r) {
+            if (r == 1) {
+                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+function MasivoDatosEgresoLE() {
+    var masivo_egreso_le = new FormData($("#frm-carga-egreso-le")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/sube.php",
+        data: masivo_egreso_le,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#form-masivo-egreso-le').hide();
+            $('#spinner-egreso-le').show();
+        },
+        success: function (r) {
+            if (r == 1) {
+                $("#arch_egreso_le").val(null); //limpia el formulario por id
+                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                alertify.success("Registros agregados y/o actualizados con exito");
+                $('#form-masivo-egreso-le').show();
+                $('#spinner-egreso-le').hide();
+                $('#masivo_egreso_le').modal('hide'); //cierra el modal carga masiva
+            } else if (r == 2) {
+                $("#arch_egreso_le").val(null); //limpia el formulario por id
+                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                alertify.warning("No fue posible agregar y/o actualizar todos los registros");
+                $('#form-masivo-egreso-le').show();
+                $('#spinner-egreso-le').hide();
+            } else {
+                $('#form-masivo-egreso-le').show();
+                $('#spinner-egreso-le').hide();
+                alertify.error("No es posible incorporar los registros");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
 
 //--------------------------------------------------------------
 //        carga mant_linea_base
 //--------------------------------------------------------------
 function mant_linea_base() {
     $("#carga_linea-base").load("web/mant_linea_base.php");
+}
+//--------------------------------------------------------------
+//        carga mant_porcentaje_lb
+//--------------------------------------------------------------
+function mant_porcentaje_lb() {
+    $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
+}
+//--------------------------------------------------------------
+//        carga mant_egreso_le
+//--------------------------------------------------------------
+function mant_egreso_le() {
+    $('#carga_egreso_le').load('web/mant_egreso_le.php');
 }
 //------------------------------------------------------------
 //------------------------------------------------------------
@@ -688,6 +933,15 @@ $(document).ready(function () {
         $("#contenido-index").load("web/mant_linea_base_card.php");
     });
 
+    $('#menu-mant-porcentaje-lb').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_porcentaje_lb_card.php");
+    });
+
+    $('#menu-mant-egreso-le').click(function(){
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_egreso_le_card.php");
+    })
 });
 //--------------------------------------------------------------
 //--------------------------------------------------------------

@@ -50,6 +50,8 @@
                 <li><a href="#" class="dropdown-item" id="menu-mant-estable">Establecimiento</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-tipo-le">Tipo L.E.</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-linea-base">Linea Base L.E.</a></li>
+                <li><a href="#" class="dropdown-item" id="menu-mant-porcentaje-lb">Porcentaje COMGES</a></li>
+                <li><a href="#" class="dropdown-item" id="menu-mant-egreso-le">Egresos L.E</a></li>
 
                 <!-- lvl 2 dropdown -->
                 <!--

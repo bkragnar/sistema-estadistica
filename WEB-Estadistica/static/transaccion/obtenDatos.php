@@ -97,4 +97,42 @@ class obtdatos
         );
         return $datos_linea_base;
     }
+
+    public function obtporc_lb($id_porc_lb)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_porcentaje_lb = "SELECT * FROM porcentaje_lb WHERE id_porc_lb='$id_porc_lb'";
+        $res_porcentaje_lb = mysqli_query($connection, $sql_porcentaje_lb);
+        $ver_porcentaje_lb = mysqli_fetch_array($res_porcentaje_lb);
+        $datos_porcentaje_lb = array(
+            'id_porc' => $ver_porcentaje_lb[0],
+            'tipo_estable_porc' => $ver_porcentaje_lb[1],
+            'primer_porc' => $ver_porcentaje_lb[2],
+            'segundo_porc' => $ver_porcentaje_lb[3],
+            'tercer_porc' => $ver_porcentaje_lb[4],
+            'cuarto_porc' => $ver_porcentaje_lb[5],
+            'anio_porc' => $ver_porcentaje_lb[6]
+        );
+        return $datos_porcentaje_lb;
+    }
+
+    public function obtegresole($id_egreso)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_egreso_le = "SELECT * FROM egresos_le WHERE id_egreso='$id_egreso'";
+        $res_egreso_le = mysqli_query($connection, $sql_egreso_le);
+        $ver_egreso_le = mysqli_fetch_array($res_egreso_le);
+        $datos_egreso_le = array(
+            'id_eg' => $ver_egreso_le[0],
+            'estable_eg' => $ver_egreso_le[1],
+            'cantidad_eg' => $ver_egreso_le[2],
+            'mes_eg' => $ver_egreso_le[3],
+            'anio_eg' => $ver_egreso_le[4],
+            'tipo_le_eg' => $ver_egreso_le[5]
+        );
+        return $datos_egreso_le;
+
+    }
 }

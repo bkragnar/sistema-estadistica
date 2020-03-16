@@ -61,6 +61,36 @@
             $sql_linea_base="INSERT INTO linea_base_le (id_lb,codigo_estable_lb,cantidad_lb,anio_lb) VALUES('$id_lb',$codigo_estable_lb,$cantidad_lb,$anio_lb)";
             echo mysqli_query($connection,$sql_linea_base);
         break;
+
+        case "porcentaje-lb":
+            $tipo_estable_porc_lb = $_POST['tipo_estable_porcentaje_lb'];
+            $primer_corte = $_POST['primer_porcentaje_lb'];
+            $segundo_corte = $_POST['segundo_porcentaje_lb'];
+            $tercer_corte = $_POST['tercer_porcentaje_lb'];
+            $cuarto_corte = $_POST['cuarto_porcentaje_lb'];
+            $anio_porc_lb = $_POST['anio_porcentaje_lb'];
+
+            $id_porc_lb ="prc"."_".$tipo_estable_porc_lb."_".$anio_porc_lb;
+
+            $sql_porcentaje_lb="INSERT INTO porcentaje_lb (id_porc_lb,tipo_estable_porc_lb,pri_corte_porc_lb,seg_corte_porc_lb,ter_corte_porc_lb,cto_corte_porc_lb,anio_corte_porc_lb) 
+                            VALUES('$id_porc_lb',$tipo_estable_porc_lb,$primer_corte,$segundo_corte,$tercer_corte,$cuarto_corte,$anio_porc_lb)";
+            echo mysqli_query($connection,$sql_porcentaje_lb);
+        break;
+
+        case "egreso-le":
+            $estable_eg = $_POST['estable_egreso_le'];
+            $cantidad_eg = $_POST['cantidad_egreso_le'];
+            $mes_eg = $_POST['mes_egreso_le'];
+            $anio_eg = $_POST['anio_egreso_le'];
+            $tipo_le_eg = $_POST['tipo_le_egreso_le'];
+
+            $id_egreso ="Eg_".$estable_eg."_".$mes_eg."_".$anio_eg;
+
+            $sql_egreso_le ="INSERT INTO egresos_le (id_egreso,estable_eg,cantidad_eg,mes_eg,anio_eg,tipo_le_eg) 
+                            VALUES ('$id_egreso',$estable_eg,$cantidad_eg,$mes_eg,$anio_eg,$tipo_le_eg)";
+            echo mysqli_query($connection,$sql_egreso_le);
+
+        break;
         
     }
 

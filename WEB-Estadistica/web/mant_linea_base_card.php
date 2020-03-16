@@ -124,7 +124,7 @@ include "../cnx/connection.php";
                         <input type="text" hidden="" name="seccion" value="linea-base">
                     </form>
                 </div>
-                <div id="spinner-lb"><div class="spinner-grow text-info"></div></div>
+                <div id="spinner-lb"><div class="spinner-grow text-info"></div> Insertando datos...</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
