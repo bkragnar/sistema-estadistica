@@ -799,6 +799,7 @@ function MasivoDatosEgresoLE() {
             $('#spinner-egreso-le').show();
         },
         success: function (r) {
+            alert(r);
             if (r == 1) {
                 $("#arch_egreso_le").val(null); //limpia el formulario por id
                 $('#carga_egreso_le').load('web/mant_egreso_le.php');

@@ -73,3 +73,7 @@ footer{
     top: 0;
     left: 100%;
 }
+/*  posiciona un elemnto mas adelante */
+.pdelantera{
+    z-index: 999;
+}

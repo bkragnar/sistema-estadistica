@@ -96,7 +96,7 @@ include "../cnx/connection.php";
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Porcentaje COMGES</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar Egreso COMGES</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -170,7 +170,7 @@ include "../cnx/connection.php";
                 <div id="form-masivo-egreso-le">
                     <form action="" id="frm-carga-egreso-le" enctype="multipart/form-data">
                         <label for="">Seleccionar Archivo:</label>
-                        <input type="file" id="arch_egreso_le" name="arch-egreso-le">
+                        <input type="file" id="arch_egreso_le" name="arch_egreso_le">
                         <input type="text" hidden="" name="seccion" value="egreso-le">
                     </form>
                 </div>

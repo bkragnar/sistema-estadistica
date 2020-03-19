@@ -141,6 +141,10 @@ switch ($seccion) {
                 $tipo_le_eg = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
     
                 $id_eg = "Eg_".$estable_eg."_".$mes_eg."_".$anio_eg;
+
+                if(empty($cantidad_eg)){//si el valor es vacio le asigno un 0
+                    $cantidad_eg=0;
+                }
     
                 $sql_egreso_le = $connection->query("SELECT * FROM egresos_le WHERE id_egreso='$id_eg'");
                 if (mysqli_num_rows($sql_egreso_le) > 0) {
