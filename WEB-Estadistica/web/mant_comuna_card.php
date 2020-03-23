@@ -1,5 +1,5 @@
 <?php
-    include "../cnx/connection.php";
+include "../cnx/connection.php";
 ?>
 
 <div class="container">
@@ -14,7 +14,7 @@
                         <span class="fas fa-plus-circle"></span>
                     </span>
                     <span class="btn btn-primary" data-toggle="modal" data-target="#masivo_comuna">Carga Masiva
-                        <span class="fas fa-upload" ></span>
+                        <span class="fas fa-upload"></span>
                     </span>
                     <hr>
                     <div id="carga_comuna"></div>
@@ -118,11 +118,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" id="frm-carga-comuna" enctype="multipart/form-data">
-                    <label for="">Seleccionar Archivo: </label>
-                    <input type="file" name="arch-comuna" accept="">
-                    <input type="text" hidden="" name="seccion" value="comuna">
-                </form>
+                <div id="form-masivo-comuna">
+                    <form action="" id="frm-carga-comuna" enctype="multipart/form-data">
+                        <label for="">Seleccionar Archivo: </label>
+                        <input type="file" id="arch_comuna" name="arch-comuna" accept="">
+                        <input type="text" hidden="" name="seccion" value="comuna">
+                    </form>
+                </div>
+                <div id="spinner-comuna">
+                    <div class="spinner-grow text-info"></div> Insertando datos...
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -138,13 +143,15 @@
     $(document).ready(function() {
         $("#carga_comuna").load("web/mant_comuna.php");
 
-        $("#agregar-nueva-comuna").click(function(){
-            datos_comuna=$("#frm-nueva-comuna").serialize();
+        $('#spinner-comuna').hide();
+
+        $("#agregar-nueva-comuna").click(function() {
+            datos_comuna = $("#frm-nueva-comuna").serialize();
             AgregarDatosComuna(datos_comuna);
         });
 
-        $("#actualizar-comuna").click(function(){
-            datos_comuna_up=$("#frm-editar-comuna").serialize();
+        $("#actualizar-comuna").click(function() {
+            datos_comuna_up = $("#frm-editar-comuna").serialize();
             EditarComuna(datos_comuna_up);
         });
 

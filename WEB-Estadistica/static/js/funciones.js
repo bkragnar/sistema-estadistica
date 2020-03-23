@@ -197,14 +197,29 @@ function MasivoDatosComuna() {
         cache: false,
         contentType: false,
         processData: false,
+        beforeSend: function () {
+            $('#form-masivo-comuna').hide();
+            $('#spinner-comuna').show();
+        },
         success: function (r) {
-            if (r == "valido") {
-                $('#frm-carga-comuna')[0].reset(); //limpia el formulario
+            alert(r);
+            if (r == 1) {
+                $('#archivo_comuna').val(null); //limpia el formulario por id
                 $("#carga_comuna").load("web/mant_comuna.php");
-                alertify.success("Registros agregados con exito");
-            } else {
-                $('#frm-carga-comuna')[0].reset();
-                alertify.error("No es posible guardar los registros");
+                alertify.success("Registros agregados y/o actualizados con exito");
+                $('#form-masivo-comuna').show();
+                $('#spinner-comuna').hide();
+                $('#masivo_comuna').modal('hide'); //cierra el modal carga masiva
+            } else if (r == 2) {
+                $('#archivo_comuna').val(null); //limpia el formulario por id
+                $("#carga_comuna").load("web/mant_comuna.php");
+                alertify.success("No fue posible agregar y/o actualizar todos los registros");
+                $('#form-masivo-comuna').show();
+                $('#spinner-comuna').hide();
+            }else{
+                $('#form-masivo-comuna').show();
+                $('#spinner-comuna').hide();
+                alertify.error("No es posible incorporar los registros");
             }
         }
     });
