@@ -5,6 +5,7 @@ require_once "../librerias/excel/vendor/autoload.php";
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
+
 $seccion = $_POST["seccion"];
 
 switch ($seccion) {
@@ -56,7 +57,7 @@ switch ($seccion) {
         break;
 
     case "establecimiento":
-
+        sleep(2);
         $archivo = $_FILES["arch-estable"]["name"];
         $archivo_ruta = $_FILES["arch-estable"]["tmp_name"];
         //$archivo_guardado = "archivos_copiados/COPIA_" . $archivo;
@@ -149,7 +150,7 @@ switch ($seccion) {
             $anio_eg = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
             $tipo_le_eg = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
 
-            $id_eg = "Eg_" . $estable_eg . "_" . $mes_eg . "_" . $anio_eg;
+            $id_eg = "Eg_" . $estable_eg . "_" . $mes_eg . "_" . $anio_eg."_".$tipo_le_eg;
 
             if (empty($cantidad_eg)) { //si el valor es vacio le asigno un 0
                 $cantidad_eg = 0;

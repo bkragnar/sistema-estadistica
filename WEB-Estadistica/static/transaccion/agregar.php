@@ -84,7 +84,7 @@
             $anio_eg = $_POST['anio_egreso_le'];
             $tipo_le_eg = $_POST['tipo_le_egreso_le'];
 
-            $id_egreso ="Eg_".$estable_eg."_".$mes_eg."_".$anio_eg;
+            $id_egreso ="Eg_".$estable_eg."_".$mes_eg."_".$anio_eg."_".$tipo_le_eg;
 
             $sql_egreso_le ="INSERT INTO egresos_le (id_egreso,estable_eg,cantidad_eg,mes_eg,anio_eg,tipo_le_eg) 
                             VALUES ('$id_egreso',$estable_eg,$cantidad_eg,$mes_eg,$anio_eg,$tipo_le_eg)";
