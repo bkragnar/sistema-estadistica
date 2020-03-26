@@ -1,23 +1,14 @@
 <?php
-$datos = json_decode($_POST['arreglo']);
-var_dump($datos);
 
-for ($i = 0; $i < count($datos); $i++) {
-    for ($x = 0; $x < 12; $x++) {
-        $datosY[$i][$x]=$datos[$i][$x+2];
-    }
-    $establecimientos[]=$datos[$i][0];
-}
-echo '<pre>';
-print_r($datosY);
-echo '</pre>';
-echo '<pre>';
-print_r($establecimientos);
-echo '</pre>';
+$valores = json_decode($_POST['arreglo1']);
+$nombres = json_decode($_POST['arreglo2']);
 
+$datosY = json_encode($valores);
+$datosX = json_encode($nombres);
 ?>
 
 <div id="grafico-lineal"></div>
+<div id="grafico-barras"></div>
 
 <script>
     function crearcadenaLineal(json) {
@@ -30,10 +21,10 @@ echo '</pre>';
     }
 
     datosY = crearcadenaLineal('<?php echo $datosY ?>');
-    nom_est = crearcadenaLineal('<?php echo $establecimientos ?>');
+    nom_est = crearcadenaLineal('<?php echo $datosX ?>');
 
     var arrayData = [];
-    for (var i = 0; i < '<?php echo $cant_estable ?>'; i++) {
+    for (var i = 0; i < '<?php echo count($nombres) ?>'; i++) {
 
         window["trace" + i] = {
             x: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -44,8 +35,9 @@ echo '</pre>';
 
         arrayData.push(window["trace" + i]);
     }
+
     var layout = {
-        title: 'Porcentaje cumplimiento IAAPS',
+        title: 'Egresos COMGES',
         font: {
             family: 'Raleway, sans-serif'
         },
@@ -54,11 +46,52 @@ echo '</pre>';
             title: 'Meses'
         },
         yaxis: {
-            title: '% de  Cumplimiento'
+            title: 'Cantidad de egresos'
         },
     };
 
     Plotly.newPlot('grafico-lineal', arrayData, layout, {}, {
+        showSendToCloud: true
+    });
+</script>
+
+<!-- scrip grafico de barras -->
+
+<script>
+    datosY = crearcadenaLineal('<?php echo $datosY ?>');
+    nom_est = crearcadenaLineal('<?php echo $datosX ?>');
+
+    var arrayData = [];
+    for (var i = 0; i < '<?php echo count($nombres) ?>'; i++) {
+
+        window["trace" + i] = {
+            x: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            y: datosY[i],
+            type: 'bar',
+            name: nom_est[i],
+            text: datosY[i].map(String),
+            textposition: 'auto',
+        };
+
+        arrayData.push(window["trace" + i]);
+    }
+
+    var layout = {
+        title: 'Egresos COMGES',
+        barmode: 'group',
+        font: {
+            family: 'Raleway, sans-serif'
+        },
+        xaxis: {
+            tickangle: 0,
+            title: 'Meses'
+        },
+        yaxis: {
+            title: 'Cantidad de egresos'
+        },
+    };
+
+    Plotly.newPlot('grafico-barras', arrayData, layout, {}, {
         showSendToCloud: true
     });
 </script>

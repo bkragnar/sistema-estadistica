@@ -125,10 +125,6 @@ for ($x = 0; $x <= (count($matriz_datos) - 1); $x = $x + $mes_max) {
 echo '<pre>';
 print_r($mtz_ordenada);
 echo '</pre>';
-
-echo '<pre>';
-print_r($mtz_muestra);
-echo '</pre>';
 */
 ?>
 
@@ -153,20 +149,17 @@ echo '</pre>';
                 </tr>
             </thead>
             <tbody>
-                <?php
-                //while ($most_comuna = mysqli_fetch_array($resul_comuna)) {
-                ?>
                 <tr>
                     <?php
                     for ($m = 0; $m < count($mtz_muestra); $m++) {
                     ?>
                         <td><?php echo $mtz_muestra[$m][0]; ?></td>
-                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][1],0,'','.'); ?></td>
-                        <td class="text-center"><?php echo $mtz_muestra[$m][2]."%"; ?></td>
-                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][3],0,'','.'); ?></td>
-                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][4],0,'','.'); ?></td>
-                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][5],0,'','.'); ?></td>
-                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][6],0,'','.'); ?></td>
+                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][1], 0, '', '.'); ?></td>
+                        <td class="text-center"><?php echo $mtz_muestra[$m][2] . "%"; ?></td>
+                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][3], 0, '', '.'); ?></td>
+                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][4], 0, '', '.'); ?></td>
+                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][5], 0, '', '.'); ?></td>
+                        <td class="text-center"><?php echo number_format($mtz_muestra[$m][6], 0, '', '.'); ?></td>
                 </tr>
             <?php
                     }
@@ -177,80 +170,24 @@ echo '</pre>';
 </div>
 
 <?php
+
 for ($i = 0; $i < count($mtz_ordenada); $i++) {
     for ($x = 0; $x < 12; $x++) {
-        $datoss[$i][$x]=$mtz_ordenada[$i][$x+2];
+        $valores[$i][$x] = $mtz_ordenada[$i][$x + 2];
     }
-    $nombres[]=$mtz_ordenada[$i][0];
+    $nombres[] = $mtz_ordenada[$i][0];
 }
 
-$datosY=json_encode($datoss);
-$establecimientos=json_encode($nombres);
-
-/*
-echo '<pre>';
-print_r($datosY);
-echo '</pre>';
-echo '<pre>';
-print_r($establecimientos);
-echo '</pre>';
-*/
 ?>
-<div id="grafico-lineal"></div>
+
+<div id="grafico"></div>
 
 <script>
-    function crearcadenaLineal(json) {
-        var parsed = JSON.parse(json);
-        var arr = [];
-        for (var x in parsed) {
-            arr.push(parsed[x]);
-        }
-        return arr;
-    }
-
-    datosY = crearcadenaLineal('<?php echo $datosY ?>');
-    nom_est = crearcadenaLineal('<?php echo $establecimientos ?>');
-
-    var arrayData = [];
-    for (var i = 0; i < '<?php echo count($nombres) ?>'; i++) {
-
-        window["trace" + i] = {
-            x: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            y: datosY[i],
-            type: 'scatter',
-            name: nom_est[i],
-        };
-
-        arrayData.push(window["trace" + i]);
-    }
-    var layout = {
-        title: 'Egresos COMGES por mes',
-        font: {
-            family: 'Raleway, sans-serif'
-        },
-        xaxis: {
-            tickangle: 0,
-            title: 'Meses'
-        },
-        yaxis: {
-            title: 'Cantidad egresos por mes'
-        },
-    };
-
-    Plotly.newPlot('grafico-lineal', arrayData, layout, {}, {
-        showSendToCloud: true
-    });
-</script>
-
-<!--
-<div id="grafico-cne"> aca deberia estar el grafico</div>
--->
-<script>
-    /*
+   
     $(document).ready(function () {
-        var mtz = '<?php json_encode($mtz_ordenada); ?>';
-        cargar_grafico(mtz);
+        var mtz1 = '<?php echo json_encode($valores); ?>';
+        var mtz2 = '<?php echo json_encode($nombres); ?>';
+        cargar_grafico(mtz1,mtz2);
     });
-    */
+    
 </script>
-

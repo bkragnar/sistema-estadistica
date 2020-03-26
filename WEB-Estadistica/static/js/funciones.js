@@ -895,14 +895,17 @@ function carga_no_ges() {
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-function cargar_grafico(matriz) {
-    alert(matriz);
+
+//--------------------------------------------------------------
+//        funciones tabs no-ges
+//--------------------------------------------------------------
+function cargar_grafico(mtz1, mtz2) {
     $.ajax({
         type: "POST",
         url: "web/grafico.php",
-        data: {'arreglo': JSON.stringify(matriz)},
-        success: function (r){
-            $('#grafico-cne').html(r);
+        data: { 'arreglo1': mtz1 , 'arreglo2': mtz2 },
+        success: function (r) {
+            $('#grafico').html(r);
         }
     });
 }
