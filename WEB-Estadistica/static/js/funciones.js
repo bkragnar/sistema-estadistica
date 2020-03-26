@@ -216,7 +216,7 @@ function MasivoDatosComuna() {
                 alertify.success("No fue posible agregar y/o actualizar todos los registros");
                 $('#form-masivo-comuna').show();
                 $('#spinner-comuna').hide();
-            }else{
+            } else {
                 $('#form-masivo-comuna').show();
                 $('#spinner-comuna').hide();
                 alertify.error("No es posible incorporar los registros");
@@ -895,7 +895,17 @@ function carga_no_ges() {
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-
+function cargar_grafico(matriz) {
+    alert(matriz);
+    $.ajax({
+        type: "POST",
+        url: "web/grafico.php",
+        data: {'arreglo': JSON.stringify(matriz)},
+        success: function (r){
+            $('#grafico-cne').html(r);
+        }
+    });
+}
 //--------------------------------------------------------------
 //        funciones tabs no-ges
 //--------------------------------------------------------------
@@ -954,7 +964,7 @@ $(document).ready(function () {
         $("#contenido-index").load("web/mant_porcentaje_lb_card.php");
     });
 
-    $('#menu-mant-egreso-le').click(function(){
+    $('#menu-mant-egreso-le').click(function () {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_egreso_le_card.php");
     })
