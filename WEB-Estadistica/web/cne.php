@@ -30,6 +30,7 @@ include "../cnx/connection.php";
                     ?>
                 </select>
             </div>
+            <div class="ml-5" id="select-comuna"></div>
             <div class="pl-5 mt-4">
                 <button id="btn-cne" type="button" class="btn btn-primary btn-sm">Consultar</button>
             </div>
@@ -42,10 +43,33 @@ include "../cnx/connection.php";
 
 <script>
     $(document).ready(function() {
+        if ($('#tipo_estable_cne').val() == 1) {
+            $('#select-comuna').show();
+            recargarLista_comuna();
+        } else {
+            $('#select-comuna').hide();
+        }
+        $('#tipo_estable_cne').change(function() {
+            if ($('#tipo_estable_cne').val() == 1) {
+                $('#select-comuna').show();
+                recargarLista_comuna();
+            } else {
+                $('#select-comuna').hide();
+            }
+        });
 
         $('#btn-cne').click(function() {
-            datosCNE = $('#form-select-cne').serialize();
-            ConsultaCNE(datosCNE);
+            if ($('#tipo_estable_cne').val() == 1) {
+                if ($('#comuna_no_ges').val() != 0) {
+                    datosCNE = $('#form-select-cne').serialize();
+                    ConsultaCNE(datosCNE);
+                } else {
+                    alertify.error("Debe seleccionar una comuna");
+                }
+            } else {
+                datosCNE = $('#form-select-cne').serialize();
+                ConsultaCNE(datosCNE);
+            }
         });
     });
 </script>

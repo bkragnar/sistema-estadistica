@@ -897,13 +897,27 @@ function carga_no_ges() {
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
+//        funciones recargar lista SELECT
+//--------------------------------------------------------------
+function recargarLista_comuna() {
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "seleccion=comuna",
+        success: function (r) {
+            $('#select-comuna').html(r);
+        }
+    });
+}
+
+//--------------------------------------------------------------
 //        funciones tabs no-ges
 //--------------------------------------------------------------
 function cargar_grafico(mtz1, mtz2) {
     $.ajax({
         type: "POST",
         url: "web/grafico.php",
-        data: { 'arreglo1': mtz1 , 'arreglo2': mtz2 },
+        data: { 'arreglo1': mtz1, 'arreglo2': mtz2 },
         success: function (r) {
             $('#grafico').html(r);
         }
