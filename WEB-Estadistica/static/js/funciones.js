@@ -897,6 +897,37 @@ function carga_no_ges() {
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
+//        carga tabs pagina conocenos
+//--------------------------------------------------------------
+function carga_quienes_somos() {
+
+    $('#contenido-conocenos').load('web/organigrama.php');
+
+    $('#organigrama').click(function () {
+        $('#contenido-conocenos').empty();
+        $('#contenido-conocenos').load('web/organigrama.php');
+    });
+
+    $('#mision-vision').click(function () {
+        $('#contenido-conocenos').empty();
+        $('#contenido-conocenos').load('web/mision_vision.php');
+    });
+
+    $('#somos').click(function () {
+        $('#contenido-conocenos').empty();
+        $('#contenido-conocenos').load('web/quienes_somos.php');
+    });
+
+    $('a.nav-link').click(function () {
+        $('a.nav-link').removeClass("active");
+        $(this).addClass("active");
+    });
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
 //        funciones recargar lista SELECT
 //--------------------------------------------------------------
 function recargarLista_comuna() {
@@ -984,6 +1015,11 @@ $(document).ready(function () {
     $('#menu-mant-egreso-le').click(function () {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_egreso_le_card.php");
+    })
+
+    $('#menu-conocenos').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/conocenos.php");
     })
 });
 //--------------------------------------------------------------

@@ -42,7 +42,7 @@ $datosX = json_encode($nombres);
             family: 'Raleway, sans-serif'
         },
         xaxis: {
-            tickangle: 0,
+            tickangle: 45,
             title: 'Meses'
         },
         yaxis: {
@@ -83,7 +83,7 @@ $datosX = json_encode($nombres);
             family: 'Raleway, sans-serif'
         },
         xaxis: {
-            tickangle: 0,
+            tickangle: 45,
             title: 'Meses'
         },
         yaxis: {
