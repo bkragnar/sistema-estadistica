@@ -91,6 +91,31 @@
             echo mysqli_query($connection,$sql_egreso_le);
 
         break;
+
+        case "tipoges":
+            $codigo_tipoges = $_POST['codigo_tipoges'];
+            $nombre_tipoges = $_POST['nombre_tipoges'];
+
+            $sql_tipo_ges ="INSERT INTO tipo_ges (codigo_tipo_ges,nombre_tipo_ges)
+                            VALUES ($codigo_tipoges,'$nombre_tipoges')";
+            echo mysqli_query($connection,$sql_tipo_ges);
+
+        break;
+
+        case "casos-ges":
+            $estable_casos_ges = $_POST['estable_casos_ges'];
+            $tipo_casos_ges = $_POST['tipo_casos_ges'];
+            $mes_casos_ges = $_POST['mes_casos_ges'];
+            $anio_casos_ges = $_POST['anio_casos_ges'];
+            $cantidad_casos_ges = $_POST['cantidad_casos_ges'];
+
+            $id_casos_ges ="Eg_".$estable_casos_ges."_".$tipo_casos_ges."_".$mes_casos_ges."_".$anio_casos_ges;
+
+            $sql_casos_ges ="INSERT INTO egresos_ges (id_eg_ges,estable_eg_ges,codigo_tipo_ges_eg_ges,mes_eg_ges,anio_eg_ges,cantidad_eg_ges)
+                            VALUES ('$id_casos_ges',$estable_casos_ges,$tipo_casos_ges,$mes_casos_ges,$anio_casos_ges,$cantidad_casos_ges)";
+            echo mysqli_query($connection,$sql_casos_ges);
+
+        break;
         
     }
 

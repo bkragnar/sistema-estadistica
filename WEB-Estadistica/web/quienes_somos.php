@@ -1,5 +1,5 @@
 <div class="mt-5">
-    <h3 class="text-info text-center">Subdepartamento de Estadísticas y Gestión de la Información</h3>
+    <h4 class="text-info text-center">Subdepartamento de Estadísticas y Gestión de la Información</h4>
 </div>
 
 <div class="mt-3">
@@ -36,34 +36,38 @@
 <div class="mt-3">
     <h4 class="text-primary">Secretaria</h4>
 
-    <div class="col ml-4">
-        <div class="row">
-            <div class="card" style="width: 18rem;">
-                <div class="box mx-auto mt-1">
-                    <img class="card-img-top" src="" alt="">
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <h5 class="card-title">
-                            <dt>Elsa Veronica Toledo Rojo</dt>
-                        </h5>
+    <div class="row">
+        <div class="col ml-5">
+            <div class="row">
+                <div class="card" style="width: 18rem;">
+                    <div class="box mx-auto mt-1">
+                        <img class="card-img-top" src="" alt="">
                     </div>
-                    <div class="row">
-                        <p>Secretaria</p>
-                    </div>
-                    <div class="row">
-                        <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
-                    </div>
-                    <div class="row">
-                        <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Externa: </label><a href="tel:+512+333784"> 512333784</a>
-                    </div>
-                    <div class="row">
-                        <i class="fas fa-at"></i><label class="ml-2 mb-0" for="">Correo electronico:</label>
-                        <a class="pt-0" href="mailto:veronica.toledo@redsalud.gov.cl">veronica.toledo@redsalud.gov.cl</a>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title">
+                                <dt>Elsa Veronica Toledo Rojo</dt>
+                            </h5>
+                        </div>
+                        <div class="row">
+                            <p>Secretaria</p>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Externa: </label><a href="tel:+512+333784"> 512333784</a>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-at"></i><label class="ml-2 mb-0" for="">Correo electronico:</label>
+                            <a class="pt-0" href="mailto:veronica.toledo@redsalud.gov.cl">veronica.toledo@redsalud.gov.cl</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col"></div>
+        <div class="col"></div>
     </div>
 </div>
 
@@ -82,7 +86,7 @@
                     <div class="card-body">
                         <div class="row">
                             <h5 class="card-title">
-                                <dt>Diego Francisco Estay Velasquez</dt>
+                                <dt>Diego Alonzo Estay Velasquez</dt>
                             </h5>
                         </div>
                         <div class="row">
@@ -142,7 +146,7 @@
                     <div class="card-body">
                         <div class="row">
                             <h5 class="card-title">
-                                <dt>Sharyn Pereira</dt>
+                                <dt>Sharyn Pereira Ramirez</dt>
                             </h5>
                         </div>
                         <div class="row">
@@ -186,7 +190,7 @@
                             </h5>
                         </div>
                         <div class="row">
-                            <p>Encargada área Lista de Espera / referente de registro IQ</p>
+                            <p>Encargada área Lista de Espera / Referente de registro IQ</p>
                         </div>
                         <div class="row">
                             <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
@@ -298,70 +302,72 @@
 
 
     <div class="mt-3">
-    <h4 class="text-primary">Área GES / PPV</h4>
+        <h4 class="text-primary">Área GES / PPV</h4>
 
-    <div class="row">
-        <!-- contenedor area ges ppv -->
+        <div class="row">
+            <!-- contenedor area ges ppv -->
 
-        <div class="col ml-5">
-            <div class="row">
-                <div class="card" style="width: 18rem;">
-                    <div class="box mx-auto mt-1">
-                        <img class="card-img-top" src="" alt="">
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <h5 class="card-title">
-                                <dt>Claudia Hernandez Rivera</dt>
-                            </h5>
+            <div class="col ml-5">
+                <div class="row">
+                    <div class="card" style="width: 18rem;">
+                        <div class="box mx-auto mt-1">
+                            <img class="card-img-top" src="" alt="">
                         </div>
-                        <div class="row">
-                            <p>Referente de registro GES</p>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Externa: </label><a href="tel:+512+333784"> 512333784</a>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-at"></i><label class="ml-2 mb-0" for="">Correo electronico:</label>
-                            <a class="pt-0" href="mailto:claudia.hernandezr@redsalud.gov.cl">claudia.hernandezr@redsalud.gov.cl</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="row">
-                <div class="card" style="width: 18rem;">
-                    <div class="box mx-auto mt-1">
-                        <img class="card-img-top" src="" alt="">
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <h5 class="card-title">
-                                <dt>Andrea Correa Briones</dt>
-                            </h5>
-                        </div>
-                        <div class="row">
-                            <p>Encargada PPV</p>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Externa: </label><a href="tel:+512+333784"> 512333784</a>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-at"></i><label class="ml-2 mb-0" for="">Correo electronico:</label>
-                            <a class="pt-0" href="mailto:andrea.correa@redsalud.gov.cl">andrea.correa@redsalud.gov.cl</a>
+                        <div class="card-body">
+                            <div class="row">
+                                <h5 class="card-title">
+                                    <dt>Claudia Hernandez Rivera</dt>
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <p>Referente de registro GES</p>
+                            </div>
+                            <div class="row">
+                                <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
+                            </div>
+                            <div class="row">
+                                <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Externa: </label><a href="tel:+512+333784"> 512333784</a>
+                            </div>
+                            <div class="row">
+                                <i class="fas fa-at"></i><label class="ml-2 mb-0" for="">Correo electronico:</label>
+                                <a class="pt-0" href="mailto:claudia.hernandezr@redsalud.gov.cl">claudia.hernandezr@redsalud.gov.cl</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="col"></div>
+
+            <div class="col">
+                <div class="row">
+                    <div class="card" style="width: 18rem;">
+                        <div class="box mx-auto mt-1">
+                            <img class="card-img-top" src="" alt="">
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <h5 class="card-title">
+                                    <dt>Andrea Correa Briones</dt>
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <p>Encargada PPV</p>
+                            </div>
+                            <div class="row">
+                                <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
+                            </div>
+                            <div class="row">
+                                <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Externa: </label><a href="tel:+512+333784"> 512333784</a>
+                            </div>
+                            <div class="row">
+                                <i class="fas fa-at"></i><label class="ml-2 mb-0" for="">Correo electronico:</label>
+                                <a class="pt-0" href="mailto:andrea.correa@redsalud.gov.cl">andrea.correa@redsalud.gov.cl</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>

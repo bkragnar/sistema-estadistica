@@ -135,4 +135,40 @@ class obtdatos
         return $datos_egreso_le;
 
     }
+
+    public function obttipoges($id_tipoges)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_tipoges = "SELECT * FROM tipo_ges WHERE id_tipo_ges='$id_tipoges'";
+        $res_tipoges = mysqli_query($connection, $sql_tipoges);
+        $ver_tipoges = mysqli_fetch_array($res_tipoges);
+        $datos_tipoges = array(
+            'id_tipoges' => $ver_tipoges[0],
+            'codigo_tipoges' => $ver_tipoges[1],
+            'nombre_tipoges' => $ver_tipoges[2]
+        );
+        return $datos_tipoges;
+
+    }
+
+    public function obtcasosges($id_casos_ges)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_casos_ges = "SELECT * FROM egresos_ges WHERE id_eg_ges='$id_casos_ges'";
+        $res_casos_ges = mysqli_query($connection, $sql_casos_ges);
+        $ver_casos_ges = mysqli_fetch_array($res_casos_ges);
+        $datos_casos_ges = array(
+            'id_casos_ges' => $ver_casos_ges[0],
+            'estable_casos_ges' => $ver_casos_ges[1],
+            'tipo_casos_ges' => $ver_casos_ges[2],
+            'mes_casos_ges' => $ver_casos_ges[3],
+            'anio_casos_ges' => $ver_casos_ges[4],
+            'cantidad_casos_ges' => $ver_casos_ges[5]
+        );
+        return $datos_casos_ges;
+
+    }
+
 }

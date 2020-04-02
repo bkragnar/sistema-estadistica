@@ -150,7 +150,7 @@ switch ($seccion) {
             $anio_eg = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
             $tipo_le_eg = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
 
-            $id_eg = "Eg_" . $estable_eg . "_" . $mes_eg . "_" . $anio_eg."_".$tipo_le_eg;
+            $id_eg = "Eg_" . $estable_eg . "_" . $mes_eg . "_" . $anio_eg . "_" . $tipo_le_eg;
 
             if (empty($cantidad_eg)) { //si el valor es vacio le asigno un 0
                 $cantidad_eg = 0;
@@ -171,6 +171,55 @@ switch ($seccion) {
         }
         /*--si todo salio bien $carga deberia tener valor 0 y devolvemos un true, de lo contrario false-*/
         if ($carga == $num_filas_egreso_le - 1) {
+            echo 1; // valido
+        } elseif ($carga > 0) {
+            echo 2; // incompleto
+        } elseif ($carga == 0) {
+            echo 3; // rechazado
+        }
+
+        break;
+
+    case "casos-ges":
+        sleep(2);
+        $archivo = $_FILES["arch_casos_ges"]["name"];
+        $archivo_ruta = $_FILES["arch_casos_ges"]["tmp_name"];
+
+        $objPHPExcel = IOFactory::load($archivo_ruta);
+        $objPHPExcel->setActiveSheetIndex(0); //lee la hoja 1
+        $num_filas_casos_ges = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow(); // obtiene la cantidad de filas de la hoja activa
+
+        $carga = 0;
+        for ($i = 2; $i <= $num_filas_casos_ges; $i++) { // $i=2 para que comience a leer desde la segunda posicion y saltar los encabezados
+            $estable_casos_ges = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
+            $tipo_casos_ges = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
+            $mes_casos_ges = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
+            $anio_anio_casos = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
+            $cantidad_casos_ges = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
+
+            $id_casos_ges = "Eg_" . $estable_casos_ges . "_" . $tipo_casos_ges . "_" . $mes_casos_ges . "_" . $anio_casos_ges;
+
+            if (empty($cantidad_casos_ges)) { //si el valor es vacio le asigno un 0
+                $cantidad_eg = 0;
+            }
+
+            $sql_casos_ges = $connection->query("SELECT * FROM egresos_gesWHERE id_eg_ges='$id_casos_ges'");
+            if (mysqli_num_rows($sql_casos_ges) > 0) {
+                $sql_casos_ges_up = "UPDATE egresos_ges SET estable_eg_ges=$estable_casos_ges,codigo_tipo_ges_eg_ges=$tipo_casos_ges,mes_eg_ges=$mes_casos_ges,anio_eg_ges=$anio_casos_ges,cantidad_eg_ges=$cantidad_casos_ges 
+                                    WHERE id_eg_ges='$id_casos_ges'";
+                if (mysqli_query($connection, $sql_casos_ges_up)) {
+                    $carga = $carga + 1;
+                }
+            } else {
+                $sql_casos_ges_ins = "INSERT INTO egresos_ges (id_eg_ges,estable_eg_ges,codigo_tipo_ges_eg_ges,mes_eg_ges,anio_eg_ges,cantidad_eg_ges)
+                                    VALUES ('$id_casos_ges',$estable_casos_ges,$tipo_casos_ges,$mes_casos_ges,$anio_casos_ges,$cantidad_casos_ges)";
+                if (mysqli_query($connection, $sql_casos_ges_ins)) {
+                    $carga = $carga + 1;
+                }
+            }
+        }
+        /*--si todo salio bien $carga deberia tener valor 0 y devolvemos un true, de lo contrario false-*/
+        if ($carga == $num_filas_casos_ges - 1) {
             echo 1; // valido
         } elseif ($carga > 0) {
             echo 2; // incompleto

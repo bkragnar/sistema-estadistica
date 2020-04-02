@@ -89,8 +89,31 @@ switch ($seccion) {
         $anio_eg_up = $_POST['anio_egreso_le_up'];
         $tipo_le_eg_up = $_POST['tipo_le_egreso_le_up'];
 
-        $sql_egreso_le ="UPDATE egresos_le SET estable_eg=$estable_eg_up,cantidad_eg=$cantidad_eg_up,mes_eg=$mes_eg_up,anio_eg=$anio_eg_up,tipo_le_eg=$tipo_le_eg_up 
+        $sql_egreso_le = "UPDATE egresos_le SET estable_eg=$estable_eg_up,cantidad_eg=$cantidad_eg_up,mes_eg=$mes_eg_up,anio_eg=$anio_eg_up,tipo_le_eg=$tipo_le_eg_up 
                         WHERE id_egreso='$id_egreso_up'";
-        echo mysqli_query($connection,$sql_egreso_le);
+        echo mysqli_query($connection, $sql_egreso_le);
+        break;
+
+    case "tipoges":
+        $id_tipoges_up = $_POST['id_tipoges'];
+        $codigo_tipoges_up = $_POST['codigo_tipoges_up'];
+        $nombre_tipo_ges = $_POST['nombre_tipoges_up'];
+
+        $sql_tipo_ges = "UPDATE tipo_ges SET codigo_tipo_ges=$codigo_tipoges_up,nombre_tipo_ges='$nombre_tipo_ges'
+                            WHERE id_tipo_ges='$id_tipoges_up'";
+        echo mysqli_query($connection, $sql_tipo_ges);
+        break;
+
+    case "casos-ges":
+        $id_casos_ges = $_POST['id_casos_ges'];
+        $estable_casos_ges = $_POST['estable_casos_ges_up'];
+        $tipo_casos_ges = $_POST['tipo_casos_ges_up'];
+        $mes_casos_ges = $_POST['mes_casos_ges_up'];
+        $anio_casos_ges = $_POST['anio_casos_ges_up'];
+        $cantidad_casos_ges = $_POST['cantidad_casos_ges_up'];
+
+        $sql_casos_ges = "UPDATE egresos_ges SET estable_eg_ges=$estable_casos_ges,codigo_tipo_ges_eg_ges=$tipo_casos_ges,mes_eg_ges=$mes_casos_ges,anio_eg_ges=$anio_casos_ges,cantidad_eg_ges=$cantidad_casos_ges
+                                WHERE id_eg_ges='$id_casos_ges'";
+        echo mysqli_query($connection, $sql_casos_ges);
         break;
 }

@@ -38,4 +38,12 @@ switch ($seccion) {
     case "egreso-le":
         echo json_encode($obj->obtegresole($_POST['id_egreso']));
         break;
+
+    case "tipoges":
+        echo json_encode($obj->obttipoges($_POST['id_tipo_ges']));
+        break;
+
+    case "casos-ges":
+        echo json_encode($obj->obtcasosges($_POST['id_casos_ges']));
+        break;
 }

@@ -59,4 +59,18 @@ switch ($seccion) {
         $sql_egreso_le = "DELETE FROM egresos_le WHERE id_egreso='$id_egreso_le'";
         echo mysqli_query($connection, $sql_egreso_le);
         break;
+
+    case "tipoges":
+        $id_tipoges = $_POST['id'];
+
+        $sql_tipo_ges = "DELETE FROM tipo_ges WHERE id_tipo_ges='$id_tipoges'";
+        echo mysqli_query($connection, $sql_tipo_ges);
+        break;
+
+    case "casos-ges":
+        $id_casos_ges = $_POST['id'];
+
+        $sql_casos_ges = "DELETE FROM egresos_ges WHERE id_eg_ges='$id_casos_ges'";
+        echo mysqli_query($connection, $sql_casos_ges);
+        break;
 }

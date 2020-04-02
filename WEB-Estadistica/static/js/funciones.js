@@ -839,6 +839,199 @@ function MasivoDatosEgresoLE() {
 //------------------------------------------------------------
 //------------------------------------------------------------
 
+//----------------- Mantenedor tipo ges -----------------------
+function AgregarDatosTipoGes(datos_tipoges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_tipoges,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-nuevo-tipoges')[0].reset(); //limpia el formulario
+                $("#carga_tipoges").load("web/mant_tipoges.php");
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
+
+function AgrFormEditarTipoGes(id_tipoges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_tipo_ges=" + id_tipoges + "&seccion=tipoges",
+        success: function (r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_tipoges').val(datos['id_tipoges']);
+            $('#codigo_tipoges_up').val(datos['codigo_tipoges']);
+            $('#nombre_tipoges_up').val(datos['nombre_tipoges']);
+        }
+    });
+}
+
+function EditarTipoGes(editar_tipoges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_tipoges,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-editar-tipoges')[0].reset(); //limpia el formulario
+                $("#carga_tipoges").load("web/mant_tipoges.php");
+                alertify.success("Registro editado con exito");
+                $('#editar_tipoges').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoTipoGes(id_tipoges) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarTipoGes(id_tipoges); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarTipoGes(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=tipoges",
+        success: function (r) {
+            if (r == 1) {
+                $("#carga_tipoges").load("web/mant_tipoges.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+//---------------- Mantenedor casos ges -----------------------
+function AgregarDatosCasosGes(datos_casos_ges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_casos_ges,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-nuevo-casos-ges')[0].reset(); //limpia el formulario
+                $("#carga_casos_ges").load("web/mant_casos_ges.php");
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
+
+function AgrFormEditarCasosGes(id_casos_ges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_casos_ges=" + id_casos_ges + "&seccion=casos-ges",
+        success: function (r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_casos_ges').val(datos['id_casos_ges']);
+            $('#estable_casos_ges_up').val(datos['estable_casos_ges']);
+            $('#tipo_casos_ges_up').val(datos['tipo_casos_ges']);
+            $('#mes_casos_ges_up').val(datos['mes_casos_ges']);
+            $('#anio_casos_ges_up').val(datos['anio_casos_ges']);
+            $('#cantidad_casos_ges_up').val(datos['cantidad_casos_ges']);
+        }
+    });
+}
+
+function EditarCasosGes(editar_casos_ges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_casos_ges,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-editar-casos-ges')[0].reset(); //limpia el formulario
+                $("#carga_casos_ges").load("web/mant_casos_ges.php");
+                alertify.success("Registro editado con exito");
+                $('#editar_casos_ges').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoCasosGes(id_casos_ges) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarCasosGes(id_casos_ges); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarCasosGes(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=casos-ges",
+        success: function (r) {
+            if (r == 1) {
+                $("#carga_casos_ges").load("web/mant_casos_ges.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+function MasivoDatosCasosGes() {
+    var masivo_casos_ges = new FormData($("#frm-carga-casos-ges")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/sube.php",
+        data: masivo_casos_ges,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#form-masivo-casos-ges').hide();
+            $('#spinner-casos-ges').show();
+        },
+        success: function (r) {
+            alert(r);
+            if (r == 1) {
+                $("#arch_casos_ges").val(null); //limpia el formulario por id
+                $("#carga_casos_ges").load("web/mant_casos_ges.php");
+                alertify.success("Registros agregados y/o actualizados con exito");
+                $('#form-masivo-casos-ges').show();
+                $('#spinner-casos-ges').hide();
+                $('#masivo_casos_ges').modal('hide'); //cierra el modal carga masiva
+            } else if (r == 2) {
+                $("#arch_casos_ges").val(null); //limpia el formulario por id
+                $("#carga_casos_ges").load("web/mant_casos_ges.php");
+                alertify.warning("No fue posible agregar y/o actualizar todos los registros");
+                $('#form-masivo-casos-ges').show();
+                $('#spinner-casos-ges').hide();
+            } else {
+                $('#form-masivo-casos-ges').show();
+                $('#spinner-casos-ges').hide();
+                alertify.error("No es posible incorporar los registros");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+
 //--------------------------------------------------------------
 //        carga mant_linea_base
 //--------------------------------------------------------------
@@ -891,6 +1084,59 @@ function carga_no_ges() {
         $('a.nav-link').removeClass("active");
         $(this).addClass("active");
     });
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        carga pagina mant_tipoges_card
+//--------------------------------------------------------------
+function carga_casos_ges() {
+    $("#carga_casos_ges").load("web/mant_casos_ges.php");
+
+    $('#spinner-casos-ges').hide();
+
+    $("#agregar-nuevo-casos-ges").click(function () {
+        datos_casos_ges = $("#frm-nuevo-casos-ges").serialize();
+        AgregarDatosCasosGes(datos_casos_ges);
+    });
+
+    $("#actualizar-casos-ges").click(function () {
+        datos_casos_ges_up = $("#frm-editar-casos-ges").serialize();
+        EditarCasosGes(datos_casos_ges_up);
+    });
+
+    $('#cargar-masivo-casos-ges').click(function () {
+        MasivoDatosCasosGes();
+    });
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        carga pagina mant_tipoges_card
+//--------------------------------------------------------------
+function carga_tipoges() {
+
+    $("#carga_tipoges").load("web/mant_tipoges.php");
+
+    $('#spinner-tipoges').hide();
+
+    $("#agregar-nuevo-tipoges").click(function () {
+        datos_tipoges = $("#frm-nuevo-tipoges").serialize();
+        AgregarDatosTipoGes(datos_tipoges);
+    });
+
+    $("#actualizar-tipoges").click(function () {
+        datos_tipoges_up = $("#frm-editar-tipoges").serialize();
+        EditarTipoGes(datos_tipoges_up);
+    });
+    /*
+    $('#cargar-masivo-tipoges').click(function () {
+        MasivoDatosTipoGes();
+    });
+    */
 }
 
 //--------------------------------------------------------------
@@ -1020,6 +1266,16 @@ $(document).ready(function () {
     $('#menu-conocenos').click(function () {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/conocenos.php");
+    })
+
+    $('#menu-mant-tipoges').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_tipoges_card.php");
+    })
+
+    $('#menu-mant-casos-ges').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_casos_ges_card.php");
     })
 });
 //--------------------------------------------------------------
