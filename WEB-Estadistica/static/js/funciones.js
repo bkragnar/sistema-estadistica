@@ -1174,6 +1174,52 @@ function carga_quienes_somos() {
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
+//        carga tabs pagina informe ges
+//--------------------------------------------------------------
+function carga_informes_ges() {
+
+    $('#contenido-informe-ges').load('web/resumen_ges.php');
+
+    $('#resumen').click(function () {
+        $('#contenido-informe-ges').empty();
+        $('#contenido-informe-ges').load('web/resumen_ges.php');
+    });
+
+    $('#monitores-ges').click(function () {
+        $('#contenido-informe-ges').empty();
+        $('#contenido-informe-ges').load('web/monitores_ges.php');
+    });
+
+    $('#documentos-ges').click(function () {
+        $('#contenido-informe-ges').empty();
+        $('#contenido-informe-ges').load('web/documentos_ges.php');
+    });
+
+    $('a.nav-link').click(function () {
+        $('a.nav-link').removeClass("active");
+        $(this).addClass("active");
+    });
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        funciones recargar lista meses
+//--------------------------------------------------------------
+function recargarLista_meses_rg(anio_res_ges) {
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "anio=" + anio_res_ges + "&seleccion=meses-rg",//resumen_ges
+        success: function (r) {
+            $('#meses-grafico').html(r);
+        }
+    });
+}
+
+
+//--------------------------------------------------------------
 //        funciones recargar lista SELECT
 //--------------------------------------------------------------
 function recargarLista_comuna() {
@@ -1246,6 +1292,11 @@ $(document).ready(function () {
     $('#menu-rep-no-ges').click(function () {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/no_ges.php");
+    });
+
+    $('#menu-rep-ges').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/ges.php");
     });
 
     $('#menu-mant-linea-base').click(function () {
