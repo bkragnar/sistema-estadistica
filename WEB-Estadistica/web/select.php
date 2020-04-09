@@ -26,13 +26,22 @@ switch ($seleccion) {
 
         $sql_meses = $connection->query("SELECT DISTINCT(mes_eg_ges)  FROM egresos_ges WHERE estable_eg_ges='105001' and codigo_tipo_ges_eg_ges=3 and anio_eg_ges=$anio_res_ges");
 
-        $cadena = "<input id='meses-vencidas' name='meses-vencidas' type='range' min='$m_min' max='$m_max' list='lista-meses' step='1'>
+        $cadena = "<input id='meses-vencidas' name='meses-vencidas' type='range' min='$m_min' max='$m_max' value='$m_max' list='lista-meses' step='1' autocomplete='off' onclick='etiquetaMes()'>
                 <datalist id='lista-meses'>";
-
+        $cantidad = mysqli_num_rows($sql_meses);
+        
+        $aux = 1;
         while ($res_meses = mysqli_fetch_array($sql_meses)) {
-            $cadena = $cadena .  '<option value=' . $res_meses[0] . '></option>';
+            if ($aux == 1) {
+                $cadena = $cadena .  '<option value=' . $res_meses[0] . ' label=' . $res_meses[0] . '></option>';
+            } elseif ($aux == $cantidad) {
+                $cadena = $cadena .  '<option value=' . $res_meses[0] . ' label=' . $res_meses[0] . '></option>';
+            } else {
+                $cadena = $cadena .  '<option value=' . $res_meses[0] . '></option>';
+            }
+            $aux++;
         }
-        echo $cadena . "</datalist>";
+        echo $cadena . "</datalist>" . '<script> etiquetaMes(); </script>';
 
         break;
 }

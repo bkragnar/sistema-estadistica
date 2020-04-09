@@ -1218,6 +1218,11 @@ function recargarLista_meses_rg(anio_res_ges) {
     });
 }
 
+function etiquetaMes(){
+    document.querySelector('#etiqueta-mv').innerText = $('#meses-vencidas').val(); 
+    
+}
+
 
 //--------------------------------------------------------------
 //        funciones recargar lista SELECT

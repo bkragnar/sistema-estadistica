@@ -17,25 +17,25 @@ function restarMeses($MES, $ANIO)
 }
 ?>
 
-<div class="mt-3" style="border: solid 1px">
+<div class="mt-3">
     <div class="row container-fluid">
-        <div>
-            <div class="row container-fluid">
+        <div class="row">
+            <div class="container">
                 <label>Seleccionar Año:</label><label class="ml-3" id="etiqueta-datalist"></label>
             </div>
-            <div class="row container-fluid">
+            <div class="row container">
                 <input id="datal" name="datal" type="range" list="lista-anios1" min="<?php echo $a_min ?>" max="<?php echo $a_max ?>" autocomplete="off">
                 <datalist id="lista-anios1">
                     <?php
                     while ($res_anios = mysqli_fetch_array($sql_anios)) {
-                        echo  '<option value="' . $res_anios[0] . '" label="' . $res_anios[0] . ' label="1"></option>'; // Format for adding options 
+                        echo  '<option value="' . $res_anios[0] . '"></option>'; // Format for adding options 
                     }
                     ?>
                 </datalist>
             </div>
         </div>
-        <div>
-            <div class="row container-fluid">
+        <div class="row">
+            <div class="container-fluid">
                 <label>Seleccionar Mes:</label><label class="ml-3" id="etiqueta-mv"></label>
             </div>
             <div class="row container-fluid">
@@ -46,10 +46,7 @@ function restarMeses($MES, $ANIO)
 </div>
 <!------------------------------------------------------------------------------------------------->
 
-<?php
-echo "año: " . $_POST['datal'];
 
-?>
 <div id="grafico-pais"></div>
 <div id="grafico-sscq"></div>
 
@@ -59,17 +56,14 @@ echo "año: " . $_POST['datal'];
         $('#datal').change(function() {
             recargarLista_meses_rg($('#datal').val());
         });
-        if ($('#meses-vencidas').val() > 0) {
-            document.querySelector('#etiqueta-datalist').innerText = $('#datal').val();
-            document.querySelector('#etiqueta-mv').innerText = $('#meses-vencidas').val();
-        }
-        $('#meses-vencidas').change(function() {
-            alert($('#meses-vencidas').value);
-            document.querySelector('#etiqueta-mv').innerText = $('#meses-vencidas').val();
-        });
+
+        document.querySelector('#etiqueta-datalist').innerText = $('#datal').val();
+
         $('#datal').change(function() {
             document.querySelector('#etiqueta-datalist').innerText = $('#datal').val();
         });
+
+        
 
     });
 </script>
