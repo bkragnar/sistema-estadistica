@@ -1218,9 +1218,19 @@ function recargarLista_meses_rg(anio_res_ges) {
     });
 }
 
-function etiquetaMes(){
-    document.querySelector('#etiqueta-mv').innerText = $('#meses-vencidas').val(); 
-    
+function etiquetaMes() {
+    document.querySelector('#etiqueta-mv').innerText = $('#meses-vencidas').val();
+    mes_resumenges = $('#meses-vencidas').val();
+    anio_resumenges = $('#datal').val();
+    $.ajax({
+        type: "POST",
+        url: "web/graficos_gesUno.php",
+        data: "mes=" + mes_resumenges + "&anio=" + anio_resumenges,
+        success: function (r) {
+            $('#graficos-vencidas').html(r);
+        }
+    });
+
 }
 
 
