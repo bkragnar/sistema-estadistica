@@ -203,7 +203,7 @@ switch ($seccion) {
                 $cantidad_eg = 0;
             }
 
-            $sql_casos_ges = $connection->query("SELECT * FROM egresos_gesWHERE id_eg_ges='$id_casos_ges'");
+            $sql_casos_ges = $connection->query("SELECT * FROM egresos_ges WHERE id_eg_ges='$id_casos_ges'");
             if (mysqli_num_rows($sql_casos_ges) > 0) {
                 $sql_casos_ges_up = "UPDATE egresos_ges SET estable_eg_ges=$estable_casos_ges,codigo_tipo_ges_eg_ges=$tipo_casos_ges,mes_eg_ges=$mes_casos_ges,anio_eg_ges=$anio_casos_ges,cantidad_eg_ges=$cantidad_casos_ges 
                                     WHERE id_eg_ges='$id_casos_ges'";
@@ -220,6 +220,53 @@ switch ($seccion) {
         }
         /*--si todo salio bien $carga deberia tener valor 0 y devolvemos un true, de lo contrario false-*/
         if ($carga == $num_filas_casos_ges - 1) {
+            echo 1; // valido
+        } elseif ($carga > 0) {
+            echo 2; // incompleto
+        } elseif ($carga == 0) {
+            echo 3; // rechazado
+        }
+
+        break;
+
+    case "red-siges":
+        sleep(2);
+        $archivo = $_FILES["arch_red_siges"]["name"];
+        $archivo_ruta = $_FILES["arch_red_siges"]["tmp_name"];
+
+        $objPHPExcel = IOFactory::load($archivo_ruta);
+        $objPHPExcel->setActiveSheetIndex(0); //lee la hoja 1
+        $num_filas_red_siges = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow(); // obtiene la cantidad de filas de la hoja activa
+
+        $carga = 0;
+        for ($i = 2; $i <= $num_filas_red_siges; $i++) { // $i=2 para que comience a leer desde la segunda posicion y saltar los encabezados
+            $establecimiento = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
+            $nombre = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
+            $apellido = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
+            $mail = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
+            $ruta = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
+            $telefono = $objPHPExcel->getActiveSheet()->getCell('F' . $i)->getCalculatedValue();
+            $comuna = $objPHPExcel->getActiveSheet()->getCell('G' . $i)->getCalculatedValue();
+
+            $sql_red_siges = $connection->query("SELECT * FROM egresos_ges WHERE mail_red_siges='$mail'");
+            if (mysqli_num_rows($sql_red_siges) > 0) {
+                $most_id = mysqli_fetch_array($sql_red_siges);
+                $id_red_siges = $most_id[0];
+                $sql_red_siges_up = "UPDATE red_siges SET estable_red_siges=$establecimiento,nombre_red_siges='$nombre',apellido_red_siges='$apellido',mail_red_siges='$mail',rutaminsal_red_siges='$ruta',telefono_red_siges='$telefono',comuna_red_siges=$comuna
+                WHERE id_red_siges=$id_red_siges";
+                if (mysqli_query($connection, $sql_red_siges_up)) {
+                    $carga = $carga + 1;
+                }
+            } else {
+                $sql_red_siges_ins = "INSERT INTO red_siges (estable_red_siges,nombre_red_siges,apellido_red_siges,mail_red_siges,rutaminsal_red_siges,telefono_red_siges,comuna_red_siges) 
+                                        VALUES($establecimiento,'$nombre','$apellido','$mail','$ruta','$telefono',$comuna)";
+                if (mysqli_query($connection, $sql_red_siges_ins)) {
+                    $carga = $carga + 1;
+                }
+            }
+        }
+        /*--si todo salio bien $carga deberia tener valor 0 y devolvemos un true, de lo contrario false-*/
+        if ($carga == $num_filas_red_siges - 1) {
             echo 1; // valido
         } elseif ($carga > 0) {
             echo 2; // incompleto

@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="row">
                     <h5 class="card-title">
-                        <dt>Ana Jofré Araya</dt>
+                        <dt>Ana Teresa Jofré Araya</dt>
                     </h5>
                 </div>
                 <div class="row">
@@ -86,7 +86,7 @@
                     <div class="card-body">
                         <div class="row">
                             <h5 class="card-title">
-                                <dt>Diego Alonzo Estay Velasquez</dt>
+                                <dt>Diego Francisco Estay Velasquez</dt>
                             </h5>
                         </div>
                         <div class="row">
@@ -146,7 +146,7 @@
                     <div class="card-body">
                         <div class="row">
                             <h5 class="card-title">
-                                <dt>Sharyn Pereira Ramirez</dt>
+                                <dt>Sharyn Esthefany Pereira Ramirez</dt>
                             </h5>
                         </div>
                         <div class="row">
@@ -246,11 +246,11 @@
                     <div class="card-body">
                         <div class="row">
                             <h5 class="card-title">
-                                <dt>Constanza Contreras Díaz</dt>
+                                <dt>Constanza Macarena Contreras Díaz</dt>
                             </h5>
                         </div>
                         <div class="row">
-                            <p>Encargada REM Hospitales</p>
+                            <p>Referente de registro de Procedimientos</p>
                         </div>
                         <div class="row">
                             <i class="fas fa-phone-alt"></i><label class="ml-2" for="">Ruta Minsal: </label><a href="tel:+512+333784"> 512333784</a>
@@ -271,7 +271,7 @@
             <div class="row justify-content-center align-items-center minh-100">
                 <div class="card" style="width: 18rem;">
                     <div class="box mx-auto mt-1">
-                        <img class="card-img-top" src="static/img_fija/1.jpeg" alt="">
+                        <img class="card-img-top" src="static/img_fija/IMG_6036.jpg" alt="">
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -316,7 +316,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <h5 class="card-title">
-                                    <dt>Claudia Hernandez Rivera</dt>
+                                    <dt>Claudia Andrea Hernandez Rivera</dt>
                                 </h5>
                             </div>
                             <div class="row">
@@ -348,7 +348,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <h5 class="card-title">
-                                    <dt>Andrea Correa Briones</dt>
+                                    <dt>Andrea de las Mercedes Correa Briones</dt>
                                 </h5>
                             </div>
                             <div class="row">

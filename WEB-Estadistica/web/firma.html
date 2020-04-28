@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+    <style>
+        .container {
+            width: 550px;
+            height: 140px;
+            display: inline-block;
+            /*border: 1px solid;*/
+        }
+        .cabeza{
+            display: inline-block;
+        }
+        .cuerpo{
+            display: inline-block;
+        }
+        .info {
+            margin-left: 3px;
+            width: 300px;
+            height: 190px;
+            float: left;
+        }
+
+        .imagen img {
+            width: 207px;
+            float: left;
+            border-radius: 15%;
+        }
+
+        .cont-text1 {
+            margin: 0 auto 0 5px;
+            font-family: Times "New Roman", Times, serif;
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+        }
+        
+        .cont-text2 {
+            margin: 0 auto 0 5px;
+            font-family: Times "New Roman", Times, serif;
+            font-size: 16px;
+        }
+
+        .cuerpo>a{
+            display: inline-block; 
+            text-decoration: none;
+            color: black;
+        }
+
+        .cuerpo > a:hover{
+            color:#0F61FB ;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="imagen">
+            <a href="mailto:constanzacontreras@redsalud.gov.cl"><img src="https://i.postimg.cc/DfX1ZwSw/cero-papel.jpg" alt=""></a>
+        </div>
+        <div class="info">
+            <div class="cabeza">
+                <p class="cont-text1" style="margin-left:3px;">Constanza Contreras Díaz</p>
+                <p class="cont-text1">Profesional Referente LE No GES</p>
+            </div>
+            <div class="cuerpo">
+            <p class="cont-text2">Subdepto. De Estadísticas y Gestión de la Información</p>
+            <p class="cont-text2">Depto. Gestión, Planificación y Control</p>
+            <p class="cont-text2">Servicio de Salud Coquimbo</p>
+            <p class="cont-text2" style="display: inline-block;">Teléfonos:Teléfonos: 513785 /  </p><a class="cont-text2" href="tel:+512333785" title="Clic para llamar"> 512-333785</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

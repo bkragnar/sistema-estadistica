@@ -83,6 +83,8 @@
               <ul class="dropdown-menu">
                 <li><a href="#" class="dropdown-item" id="menu-mant-egreso-le">Egresos L.E</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-casos-ges">Casos GES</a></li>
+                <li><a href="#" class="dropdown-item" id="menu-mant-red-siges">Red Siges</a></li>
+                <li><a href="#" class="dropdown-item" id="menu-mant-doc-ges">Documentos GES</a></li>
               </ul>
             </li>
             <!--
@@ -126,8 +128,10 @@
         </li>
 
         <li class="nav-item"><a href="#" class="nav-link" id="menu-conocenos">Conocenos</a></li>
+        <!--
         <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+-->
       </ul>
       <!-- derecha -->
       <span class="navbar-text">

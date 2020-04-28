@@ -14,7 +14,7 @@
                             <a class="nav-link" href="#">Misión / Visión</a>
                         </li>
                         <li class="nav-item" id="somos">
-                            <a class="nav-link" href="#">Conocenos</a>
+                            <a class="nav-link" href="#">Quienes Somos</a>
                         </li>
                     </ul>
                     <div id="contenido-conocenos"></div>

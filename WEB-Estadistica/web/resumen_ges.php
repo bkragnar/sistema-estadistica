@@ -44,6 +44,24 @@ $sql_anios = $connection->query("SELECT DISTINCT(anio_eg_ges) FROM egresos_ges W
 
 <div id="graficos-vencidas"></div>
 <!------------------------------------------------------------------------------------------------->
+<div class="ml-2">
+    <div>
+        <label for="">Seleccionar año a consultar</label>
+    </div>
+    <div>
+        <select class="row ml-3" id="anios_ges" name="anios_ges">
+            <option value="0" disabled>Seleccione:</option>
+            <?php
+            $sql_anios_ges = $connection->query("SELECT distinct(anio_eg_ges) FROM egresos_ges WHERE codigo_tipo_ges_eg_ges<3 or codigo_tipo_ges_eg_ges>3 ");
+            while ($res_anios_ges = mysqli_fetch_array($sql_anios_ges)) {
+                echo '<option value="' . $res_anios_ges[0] . '">' . $res_anios_ges[0] . '</option>';
+            }
+            ?>
+        </select>
+    </div>
+</div>
+
+<div id="graficos_anuales_ges"></div>
 
 <script>
     $(document).ready(function() {
@@ -56,6 +74,11 @@ $sql_anios = $connection->query("SELECT DISTINCT(anio_eg_ges) FROM egresos_ges W
 
         $('#datal').change(function() {
             document.querySelector('#etiqueta-datalist').innerText = $('#datal').val();
+        });
+
+        recargar_graficos_ges($('#anios_ges').val());
+        $('#anios_ges').change(function(){
+            recargar_graficos_ges($('#anios_ges').val());
         });
 
 

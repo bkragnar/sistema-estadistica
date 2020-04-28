@@ -171,4 +171,25 @@ class obtdatos
 
     }
 
+    public function obtredsiges($id_red_siges)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_red_siges = "SELECT * FROM red_siges WHERE id_red_siges='$id_red_siges'";
+        $res_red_siges = mysqli_query($connection, $sql_red_siges);
+        $ver_red_siges = mysqli_fetch_array($res_red_siges);
+        $datos_red_siges = array(
+            'id_red_siges' => $ver_red_siges[0],
+            'estable_red_siges' => $ver_red_siges[1],
+            'nombre_red_siges' => $ver_red_siges[2],
+            'apellido_red_siges' => $ver_red_siges[3],
+            'mail_red_siges' => $ver_red_siges[4],
+            'ruta_red_siges' => $ver_red_siges[5],
+            'telefono_red_siges' => $ver_red_siges[6],
+            'comuna_red_siges' => $ver_red_siges[7]
+        );
+        return $datos_red_siges;
+
+    }
+
 }

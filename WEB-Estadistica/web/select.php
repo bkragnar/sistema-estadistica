@@ -16,6 +16,33 @@ switch ($seleccion) {
         echo $cadena . "</select>";
         break;
 
+    case "comuna-rs": //red siges
+        $estable_rs = $_POST['estable'];
+        $sql_comuna = $connection->query("SELECT c.codigo_comuna,c.nombre_comuna FROM comuna c INNER JOIN establecimiento e on c.codigo_comuna=e.codigo_comuna WHERE e.codigo_estable=$estable_rs");
+        $cadena = "<label for='' class='row ml-2'>Comuna:</label>
+            <select class='form-control input-sm' id='comuna_red_siges' name='comuna_red_siges'>";
+        //$cadena = $cadena . '<option value="0" >Seleccione</option>';
+
+        while ($res_comuna = mysqli_fetch_array($sql_comuna)) {
+            $cadena = $cadena . '<option value=' . $res_comuna[0] . '>' . $res_comuna[1] . '</option>';
+        }
+        echo $cadena . "</select>";
+        break;
+
+    case "comuna-rs-up": //red siges
+        $estable_rs = $_POST['estable'];
+        $sql_comuna = $connection->query("SELECT c.codigo_comuna,c.nombre_comuna FROM comuna c INNER JOIN establecimiento e on c.codigo_comuna=e.codigo_comuna WHERE e.codigo_estable=$estable_rs");
+        $cadena = "<label for='' class='row ml-2'>Comuna:</label>
+                <select class='form-control input-sm' id='comuna_red_siges_up' name='comuna_red_siges_up'>";
+        //$cadena = $cadena . '<option value="0" >Seleccione</option>';
+
+        while ($res_comuna = mysqli_fetch_array($sql_comuna)) {
+            $cadena = $cadena . '<option value=' . $res_comuna[0] . '>' . $res_comuna[1] . '</option>';
+        }
+        echo $cadena . "</select>";
+        break;
+
+
     case "meses-rg":
         $anio_res_ges = $_POST['anio'];
 
@@ -29,7 +56,7 @@ switch ($seleccion) {
         $cadena = "<input id='meses-vencidas' name='meses-vencidas' type='range' min='$m_min' max='$m_max' value='$m_max' list='lista-meses' step='1' autocomplete='off' onclick='etiquetaMes()'>
                 <datalist id='lista-meses'>";
         $cantidad = mysqli_num_rows($sql_meses);
-        
+
         $aux = 1;
         while ($res_meses = mysqli_fetch_array($sql_meses)) {
             if ($aux == 1) {

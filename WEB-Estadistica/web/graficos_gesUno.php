@@ -1,5 +1,6 @@
 <?php
 include "../cnx/connection.php";
+
 $mes_vencidas = $_POST['mes'];
 $anio_vencidas = $_POST['anio'];
 
@@ -190,7 +191,7 @@ $dato_YS = json_encode($dato_s);
             y: yData[i][0],
             xanchor: 'right',
             yanchor: 'middle',
-            text: labels + ' ' + yData[i][0], // + '%',
+            text: yData[i][0], // + '%', labels + ' ' + 
             showarrow: false,
             font: {
                 family: 'Arial',
@@ -218,7 +219,8 @@ $dato_YS = json_encode($dato_s);
 
     Plotly.newPlot('grafico-pais', data, layout);
 </script>
-
+<!-------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------->
 <script>
     fecha_servicio = crearcadenaLineal('<?php echo $fecha_XS; ?>');
     valores_servicio = crearcadenaLineal('<?php echo $dato_YS; ?>');
@@ -334,7 +336,7 @@ $dato_YS = json_encode($dato_s);
             y: yData[i][0],
             xanchor: 'right',
             yanchor: 'middle',
-            text: labels + ' ' + yData[i][0], // + '%',
+            text: yData[i][0], // + '%',labels + ' ' + 
             showarrow: false,
             font: {
                 family: 'Arial',

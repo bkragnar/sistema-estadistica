@@ -116,4 +116,19 @@ switch ($seccion) {
                                 WHERE id_eg_ges='$id_casos_ges'";
         echo mysqli_query($connection, $sql_casos_ges);
         break;
+    
+    case "red-siges":
+        $id_red_siges = $_POST['id_red_siges'];
+        $estable_red_siges = $_POST['estable_red_siges_up'];
+        $nombre_red_siges = $_POST['nombre_red_siges_up'];
+        $apellido_red_siges = $_POST['apellido_red_siges_up'];
+        $mail_red_siges = $_POST['mail_red_siges_up'];
+        $ruta_red_siges = $_POST['rutaminsal_red_siges_up'];
+        $telefono_red_siges = $_POST['telefono_red_siges_up'];
+        $comuna_red_siges = $_POST['comuna_red_siges_up'];
+
+        $sql_red_siges="UPDATE red_siges SET estable_red_siges=$estable_red_siges,nombre_red_siges='$nombre_red_siges',apellido_red_siges='$apellido_red_siges',mail_red_siges='$mail_red_siges',rutaminsal_red_siges='$ruta_red_siges',telefono_red_siges='$telefono_red_siges',comuna_red_siges=$comuna_red_siges
+                        WHERE id_red_siges=$id_red_siges";
+        echo mysqli_query($connection,$sql_red_siges);
+    break;
 }

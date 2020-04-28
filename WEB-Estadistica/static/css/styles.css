@@ -1,70 +1,108 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 /*ficha*/
-body{
-    font-family: 'Roboto', sans-serif;     
+
+body {
+    font-family: 'Roboto', sans-serif;
 }
+
+
 /*header*/
-.header-container{    
+
+.header-container {
     background-image: url("../img_fija/estadistica_1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: center;
     height: 250px;
 }
-.header-logo{
+
+.header-logo {
     min-width: 100px;
     width: 200px;
     margin: 40px;
 }
-.header-title{
-    color:#fff;
+
+.header-title {
+    color: #fff;
     text-align: left;
     margin-top: 100px;
 }
+
+.head-sime>img {
+    float: right;
+    width: 100%;
+    max-width: 100px;
+    margin-top: 0;
+}
+
+
 /*end header*/
+
+
 /*contenido*/
-section{    
+
+section {
     min-height: 500px;
 }
+
+
 /*end contenido*/
+
+
 /*footer*/
-footer{
-    color:#fff;
+
+footer {
+    color: #fff;
 }
+
+
 /*endfooter*/
 
 
-
-
-
 /*responsive*/
-@media (max-width: 576px) { 
-    .header-logo{        
+
+@media (max-width: 576px) {
+    .header-logo {
         margin: 0px;
+    }
+    .head-sime>img {
+        float: right;
+        width: 100%;
+        max-width: 100px;
+        margin: 0;
     }
 }
 
-
-@media (max-width: 768px) { 
-    .header-logo{        
+@media (max-width: 768px) {
+    .header-logo {
         margin: 0px;
+    }
+    .head-sime>img {
+        float: right;
+        width: 100%;
+        max-width: 100px;
+        margin: 0;
     }
 }
 
-
-@media (max-width: 992px) { 
-    .header-logo{        
+@media (max-width: 992px) {
+    .header-logo {
         margin: 0px;
+    }
+    .head-sime>img {
+        float: right;
+        width: 100%;
+        max-width: 100px;
+        margin: 0;
     }
 }
 
-
-@media (min-width: 1200px) { 
-
-}
+@media (min-width: 1200px) {}
 
 
 /* dropdown */
+
 .dropdown-submenu {
     position: relative;
 }
@@ -73,21 +111,43 @@ footer{
     top: 0;
     left: 100%;
 }
+
+
 /*  posiciona un elemnto mas adelante */
-.pdelantera{
+
+.pdelantera {
     z-index: 999;
 }
 
+
 /* imagen quienes_somos */
-.box{
+
+.box {
     width: 16rem;
     height: 14rem;
     border-radius: 30px;
 }
-@supports(object-fit: cover){
-    .box img{
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
+
+@supports(object-fit: cover) {
+    .box img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
     }
+}
+
+.word {
+    color: #0343BB;
+}
+
+.ppt {
+    color: #DB6A0C;
+}
+
+.excel {
+    color: #05A700;
+}
+
+.pdf {
+    color: #E10000;
 }

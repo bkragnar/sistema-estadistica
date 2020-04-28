@@ -73,4 +73,23 @@ switch ($seccion) {
         $sql_casos_ges = "DELETE FROM egresos_ges WHERE id_eg_ges='$id_casos_ges'";
         echo mysqli_query($connection, $sql_casos_ges);
         break;
+
+    case "red-siges":
+        $id_red_siges = $_POST['id'];
+
+        $sql_red_siges = "DELETE FROM red_siges WHERE id_red_siges=$id_red_siges";
+        echo mysqli_query($connection, $sql_red_siges);
+        break;
+
+    case "doc-ges":
+        $id_doc_ges = $_POST['id'];
+
+        $sql_doc= $connection->query("SELECT nombre_doc_ges FROM doc_ges WHERE id_doc_ges=$id_doc_ges");
+        $res_doc = mysqli_fetch_array($sql_doc);
+        $eliminar = $res_doc[0];
+
+        unlink('../doc_ges/' .$eliminar);
+        $sql_doc_ges = "DELETE FROM doc_ges WHERE id_doc_ges=$id_doc_ges";
+        echo mysqli_query($connection, $sql_doc_ges);
+        break;
 }

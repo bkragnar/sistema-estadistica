@@ -46,4 +46,8 @@ switch ($seccion) {
     case "casos-ges":
         echo json_encode($obj->obtcasosges($_POST['id_casos_ges']));
         break;
+
+    case "red-siges":
+        echo json_encode($obj->obtredsiges($_POST['id_red_siges']));
+        break;
 }

@@ -1031,6 +1031,184 @@ function MasivoDatosCasosGes() {
 //------------------------------------------------------------
 //------------------------------------------------------------
 
+//-------------- Mantenedor red siges -----------------------
+function AgregarDatosRedSiges(datos_red_siges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_red_siges,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-nuevo-red-siges')[0].reset(); //limpia el formulario
+                $("#carga_red_siges").load("web/mant_red_sigges.php");
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
+
+function AgrFormEditarRedSiges(id_red_siges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_red_siges=" + id_red_siges + "&seccion=red-siges",
+        success: function (r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_red_siges').val(datos['id_red_siges']);
+            $('#estable_red_siges_up').val(datos['estable_red_siges']);
+            $('#nombre_red_siges_up').val(datos['nombre_red_siges']);
+            $('#apellido_red_siges_up').val(datos['apellido_red_siges']);
+            $('#mail_red_siges_up').val(datos['mail_red_siges']);
+            $('#rutaminsal_red_siges_up').val(datos['ruta_red_siges']);
+            $('#telefono_red_siges_up').val(datos['telefono_red_siges']);
+            $('#comuna_red_siges_up').val(datos['comuna_red_siges']);
+        }
+    });
+}
+
+function EditarRedSiges(editar_red_siges) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_red_siges,
+        success: function (r) {
+            if (r == 1) {
+                $('#frm-editar-red-siges')[0].reset(); //limpia el formulario
+                $("#carga_red_siges").load("web/mant_red_sigges.php");
+                alertify.success("Registro editado con exito");
+                $('#editar_red_siges').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoRedSiges(id_red_siges) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarRedSiges(id_red_siges); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarRedSiges(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=red-siges",
+        success: function (r) {
+            if (r == 1) {
+                $("#carga_red_siges").load("web/mant_red_sigges.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+function MasivoDatosRedSiges() {
+    var masivo_red_siges = new FormData($("#frm-carga-red-siges")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/sube.php",
+        data: masivo_red_siges,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#form-masivo-red-siges').hide();
+            $('#spinner-red-siges').show();
+        },
+        success: function (r) {
+            if (r == 1) {
+                $("#arch_red_siges").val(null); //limpia el formulario por id
+                $("#carga_red_siges").load("web/mant_red_sigges.php");
+                alertify.success("Registros agregados y/o actualizados con exito");
+                $('#form-masivo-red-siges').show();
+                $('#spinner-red-siges').hide();
+                $('#masivo_red_siges').modal('hide'); //cierra el modal carga masiva
+            } else if (r == 2) {
+                $("#arch_red_siges").val(null); //limpia el formulario por id
+                $("#carga_red_siges").load("web/mant_red_sigges.php");
+                alertify.warning("No fue posible agregar y/o actualizar todos los registros");
+                $('#form-masivo-red-siges').show();
+                $('#spinner-red-siges').hide();
+            } else {
+                $('#form-masivo-red-siges').show();
+                $('#spinner-red-siges').hide();
+                alertify.error("No es posible incorporar los registros");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+//-------------- Mantenedor documentos ges ------------------------
+function AgregarDocGec() {
+    var archivo_doc_ges = new FormData($("#frm-carga-doc-ges")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: archivo_doc_ges,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#form-masivo-doc-ges').hide();
+            $('#spinner-doc-ges').show();
+        },
+        success: function (r) {
+            if (r == 1) {
+                $("#arch_doc_ges").val(null); //limpia el formulario por id
+                $("#carga_doc_ges").load("web/mant_documentos_ges.php");
+                alertify.success("Documento agregado con exito");
+                $('#form-masivo-doc-ges').show();
+                $('#spinner-doc-ges').hide();
+            } else if (r == 2) {
+                $("#arch_doc_ges").val(null); //limpia el formulario por id
+                alertify.warning("Existe un documento con el mismo nombre");
+                $('#form-masivo-doc-ges').show();
+                $('#spinner-doc-ges').hide();
+            } else {
+                $('#form-masivo-doc-ges').show();
+                $('#spinner-doc-ges').hide();
+                alertify.error("No es posible incorporar el documento");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoDocGes(id_doc_ges) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function () { EliminarDocGes(id_doc_ges); },
+        function () {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarDocGes(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=doc-ges",
+        success: function (r) {
+            if (r == 1) {
+                $("#carga_doc_ges").load("web/mant_documentos_ges.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+//------------------------------------------------------------
+//------------------------------------------------------------
 
 //--------------------------------------------------------------
 //        carga mant_linea_base
@@ -1115,6 +1293,62 @@ function carga_casos_ges() {
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
+//        carga pagina mant_red_sigges
+//--------------------------------------------------------------
+function carga_red_siges() {
+    $("#carga_red_siges").load("web/mant_red_sigges.php");
+
+    $('#spinner-red-siges').hide();
+
+    recargarLista_comunaRedSiges($('#estable_red_siges').val())
+    $('#estable_red_siges').change(function () {
+        recargarLista_comunaRedSiges($('#estable_red_siges').val())
+    });
+
+    recargarLista_comunaRedSigesUP($('#estable_red_siges_up').val())
+    $('#estable_red_siges_up').change(function () {
+        recargarLista_comunaRedSigesUP($('#estable_red_siges_up').val())
+    });
+
+    $("#agregar-nuevo-red-siges").click(function () {
+        datos_red_siges = $("#frm-nuevo-red-siges").serialize();
+        AgregarDatosRedSiges(datos_red_siges);
+    });
+
+    $("#actualizar-red-siges").click(function () {
+        datos_red_siges_up = $("#frm-editar-red-siges").serialize();
+        EditarRedSiges(datos_red_siges_up);
+    });
+
+    $('#cargar-masivo-red-siges').click(function () {
+        MasivoDatosRedSiges();
+    });
+}
+
+function recargarLista_comunaRedSiges(estable) {
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "estable=" + estable + "&seleccion=comuna-rs",
+        success: function (r) {
+            $('#input-comuna').html(r);
+        }
+    });
+}
+function recargarLista_comunaRedSigesUP(estable) {
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "estable=" + estable + "&seleccion=comuna-rs-up",
+        success: function (r) {
+            $('#input-comuna-up').html(r);
+        }
+    });
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
 //        carga pagina mant_tipoges_card
 //--------------------------------------------------------------
 function carga_tipoges() {
@@ -1141,6 +1375,24 @@ function carga_tipoges() {
 
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        carga pagina mant_documentos_ges_card
+//--------------------------------------------------------------
+function carga_docges() {
+
+    $("#carga_doc_ges").load("web/mant_documentos_ges.php");
+
+    $('#spinner-doc-ges').hide();
+
+    $('#cargar-masivo-doc-ges').click(function () {
+        AgregarDocGec();
+    });
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
 
 //--------------------------------------------------------------
 //        carga tabs pagina conocenos
@@ -1192,7 +1444,7 @@ function carga_informes_ges() {
 
     $('#documentos-ges').click(function () {
         $('#contenido-informe-ges').empty();
-        $('#contenido-informe-ges').load('web/documentos_ges.php');
+        $('#contenido-informe-ges').load('web/descarga_doc_ges.php');
     });
 
     $('a.nav-link').click(function () {
@@ -1218,6 +1470,9 @@ function recargarLista_meses_rg(anio_res_ges) {
     });
 }
 
+//--------------------------------------------------------------
+//        funciones recargar graficos comparativo vencidas
+//--------------------------------------------------------------
 function etiquetaMes() {
     document.querySelector('#etiqueta-mv').innerText = $('#meses-vencidas').val();
     mes_resumenges = $('#meses-vencidas').val();
@@ -1230,9 +1485,21 @@ function etiquetaMes() {
             $('#graficos-vencidas').html(r);
         }
     });
-
 }
 
+//--------------------------------------------------------------
+//        funciones recargar graficos anuales ges
+//--------------------------------------------------------------
+function recargar_graficos_ges(anio_ges) {
+    $.ajax({
+        type: "POST",
+        url: "web/grafico_gesDos.php",
+        data: "anio=" + anio_ges,
+        success: function (r) {
+            $('#graficos_anuales_ges').html(r);
+        }
+    });
+}
 
 //--------------------------------------------------------------
 //        funciones recargar lista SELECT
@@ -1342,6 +1609,16 @@ $(document).ready(function () {
     $('#menu-mant-casos-ges').click(function () {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_casos_ges_card.php");
+    })
+
+    $('#menu-mant-red-siges').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_red_sigges_card.php");
+    })
+
+    $('#menu-mant-doc-ges').click(function () {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_documentos_ges_card.php");
     })
 });
 //--------------------------------------------------------------
