@@ -136,6 +136,12 @@ footer {
     }
 }
 
+
+/* -----------------------------------------------------------*/
+
+
+/*          css color iconos tipo de archivo                  */
+
 .word {
     color: #0343BB;
 }
@@ -150,4 +156,24 @@ footer {
 
 .pdf {
     color: #E10000;
+}
+
+
+/* -----------------------------------------------------------*/
+
+
+/*          css redimension imagenes slider                   */
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+.fondo-slider-inicio {
+    z-index: 999;
+    background-color: rgb(82, 82, 82);
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    /* IE < 9.0 */
+    color: #fff;
 }

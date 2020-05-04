@@ -39,18 +39,16 @@ function tipo_archivo($ext)
         <table class="table table-hover table-condensed table-bordered table-sm" id="tabla-doc-ges">
             <thead style="background-color: #2C73FF; color:white; font-weight:bold;">
                 <tr>
-                    <td>Tipo</td>
-                    <td>Documento</td>
-                    <td>Fecha</td>
-                    <td>Descarga</td>
+                    <td class="text-center">Documento</td>
+                    <td class="text-center">Fecha de carga</td>
+                    <td class="text-center">Descarga</td>
                 </tr>
             </thead>
             <tfoot style="background-color: #AEB2B9; color:white; font-weight:bold;">
                 <tr>
-                    <td>Tipo</td>
-                    <td>Documento</td>
-                    <td>Fecha</td>
-                    <td>Descarga</td>
+                    <td class="text-center">Documento</td>
+                    <td class="text-center">Fecha de carga</td>
+                    <td class="text-center">Descarga</td>
                 </tr>
             </tfoot>
             <tbody>
@@ -61,15 +59,12 @@ function tipo_archivo($ext)
 
                 ?>
                     <tr>
-                        <td style="text-align: center;">
-                            <span class="<?php echo $icono; ?> fa-2x"></span>
-                        </td>
                         <td><span class="<?php echo $icono; ?> fa-2x"></span> <?php echo $most_doc_ges[1]; ?></td>
-                        <td><?php echo $most_doc_ges[2]; ?></td>
+                        <td class="text-center"><?php echo date("d-m-Y", strtotime($most_doc_ges[2])); ?></td>
                         <td style="text-align: center;">
-                            <span class="btn btn-success btn-sm">
+                            <a class="btn btn-success btn-sm" href="static/doc_ges/<?php echo $most_doc_ges[1]; ?>" download="<?php echo $most_doc_ges[1]; ?>">
                                 <span class="fas fa-download"></span>
-                            </span>
+                            </a>
                         </td>
                     </tr>
                 <?php

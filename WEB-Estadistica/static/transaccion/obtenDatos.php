@@ -189,7 +189,21 @@ class obtdatos
             'comuna_red_siges' => $ver_red_siges[7]
         );
         return $datos_red_siges;
+    }
 
+    public function obtslider($id_slider)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_slider = "SELECT * FROM slider_inicio WHERE id_slider='$id_slider'";
+        $res_slider = mysqli_query($connection, $sql_slider);
+        $ver_slider = mysqli_fetch_array($res_slider);
+        $datos_slider = array(
+            'id_slider' => $ver_slider[0],
+            'titulo_slider' => $ver_slider[2],
+            'descripcion_slider' => $ver_slider[3]
+        );
+        return $datos_slider;
     }
 
 }

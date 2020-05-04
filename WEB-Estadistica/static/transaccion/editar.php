@@ -131,4 +131,14 @@ switch ($seccion) {
                         WHERE id_red_siges=$id_red_siges";
         echo mysqli_query($connection,$sql_red_siges);
     break;
+
+    case "slider":
+        $id_slider = $_POST['id_slider'];
+        $titulo = $_POST['titulo_slider_up'];
+        $descripcion = $_POST['descripcion_slider_up'];
+
+        $sql_slider_up="UPDATE slider_inicio SET titulo_slider='$titulo',descripcion_slider='$descripcion' 
+                        WHERE id_slider=$id_slider";
+        echo mysqli_query($connection,$sql_slider_up);
+    break;
 }

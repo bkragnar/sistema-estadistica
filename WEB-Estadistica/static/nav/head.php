@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark py-0 shadow-sm">
   <div class="container">
-    <a href="#" class="navbar-brand font-weight-bold">Inicio</a>
+    <a href="#" class="navbar-brand font-weight-bold" id="menu-inicio">Inicio</a>
 
     <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
       <span class="navbar-toggler-icon"></span>
@@ -85,6 +85,7 @@
                 <li><a href="#" class="dropdown-item" id="menu-mant-casos-ges">Casos GES</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-red-siges">Red Siges</a></li>
                 <li><a href="#" class="dropdown-item" id="menu-mant-doc-ges">Documentos GES</a></li>
+                <li><a href="#" class="dropdown-item" id="menu-mant-slider">Slider</a></li>
               </ul>
             </li>
             <!--
@@ -135,7 +136,7 @@
       </ul>
       <!-- derecha -->
       <span class="navbar-text">
-        <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAcceso">Acceso</button>
+        <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAcceso"><i class="fas fa-users"></i> Acceso</button>
       </span>
     </div>
   </div>

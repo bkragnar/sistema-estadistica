@@ -84,12 +84,24 @@ switch ($seccion) {
     case "doc-ges":
         $id_doc_ges = $_POST['id'];
 
-        $sql_doc= $connection->query("SELECT nombre_doc_ges FROM doc_ges WHERE id_doc_ges=$id_doc_ges");
+        $sql_doc = $connection->query("SELECT nombre_doc_ges FROM doc_ges WHERE id_doc_ges=$id_doc_ges");
         $res_doc = mysqli_fetch_array($sql_doc);
         $eliminar = $res_doc[0];
 
-        unlink('../doc_ges/' .$eliminar);
+        unlink('../doc_ges/' . $eliminar);
         $sql_doc_ges = "DELETE FROM doc_ges WHERE id_doc_ges=$id_doc_ges";
         echo mysqli_query($connection, $sql_doc_ges);
+        break;
+
+    case "slider":
+        $id_slider = $_POST['id'];
+
+        $sql_img_slider = $connection->query("SELECT nombre_slider FROM slider_inicio WHERE id_slider=$id_slider");
+        $res_img = mysqli_fetch_array($sql_img_slider);
+        $eliminar = $res_img[0];
+
+        unlink('../img_slider/' . $eliminar);
+        $sql_slider = "DELETE FROM slider_inicio WHERE id_slider=$id_slider";
+        echo mysqli_query($connection, $sql_slider);
         break;
 }

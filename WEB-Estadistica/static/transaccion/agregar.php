@@ -1,4 +1,12 @@
 <?php
+/*
+ini_set('post_max_size','100M');  // Tamaño máximo de datos enviados por método POST.
+ini_set('upload_max_filesize','100M');   // Tamaño máximo para subir archivos al servidor.
+ini_set('max_execution_time','1000');  // Tiempo máximo de ejecución de éste script en segundos.
+ini_set('max_input_time','1000'); //Tiempo máximo en segundos que el script puede usar para analizar los datos input, sean post,get o archivos.
+ini_set("memory_limit" , "50M") ; //Tamaño máximo que el script puede usar de la memoria, mientras se ejecuta.
+set_time_limit(0); // Tiempo máximo en segundos, que puede el script estar ejecutándose. El cero, da tiempo ilimitado.
+*/
 include "../../cnx/connection.php";
 
 $seccion = $_POST['seccion'];
@@ -141,11 +149,28 @@ switch ($seccion) {
         } else {
             if (move_uploaded_file($ruta, '../doc_ges/' . $nombre)) {
                 $sql_doc_ges = "INSERT INTO doc_ges (nombre_doc_ges,fecha_doc_ges) VALUES('$nombre','$fecha_actual')";
-                echo mysqli_query($connection,$sql_doc_ges);
+                echo mysqli_query($connection, $sql_doc_ges);
             } else {
                 echo 0;
             }
         }
+        break;
+    case "slider":
+        sleep(2);
+        $img_slider = $_FILES['arch_slider']['name'];
+        $ruta_slider = $_FILES['arch_slider']['tmp_name'];
+        $titulo = $_POST['titulo_slider'];
+        $descripcion = $_POST['descripcion_slider'];
 
+        if (file_exists('../img_slider/' . $img_slider)) {
+            echo 2;
+        } else {
+            if (move_uploaded_file($ruta_slider, '../img_slider/' . $img_slider)) {
+                $sql_slider = "INSERT INTO slider_inicio (nombre_slider,titulo_slider,descripcion_slider) VALUES('$img_slider','$titulo','$descripcion')";
+                echo mysqli_query($connection, $sql_slider);
+            } else {
+                echo 0;
+            }
+        }
         break;
 }

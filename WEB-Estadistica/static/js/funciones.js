@@ -1,6 +1,6 @@
 /* dropdown */
-$(function () {
-    $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
+$(function() {
+    $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -19,7 +19,7 @@ $(function () {
 
 
         //collapse all after nav is closed
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
             $('.dropdown-submenu .show').removeClass("show");
         });
 
@@ -46,7 +46,7 @@ function AgregarDatosProvincia(datos_provincia) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_provincia,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nueva-provincia')[0].reset(); //limpia el formulario
                 $("#carga_provincia").load("web/mant_provincia.php");
@@ -63,7 +63,7 @@ function AgrFormEditarProvincia(id_provincia) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_provincia=" + id_provincia + "&seccion=provincia",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_provincia').val(datos['id_provincia']);
             $('#codigo_provincia_up').val(datos['codigo_provincia']);
@@ -77,7 +77,7 @@ function EditarProvincia(datos_provincia_up) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: datos_provincia_up,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_provincia").load("web/mant_provincia.php");
                 alertify.success("Registro editado con exito");
@@ -90,8 +90,8 @@ function EditarProvincia(datos_provincia_up) {
 
 function PreguntarSioNoProvincia(id_provincia) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarProvincia(id_provincia); },
-        function () {
+        function() { EliminarProvincia(id_provincia); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -101,7 +101,7 @@ function EliminarProvincia(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=provincia",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_provincia").load("web/mant_provincia.php");
                 alertify.success("Registro eliminado con exito");
@@ -120,7 +120,7 @@ function AgregarDatosComuna(datos_comuna) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_comuna,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nueva-comuna')[0].reset(); //limpia el formulario
                 $("#carga_comuna").load("web/mant_comuna.php");
@@ -137,7 +137,7 @@ function AgrFormEditarComuna(id_comuna) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_comuna=" + id_comuna + "&seccion=comuna",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_comuna').val(datos['id_comuna']);
             $('#codigo_comuna_up').val(datos['codigo_comuna']);
@@ -152,7 +152,7 @@ function EditarComuna(datos_comuna_up) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: datos_comuna_up,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_comuna").load("web/mant_comuna.php");
                 alertify.success("Registro editado con exito");
@@ -165,8 +165,8 @@ function EditarComuna(datos_comuna_up) {
 
 function PreguntarSioNoComuna(id_comuna) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarComuna(id_comuna); },
-        function () {
+        function() { EliminarComuna(id_comuna); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -176,7 +176,7 @@ function EliminarComuna(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=comuna",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_comuna").load("web/mant_comuna.php");
                 alertify.success("Registro eliminado con exito");
@@ -197,11 +197,11 @@ function MasivoDatosComuna() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-comuna').hide();
             $('#spinner-comuna').show();
         },
-        success: function (r) {
+        success: function(r) {
             alert(r);
             if (r == 1) {
                 $('#archivo_comuna').val(null); //limpia el formulario por id
@@ -233,7 +233,7 @@ function AgregarDatosTipoEstable(datos_tipo_estable) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_tipo_estable,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-tipo-estable')[0].reset(); //limpia el formulario
                 $("#carga_tipoestable").load("web/mant_tipoestable.php");
@@ -250,7 +250,7 @@ function AgrFormEditarTipoEstable(id_tipo_estable) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_tipo_estable=" + id_tipo_estable + "&seccion=tipo_estable",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_tipo_estable').val(datos['id_tipo_estable']);
             $('#codigo_tipo_estable_up').val(datos['codigo_tipo']);
@@ -264,7 +264,7 @@ function EditarTipoEstable(datos_tipo_estable_up) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: datos_tipo_estable_up,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_tipoestable").load("web/mant_tipoestable.php");
                 alertify.success("Registro editado con exito");
@@ -277,8 +277,8 @@ function EditarTipoEstable(datos_tipo_estable_up) {
 
 function PreguntarSioNoTipoEstable(id_tipo_estable) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarTipoEstable(id_tipo_estable); },
-        function () {
+        function() { EliminarTipoEstable(id_tipo_estable); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -288,7 +288,7 @@ function EliminarTipoEstable(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=tipo_estable",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_tipoestable").load("web/mant_tipoestable.php");
                 alertify.success("Registro eliminado con exito");
@@ -307,7 +307,7 @@ function AgregarDatosEstable(datos_estable) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_estable,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-estable')[0].reset(); //limpia el formulario
                 $("#carga_estable").load("web/mant_estable.php");
@@ -324,7 +324,7 @@ function AgrFormEditarEstable(id_estable) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_estable=" + id_estable + "&seccion=establecimiento",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_estable').val(datos['id_estable']);
             $('#codigo_estable_up').val(datos['codigo_estable']);
@@ -341,7 +341,7 @@ function EditarEstable(datos_estable_up) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: datos_estable_up,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_estable").load("web/mant_estable.php");
                 alertify.success("Registro editado con exito");
@@ -354,8 +354,8 @@ function EditarEstable(datos_estable_up) {
 
 function PreguntarSioNoEstable(id_estable) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarEstable(id_estable); },
-        function () {
+        function() { EliminarEstable(id_estable); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -365,7 +365,7 @@ function EliminarEstable(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=establecimiento",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_estable").load("web/mant_estable.php");
                 alertify.success("Registro eliminado con exito");
@@ -385,7 +385,7 @@ function MasivoDatosEstable() {
         cache: false,
         contentType: false,
         processData: false,
-        success: function (r) {
+        success: function(r) {
             alert(r);
             if (r == "valido") {
                 $('#frm-carga-estable')[0].reset(); //limpia el formulario
@@ -406,7 +406,7 @@ function AgregarDatosTipoLe(datos_tipo_le) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_tipo_le,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-tipo-le')[0].reset(); //limpia el formulario
                 $("#carga_tipo_le").load("web/mant_tipo_le.php");
@@ -423,7 +423,7 @@ function AgrFormEditarTipoLe(id_tipo_le) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_tipo_le=" + id_tipo_le + "&seccion=tipo-le",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_estable').val(datos['id_tipo_le']);
             $('#codigo_tipo_le_up').val(datos['codigo_tipo_le']);
@@ -437,7 +437,7 @@ function EditarTipoLe(datos_tipo_le_up) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: datos_tipo_le_up,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_tipo_le").load("web/mant_tipo_le.php");
                 alertify.success("Registro editado con exito");
@@ -450,8 +450,8 @@ function EditarTipoLe(datos_tipo_le_up) {
 
 function PreguntarSioNoTipoLe(id_tipo_le) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarTipoLe(id_tipo_le); },
-        function () {
+        function() { EliminarTipoLe(id_tipo_le); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -461,7 +461,7 @@ function EliminarTipoLe(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=tipo-le",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_tipo_le").load("web/mant_tipo_le.php");
                 alertify.success("Registro eliminado con exito");
@@ -481,7 +481,7 @@ function MasivoDatosTipoLe() {
         cache: false,
         contentType: false,
         processData: false,
-        success: function (r) {
+        success: function(r) {
             if (r == "valido") {
                 $('#frm-carga-tipo-le')[0].reset(); //limpia el formulario
                 $("#carga_tipo_le").load("web/mant_tipo_le.php");
@@ -501,7 +501,7 @@ function AgregarDatosLineaBase(datos_linea_base) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_linea_base,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-lines-base')[0].reset(); //limpia el formulario
                 $("#carga_linea-base").load("web/mant_linea_base.php");
@@ -518,7 +518,7 @@ function AgrFormEditarLineaBase(id_linea_base) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_lb=" + id_linea_base + "&seccion=linea-base",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_linea_base').val(datos['id_lb']);
             $('#estable_linea_base_up').val(datos['codigo_estable_lb']);
@@ -533,7 +533,7 @@ function EditarLineaBase(editar_linea_base) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: editar_linea_base,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_linea-base").load("web/mant_linea_base.php");
                 alertify.success("Registro editado con exito");
@@ -547,8 +547,8 @@ function EditarLineaBase(editar_linea_base) {
 
 function PreguntarSioNoLineaBase(id_linea_base) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarLineaBase(id_linea_base); },
-        function () {
+        function() { EliminarLineaBase(id_linea_base); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -558,7 +558,7 @@ function EliminarLineaBase(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=linea-base",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_linea-base").load("web/mant_linea_base.php");
                 alertify.success("Registro eliminado con exito");
@@ -578,11 +578,11 @@ function MasivoDatosLineaBase() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-lb').hide();
             $('#spinner-lb').show();
         },
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#arch_lb").val(null); //limpia el formulario por id
                 $("#carga_linea-base").load("web/mant_linea_base.php");
@@ -613,7 +613,7 @@ function AgregarDatosPorcentajeLB(datos_porcentaje_lb) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_porcentaje_lb,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-porcentaje-lb')[0].reset(); //limpia el formulario
                 $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
@@ -630,7 +630,7 @@ function AgrFormEditarPorcentajeLB(id_porcentaje_lb) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_porc=" + id_porcentaje_lb + "&seccion=porcentaje-lb",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_porc_lb').val(datos['id_porc']);
             $('#tipo_estable_porcentaje_lb_up').val(datos['tipo_estable_porc']);
@@ -648,7 +648,7 @@ function EditarPorcentajeLB(editar_porcentaje_lb) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: editar_porcentaje_lb,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-editar-porcentaje-lb')[0].reset(); //limpia el formulario
                 $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
@@ -663,8 +663,8 @@ function EditarPorcentajeLB(editar_porcentaje_lb) {
 
 function PreguntarSioNoPorcentajeLB(id_porcentaje_lb) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarPorcentajeLB(id_porcentaje_lb); },
-        function () {
+        function() { EliminarPorcentajeLB(id_porcentaje_lb); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -674,7 +674,7 @@ function EliminarPorcentajeLB(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=porcentaje-lb",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
                 alertify.success("Registro eliminado con exito");
@@ -694,11 +694,11 @@ function MasivoDatosPorcentajeLB() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-porcentaje-lb').hide();
             $('#spinner-porcentaje-lb').show();
         },
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#arch_porcentaje_lb").val(null); //limpia el formulario por id
                 $('#carga_porcentaje_lb').load("web/mant_porcentaje_lb.php");
@@ -729,7 +729,7 @@ function AgregarDatosEgresoLE(datos_egreso_le) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_egreso_le,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-egreso-le')[0].reset(); //limpia el formulario
                 $('#carga_egreso_le').load('web/mant_egreso_le.php');
@@ -746,7 +746,7 @@ function AgrFormEditarEgresoLE(id_egreso_le) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_egreso=" + id_egreso_le + "&seccion=egreso-le",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_egreso_le').val(datos['id_eg']);
             $('#estable_egreso_le_up').val(datos['estable_eg']);
@@ -763,7 +763,7 @@ function EditarEgresoLE(editar_egreso_le) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: editar_egreso_le,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-editar-egreso-le')[0].reset(); //limpia el formulario
                 $('#carga_egreso_le').load('web/mant_egreso_le.php');
@@ -778,8 +778,8 @@ function EditarEgresoLE(editar_egreso_le) {
 
 function PreguntarSioNoEgresoLE(id_egreso_le) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarEgresoLE(id_egreso_le); },
-        function () {
+        function() { EliminarEgresoLE(id_egreso_le); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -789,7 +789,7 @@ function EliminarEgresoLE(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=egreso-le",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#carga_egreso_le').load('web/mant_egreso_le.php');
                 alertify.success("Registro eliminado con exito");
@@ -809,11 +809,11 @@ function MasivoDatosEgresoLE() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-egreso-le').hide();
             $('#spinner-egreso-le').show();
         },
-        success: function (r) {
+        success: function(r) {
             alert(r);
             if (r == 1) {
                 $("#arch_egreso_le").val(null); //limpia el formulario por id
@@ -845,7 +845,7 @@ function AgregarDatosTipoGes(datos_tipoges) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_tipoges,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-tipoges')[0].reset(); //limpia el formulario
                 $("#carga_tipoges").load("web/mant_tipoges.php");
@@ -862,7 +862,7 @@ function AgrFormEditarTipoGes(id_tipoges) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_tipo_ges=" + id_tipoges + "&seccion=tipoges",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_tipoges').val(datos['id_tipoges']);
             $('#codigo_tipoges_up').val(datos['codigo_tipoges']);
@@ -876,7 +876,7 @@ function EditarTipoGes(editar_tipoges) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: editar_tipoges,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-editar-tipoges')[0].reset(); //limpia el formulario
                 $("#carga_tipoges").load("web/mant_tipoges.php");
@@ -891,8 +891,8 @@ function EditarTipoGes(editar_tipoges) {
 
 function PreguntarSioNoTipoGes(id_tipoges) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarTipoGes(id_tipoges); },
-        function () {
+        function() { EliminarTipoGes(id_tipoges); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -902,7 +902,7 @@ function EliminarTipoGes(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=tipoges",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_tipoges").load("web/mant_tipoges.php");
                 alertify.success("Registro eliminado con exito");
@@ -921,7 +921,7 @@ function AgregarDatosCasosGes(datos_casos_ges) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_casos_ges,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-casos-ges')[0].reset(); //limpia el formulario
                 $("#carga_casos_ges").load("web/mant_casos_ges.php");
@@ -938,7 +938,7 @@ function AgrFormEditarCasosGes(id_casos_ges) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_casos_ges=" + id_casos_ges + "&seccion=casos-ges",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_casos_ges').val(datos['id_casos_ges']);
             $('#estable_casos_ges_up').val(datos['estable_casos_ges']);
@@ -955,7 +955,7 @@ function EditarCasosGes(editar_casos_ges) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: editar_casos_ges,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-editar-casos-ges')[0].reset(); //limpia el formulario
                 $("#carga_casos_ges").load("web/mant_casos_ges.php");
@@ -970,8 +970,8 @@ function EditarCasosGes(editar_casos_ges) {
 
 function PreguntarSioNoCasosGes(id_casos_ges) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarCasosGes(id_casos_ges); },
-        function () {
+        function() { EliminarCasosGes(id_casos_ges); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -981,7 +981,7 @@ function EliminarCasosGes(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=casos-ges",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_casos_ges").load("web/mant_casos_ges.php");
                 alertify.success("Registro eliminado con exito");
@@ -1001,11 +1001,11 @@ function MasivoDatosCasosGes() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-casos-ges').hide();
             $('#spinner-casos-ges').show();
         },
-        success: function (r) {
+        success: function(r) {
             alert(r);
             if (r == 1) {
                 $("#arch_casos_ges").val(null); //limpia el formulario por id
@@ -1037,7 +1037,7 @@ function AgregarDatosRedSiges(datos_red_siges) {
         type: "POST",
         url: "static/transaccion/agregar.php",
         data: datos_red_siges,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-red-siges')[0].reset(); //limpia el formulario
                 $("#carga_red_siges").load("web/mant_red_sigges.php");
@@ -1054,7 +1054,7 @@ function AgrFormEditarRedSiges(id_red_siges) {
         type: "POST",
         url: "static/transaccion/fun_json.php",
         data: "id_red_siges=" + id_red_siges + "&seccion=red-siges",
-        success: function (r) {
+        success: function(r) {
             datos = jQuery.parseJSON(r);
             $('#id_red_siges').val(datos['id_red_siges']);
             $('#estable_red_siges_up').val(datos['estable_red_siges']);
@@ -1073,7 +1073,7 @@ function EditarRedSiges(editar_red_siges) {
         type: "POST",
         url: "static/transaccion/editar.php",
         data: editar_red_siges,
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $('#frm-editar-red-siges')[0].reset(); //limpia el formulario
                 $("#carga_red_siges").load("web/mant_red_sigges.php");
@@ -1088,8 +1088,8 @@ function EditarRedSiges(editar_red_siges) {
 
 function PreguntarSioNoRedSiges(id_red_siges) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarRedSiges(id_red_siges); },
-        function () {
+        function() { EliminarRedSiges(id_red_siges); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -1099,7 +1099,7 @@ function EliminarRedSiges(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=red-siges",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_red_siges").load("web/mant_red_sigges.php");
                 alertify.success("Registro eliminado con exito");
@@ -1119,11 +1119,11 @@ function MasivoDatosRedSiges() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-red-siges').hide();
             $('#spinner-red-siges').show();
         },
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#arch_red_siges").val(null); //limpia el formulario por id
                 $("#carga_red_siges").load("web/mant_red_sigges.php");
@@ -1158,11 +1158,11 @@ function AgregarDocGec() {
         cache: false,
         contentType: false,
         processData: false,
-        beforeSend: function () {
+        beforeSend: function() {
             $('#form-masivo-doc-ges').hide();
             $('#spinner-doc-ges').show();
         },
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#arch_doc_ges").val(null); //limpia el formulario por id
                 $("#carga_doc_ges").load("web/mant_documentos_ges.php");
@@ -1185,8 +1185,8 @@ function AgregarDocGec() {
 
 function PreguntarSioNoDocGes(id_doc_ges) {
     alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
-        function () { EliminarDocGes(id_doc_ges); },
-        function () {
+        function() { EliminarDocGes(id_doc_ges); },
+        function() {
             alertify.error('Se ha cancelado la eliminación');
         }).set('labels', { ok: 'Si', cancel: 'No' });
 }
@@ -1196,9 +1196,104 @@ function EliminarDocGes(id) {
         type: "POST",
         url: "static/transaccion/eliminar.php",
         data: "id=" + id + "&seccion=doc-ges",
-        success: function (r) {
+        success: function(r) {
             if (r == 1) {
                 $("#carga_doc_ges").load("web/mant_documentos_ges.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+
+//------------------------------------------------------------
+//------------------------------------------------------------
+
+//----------------- Mantenedor slider ------------------------
+function AgregarSlider() {
+    var datos_slider = new FormData($("#frm-nuevo-slider")[0]);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_slider,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+            $('#form-masivo-slider').hide();
+            $('#spinner-slider').show();
+        },
+        success: function(r) {
+            if (r == 1) {
+                $("#arch_slider").val(null); //limpia el formulario por id
+                $("#carga_slider").load("web/mant_slider.php");
+                alertify.success("Datos agregado con exito");
+                $('#form-masivo-slider').show();
+                $('#spinner-slider').hide();
+            } else if (r == 2) {
+                $("#arch_slider").val(null); //limpia el formulario por id
+                alertify.warning("Existe una imagen con el mismo nombre");
+                $('#form-masivo-slider').show();
+                $('#spinner-slider').hide();
+            } else {
+                $('#form-masivo-slider').show();
+                $('#spinner-slider').hide();
+                alertify.error("No es posible guardar los registros");
+            }
+        }
+    });
+}
+
+function AgrFormEditarSlider(id_slider) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_slider=" + id_slider + "&seccion=slider",
+        success: function(r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_slider').val(datos['id_slider']);
+            $('#titulo_slider_up').val(datos['titulo_slider']);
+            $('#descripcion_slider_up').val(datos['descripcion_slider']);
+        }
+    });
+}
+
+function EditarSlider(editar_slider) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_slider,
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-editar-slider')[0].reset(); //limpia el formulario
+                $("#carga_slider").load("web/mant_slider.php");
+                alertify.success("Registro editado con exito");
+                $('#editar_slider').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible actualizar el registro");
+            }
+        }
+    });
+}
+
+
+function PreguntarSioNoSlider(id_slider) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function() { EliminarSlider(id_slider); },
+        function() {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarSlider(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=slider",
+        success: function(r) {
+            if (r == 1) {
+                $("#carga_slider").load("web/mant_slider.php");
                 alertify.success("Registro eliminado con exito");
             } else {
                 alertify.error("No es posible eliminar el registro");
@@ -1238,27 +1333,27 @@ function carga_no_ges() {
 
     $('#contenido-no-ges').load('web/cne.php');
 
-    $('#cne').click(function () {
+    $('#cne').click(function() {
         $('#contenido-no-ges').empty();
         $('#contenido-no-ges').load('web/cne.php');
     });
 
-    $('#cneo').click(function () {
+    $('#cneo').click(function() {
         $('#contenido-no-ges').empty();
         $('#contenido-no-ges').load('web/cneo.php');
     });
 
-    $('#proced').click(function () {
+    $('#proced').click(function() {
         $('#contenido-no-ges').empty();
         $('#contenido-no-ges').load('web/procedimiento.php');
     });
 
-    $('#iq').click(function () {
+    $('#iq').click(function() {
         $('#contenido-no-ges').empty();
         $('#contenido-no-ges').load('web/iq.php');
     });
 
-    $('a.nav-link').click(function () {
+    $('a.nav-link').click(function() {
         $('a.nav-link').removeClass("active");
         $(this).addClass("active");
     });
@@ -1275,17 +1370,17 @@ function carga_casos_ges() {
 
     $('#spinner-casos-ges').hide();
 
-    $("#agregar-nuevo-casos-ges").click(function () {
+    $("#agregar-nuevo-casos-ges").click(function() {
         datos_casos_ges = $("#frm-nuevo-casos-ges").serialize();
         AgregarDatosCasosGes(datos_casos_ges);
     });
 
-    $("#actualizar-casos-ges").click(function () {
+    $("#actualizar-casos-ges").click(function() {
         datos_casos_ges_up = $("#frm-editar-casos-ges").serialize();
         EditarCasosGes(datos_casos_ges_up);
     });
 
-    $('#cargar-masivo-casos-ges').click(function () {
+    $('#cargar-masivo-casos-ges').click(function() {
         MasivoDatosCasosGes();
     });
 }
@@ -1301,26 +1396,26 @@ function carga_red_siges() {
     $('#spinner-red-siges').hide();
 
     recargarLista_comunaRedSiges($('#estable_red_siges').val())
-    $('#estable_red_siges').change(function () {
+    $('#estable_red_siges').change(function() {
         recargarLista_comunaRedSiges($('#estable_red_siges').val())
     });
 
     recargarLista_comunaRedSigesUP($('#estable_red_siges_up').val())
-    $('#estable_red_siges_up').change(function () {
+    $('#estable_red_siges_up').change(function() {
         recargarLista_comunaRedSigesUP($('#estable_red_siges_up').val())
     });
 
-    $("#agregar-nuevo-red-siges").click(function () {
+    $("#agregar-nuevo-red-siges").click(function() {
         datos_red_siges = $("#frm-nuevo-red-siges").serialize();
         AgregarDatosRedSiges(datos_red_siges);
     });
 
-    $("#actualizar-red-siges").click(function () {
+    $("#actualizar-red-siges").click(function() {
         datos_red_siges_up = $("#frm-editar-red-siges").serialize();
         EditarRedSiges(datos_red_siges_up);
     });
 
-    $('#cargar-masivo-red-siges').click(function () {
+    $('#cargar-masivo-red-siges').click(function() {
         MasivoDatosRedSiges();
     });
 }
@@ -1330,17 +1425,18 @@ function recargarLista_comunaRedSiges(estable) {
         type: "POST",
         url: "web/select.php",
         data: "estable=" + estable + "&seleccion=comuna-rs",
-        success: function (r) {
+        success: function(r) {
             $('#input-comuna').html(r);
         }
     });
 }
+
 function recargarLista_comunaRedSigesUP(estable) {
     $.ajax({
         type: "POST",
         url: "web/select.php",
         data: "estable=" + estable + "&seleccion=comuna-rs-up",
-        success: function (r) {
+        success: function(r) {
             $('#input-comuna-up').html(r);
         }
     });
@@ -1357,12 +1453,12 @@ function carga_tipoges() {
 
     $('#spinner-tipoges').hide();
 
-    $("#agregar-nuevo-tipoges").click(function () {
+    $("#agregar-nuevo-tipoges").click(function() {
         datos_tipoges = $("#frm-nuevo-tipoges").serialize();
         AgregarDatosTipoGes(datos_tipoges);
     });
 
-    $("#actualizar-tipoges").click(function () {
+    $("#actualizar-tipoges").click(function() {
         datos_tipoges_up = $("#frm-editar-tipoges").serialize();
         EditarTipoGes(datos_tipoges_up);
     });
@@ -1377,6 +1473,29 @@ function carga_tipoges() {
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
+//        carga pagina mant_slider_card
+//--------------------------------------------------------------
+function carga_slider() {
+
+    $("#carga_slider").load("web/mant_slider.php");
+
+    $('#spinner-slider').hide();
+
+    $('#agregar-nuevo-slider').click(function() {
+        AgregarSlider();
+    });
+
+    $('#actualizar-slider').click(function() {
+        datos_slider_up = $("#frm-editar-slider").serialize();
+        EditarSlider(datos_slider_up);
+    });
+
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
 //        carga pagina mant_documentos_ges_card
 //--------------------------------------------------------------
 function carga_docges() {
@@ -1385,7 +1504,7 @@ function carga_docges() {
 
     $('#spinner-doc-ges').hide();
 
-    $('#cargar-masivo-doc-ges').click(function () {
+    $('#cargar-masivo-doc-ges').click(function() {
         AgregarDocGec();
     });
 }
@@ -1401,22 +1520,22 @@ function carga_quienes_somos() {
 
     $('#contenido-conocenos').load('web/organigrama.php');
 
-    $('#organigrama').click(function () {
+    $('#organigrama').click(function() {
         $('#contenido-conocenos').empty();
         $('#contenido-conocenos').load('web/organigrama.php');
     });
 
-    $('#mision-vision').click(function () {
+    $('#mision-vision').click(function() {
         $('#contenido-conocenos').empty();
         $('#contenido-conocenos').load('web/mision_vision.php');
     });
 
-    $('#somos').click(function () {
+    $('#somos').click(function() {
         $('#contenido-conocenos').empty();
         $('#contenido-conocenos').load('web/quienes_somos.php');
     });
 
-    $('a.nav-link').click(function () {
+    $('a.nav-link').click(function() {
         $('a.nav-link').removeClass("active");
         $(this).addClass("active");
     });
@@ -1432,22 +1551,22 @@ function carga_informes_ges() {
 
     $('#contenido-informe-ges').load('web/resumen_ges.php');
 
-    $('#resumen').click(function () {
+    $('#resumen').click(function() {
         $('#contenido-informe-ges').empty();
         $('#contenido-informe-ges').load('web/resumen_ges.php');
     });
 
-    $('#monitores-ges').click(function () {
+    $('#monitores-ges').click(function() {
         $('#contenido-informe-ges').empty();
         $('#contenido-informe-ges').load('web/monitores_ges.php');
     });
 
-    $('#documentos-ges').click(function () {
+    $('#documentos-ges').click(function() {
         $('#contenido-informe-ges').empty();
         $('#contenido-informe-ges').load('web/descarga_doc_ges.php');
     });
 
-    $('a.nav-link').click(function () {
+    $('a.nav-link').click(function() {
         $('a.nav-link').removeClass("active");
         $(this).addClass("active");
     });
@@ -1463,8 +1582,8 @@ function recargarLista_meses_rg(anio_res_ges) {
     $.ajax({
         type: "POST",
         url: "web/select.php",
-        data: "anio=" + anio_res_ges + "&seleccion=meses-rg",//resumen_ges
-        success: function (r) {
+        data: "anio=" + anio_res_ges + "&seleccion=meses-rg", //resumen_ges
+        success: function(r) {
             $('#meses-grafico').html(r);
         }
     });
@@ -1481,7 +1600,7 @@ function etiquetaMes() {
         type: "POST",
         url: "web/graficos_gesUno.php",
         data: "mes=" + mes_resumenges + "&anio=" + anio_resumenges,
-        success: function (r) {
+        success: function(r) {
             $('#graficos-vencidas').html(r);
         }
     });
@@ -1495,7 +1614,7 @@ function recargar_graficos_ges(anio_ges) {
         type: "POST",
         url: "web/grafico_gesDos.php",
         data: "anio=" + anio_ges,
-        success: function (r) {
+        success: function(r) {
             $('#graficos_anuales_ges').html(r);
         }
     });
@@ -1509,7 +1628,7 @@ function recargarLista_comuna() {
         type: "POST",
         url: "web/select.php",
         data: "seleccion=comuna",
-        success: function (r) {
+        success: function(r) {
             $('#select-comuna').html(r);
         }
     });
@@ -1523,7 +1642,7 @@ function cargar_grafico(mtz1, mtz2) {
         type: "POST",
         url: "web/grafico.php",
         data: { 'arreglo1': mtz1, 'arreglo2': mtz2 },
-        success: function (r) {
+        success: function(r) {
             $('#grafico').html(r);
         }
     });
@@ -1536,7 +1655,7 @@ function ConsultaCNE(datosCNE) {
         type: "POST",
         url: "web/cne_datos.php",
         data: datosCNE,
-        success: function (r) {
+        success: function(r) {
             $('#carga-cne-datos').html(r);
         }
     });
@@ -1545,80 +1664,93 @@ function ConsultaCNE(datosCNE) {
 //--------------------------------------------------------------
 
 //--------------- llamado a las paginas desde el menu ----------
-$(document).ready(function () {
-    $('#menu-mant-provincia').click(function () {
+$(document).ready(function() {
+    $("#contenido-index").empty();
+    $("#contenido-index").load("web/slider.php");
+
+    $('#menu-inicio').click(function() {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/slider.php");
+    });
+
+    $('#menu-mant-provincia').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_provincia_card.php");
     });
 
-    $('#menu-mant-comuna').click(function () {
+    $('#menu-mant-comuna').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_comuna_card.php");
     });
 
-    $('#menu-mant-tipo-estable').click(function () {
+    $('#menu-mant-tipo-estable').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_tipoestable_card.php");
     });
 
-    $('#menu-mant-estable').click(function () {
+    $('#menu-mant-estable').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_estable_card.php");
     });
 
-    $('#menu-mant-tipo-le').click(function () {
+    $('#menu-mant-tipo-le').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_tipo_le_card.php");
     });
 
-    $('#menu-rep-no-ges').click(function () {
+    $('#menu-rep-no-ges').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/no_ges.php");
     });
 
-    $('#menu-rep-ges').click(function () {
+    $('#menu-rep-ges').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/ges.php");
     });
 
-    $('#menu-mant-linea-base').click(function () {
+    $('#menu-mant-linea-base').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_linea_base_card.php");
     });
 
-    $('#menu-mant-porcentaje-lb').click(function () {
+    $('#menu-mant-porcentaje-lb').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_porcentaje_lb_card.php");
     });
 
-    $('#menu-mant-egreso-le').click(function () {
+    $('#menu-mant-egreso-le').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_egreso_le_card.php");
     })
 
-    $('#menu-conocenos').click(function () {
+    $('#menu-conocenos').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/conocenos.php");
     })
 
-    $('#menu-mant-tipoges').click(function () {
+    $('#menu-mant-tipoges').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_tipoges_card.php");
     })
 
-    $('#menu-mant-casos-ges').click(function () {
+    $('#menu-mant-casos-ges').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_casos_ges_card.php");
     })
 
-    $('#menu-mant-red-siges').click(function () {
+    $('#menu-mant-red-siges').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_red_sigges_card.php");
     })
 
-    $('#menu-mant-doc-ges').click(function () {
+    $('#menu-mant-doc-ges').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_documentos_ges_card.php");
+    })
+
+    $('#menu-mant-slider').click(function() {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_slider_card.php");
     })
 });
 //--------------------------------------------------------------
