@@ -1663,8 +1663,40 @@ function ConsultaCNE(datosCNE) {
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 
+//--------------- funcion revela y oculta ----------------------
+function revela() {
+    document.getElementById('pasw').style.color = 'dodgerblue';
+    $('#eye-pass').removeClass('fas fa-eye-slash fa-sm');
+    $('#eye-pass').addClass('fas fa-eye fa-sm primary');
+    document.getElementById("clave-user").type = "text";
+}
+
+function oculta() {
+    $('#eye-pass').removeClass('fas fa-eye fa-sm');
+    $('#eye-pass').addClass('fas fa-eye-slash fa-sm');
+    document.getElementById('pasw').style.color = 'black';
+    document.getElementById("clave-user").type = "password";
+}
+
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+
 //--------------- llamado a las paginas desde el menu ----------
 $(document).ready(function() {
+    //   cambia el color de etiqueta i del icono del login mientras el input este en focus
+    $(':input').focusin(function() {
+        var wrapper = $(this).parent().find('span');
+        $('span').css({ 'color': 'none' });
+        wrapper.css({ 'color': 'dodgerblue' });
+    });
+    $(':input').blur(function() {
+        var wrapper = $(this).parent().find('span');
+        $('span').css({ 'color': 'none' });
+        wrapper.css({ 'color': '#2B2A2A' });
+    });
+    //------------------------------------------------------------------------------------
+
     $("#contenido-index").empty();
     $("#contenido-index").load("web/slider.php");
 
