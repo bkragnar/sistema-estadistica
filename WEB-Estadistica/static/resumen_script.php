@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="static/css/all.min.css">
 <link rel="stylesheet" href="static/css/styles.css">
 
+
 <script src="static/js/jquery-3.4.1.min.js"></script>
 <script src="static/librerias/bootstrap/js/popper.min.js"></script>
 <script src="static/librerias/bootstrap/js/bootstrap.min.js"></script>

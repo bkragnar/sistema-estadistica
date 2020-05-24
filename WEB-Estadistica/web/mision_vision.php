@@ -1,9 +1,9 @@
 <div class="container">
     <div class="jumbotron mt-3">
         <h1 class="display-4">Misión</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p class="lead">ENTREGAR INFORMACION FIDEDIGNA DE ESTADISTICAS DE SALUD, A NUESTROS USUARIOS EN OPORTUNIDAD, CALIDAD Y COMPLETITUD SEGÚN LOS ESTANDARES DEFINIDOS, PARA EL PROCESO DE TOMA DE DECISIONES Y APOYO DE LA GESTION.</p>
         <hr class="my-4">
         <h1 class="display-4">Visión</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p class="lead">EL SUBDEPARTAMENTO DE ESTADISTICAS Y GESTION DE LA INFORMACION, DEL SERVICIO DE SALUD DE COQUIMBO, PRETENDE OTORGAR INFORMACION INTEGRAL Y DE EXCELENCIA AL USUARIO INTERNO Y EXTERNO.</p>
     </div>
 </div>

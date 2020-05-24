@@ -116,7 +116,7 @@ switch ($seccion) {
                                 WHERE id_eg_ges='$id_casos_ges'";
         echo mysqli_query($connection, $sql_casos_ges);
         break;
-    
+
     case "red-siges":
         $id_red_siges = $_POST['id_red_siges'];
         $estable_red_siges = $_POST['estable_red_siges_up'];
@@ -127,18 +127,45 @@ switch ($seccion) {
         $telefono_red_siges = $_POST['telefono_red_siges_up'];
         $comuna_red_siges = $_POST['comuna_red_siges_up'];
 
-        $sql_red_siges="UPDATE red_siges SET estable_red_siges=$estable_red_siges,nombre_red_siges='$nombre_red_siges',apellido_red_siges='$apellido_red_siges',mail_red_siges='$mail_red_siges',rutaminsal_red_siges='$ruta_red_siges',telefono_red_siges='$telefono_red_siges',comuna_red_siges=$comuna_red_siges
+        $sql_red_siges = "UPDATE red_siges SET estable_red_siges=$estable_red_siges,nombre_red_siges='$nombre_red_siges',apellido_red_siges='$apellido_red_siges',mail_red_siges='$mail_red_siges',rutaminsal_red_siges='$ruta_red_siges',telefono_red_siges='$telefono_red_siges',comuna_red_siges=$comuna_red_siges
                         WHERE id_red_siges=$id_red_siges";
-        echo mysqli_query($connection,$sql_red_siges);
-    break;
+        echo mysqli_query($connection, $sql_red_siges);
+        break;
 
     case "slider":
         $id_slider = $_POST['id_slider'];
         $titulo = $_POST['titulo_slider_up'];
         $descripcion = $_POST['descripcion_slider_up'];
 
-        $sql_slider_up="UPDATE slider_inicio SET titulo_slider='$titulo',descripcion_slider='$descripcion' 
+        $sql_slider_up = "UPDATE slider_inicio SET titulo_slider='$titulo',descripcion_slider='$descripcion' 
                         WHERE id_slider=$id_slider";
-        echo mysqli_query($connection,$sql_slider_up);
-    break;
+        echo mysqli_query($connection, $sql_slider_up);
+        break;
+
+    case "usuario":
+        $id_usu = $_POST['id_usuario'];
+        $nombre_usu = $_POST['nombre_usuario_up'];
+        $apellido_usu = $_POST['apellido_usuario_up'];
+        $correo_usu = $_POST['email_usuario_up'];
+        $usuario_usu = $_POST['usu_usuario_up'];
+        $pass_usu = $_POST['pass_usuario_up'];
+        $privilegio_usu = $_POST['privilegio_usuario_up'];
+        $estable_usu = $_POST['estable_usuario_up'];
+        if (isset($_POST['estado_usuario_up']) && $_POST['estado_usuario_up'] == 'on') {
+            $estado_usu = 1;
+        } else {
+            $estado_usu = 0;
+        }
+
+        if (!empty($pass_usu)) {
+            $sql_usuario_up = "UPDATE usuarios_sime SET nombre_sime='$nombre_usu',apellido_sime='$apellido_usu',correo_sime='$correo_usu',usuario_sime='$usuario_usu',contrasena_sime='$pass_usu',privilegio_sime=$privilegio_usu,estable_sime=$estable_usu ,estado_sime=$estado_usu
+                            WHERE id_sime='$id_usu'";
+            echo mysqli_query($connection, $sql_usuario_up);
+        } else {
+            $sql_usuario_up = "UPDATE usuarios_sime SET nombre_sime='$nombre_usu',apellido_sime='$apellido_usu',correo_sime='$correo_usu',usuario_sime='$usuario_usu',privilegio_sime=$privilegio_usu,estable_sime=$estable_usu,estado_sime=$estado_usu
+                            WHERE id_sime='$id_usu'";
+            echo mysqli_query($connection, $sql_usuario_up);
+        }
+
+        break;
 }

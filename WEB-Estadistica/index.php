@@ -4,7 +4,29 @@
 <head>
     <title>Estadística | Servicio de Salud Coquimbo | Ministerio de Salud</title>
     <?php
+    session_start();
     include_once "static/resumen_script.php";
+
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    //controlamos el token que viene por get del inicio de sesion
+    if (!empty($_GET['v'])) {
+        if ($_GET['v'] != $_SESSION['token']['publico'] || empty($_SESSION['token']['privado']) || empty($_GET['v'])) {
+            echo "<script>location.href='static/transaccion/exit.php'</script>";
+        } else {
+            $token_publico = $_SESSION['token']['publico'];
+            $token_privado = $_SESSION['token']['privado'];
+            $token_sesion = $_SESSION['token']['sesion'];
+    ?>
+            <div id="control"></div>
+            <script src="static/js/token_control.js"></script>
+    <?php
+        }
+    } else {
+        include_once "static/transaccion/token_acceso.php";
+    }
+
     ?>
 </head>
 
@@ -20,7 +42,7 @@
                     </div>
                     <div class="col-9">
                         <!-- 9 -->
-                        
+
                         <h1 class="header-title"></h1>
                         <div class="head-sime">
                             <img src="static/img_fija/SIME.gif" alt="">

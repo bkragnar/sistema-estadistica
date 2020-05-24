@@ -53,7 +53,7 @@ switch ($seleccion) {
 
         $sql_meses = $connection->query("SELECT DISTINCT(mes_eg_ges)  FROM egresos_ges WHERE estable_eg_ges='105001' and codigo_tipo_ges_eg_ges=3 and anio_eg_ges=$anio_res_ges");
 
-        $cadena = "<input id='meses-vencidas' name='meses-vencidas' type='range' min='$m_min' max='$m_max' value='$m_max' list='lista-meses' step='1' autocomplete='off' onclick='etiquetaMes()'>
+        $cadena = "<input id='meses-vencidas' name='meses-vencidas' class='custom-range' type='range' min='$m_min' max='$m_max' value='$m_max' list='lista-meses' step='1' autocomplete='off' onclick='etiquetaMes()'>
                 <datalist id='lista-meses'>";
         $cantidad = mysqli_num_rows($sql_meses);
 

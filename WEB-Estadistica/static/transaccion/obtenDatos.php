@@ -206,4 +206,24 @@ class obtdatos
         return $datos_slider;
     }
 
+    public function obtusuario($id_usuario)
+    {
+        include "../../cnx/connection.php";
+
+        $sql_usuario = "SELECT * FROM usuarios_sime WHERE id_sime='$id_usuario'";
+        $res_usuario = mysqli_query($connection, $sql_usuario);
+        $ver_usuario = mysqli_fetch_array($res_usuario);
+        $datos_usuario = array(
+            'id_usuario' => $ver_usuario[0],
+            'nombre_usuario' => $ver_usuario[1],
+            'apellido_usuario' => $ver_usuario[2],
+            'correo_usuario' => $ver_usuario[3],
+            'usu_usuario' => $ver_usuario[4],
+            'privilegio_usuario' => $ver_usuario[6],
+            'estable_usuario' => $ver_usuario[7],
+            'estado_usuario' => $ver_usuario[9]
+        );
+        return $datos_usuario;
+    }
+
 }

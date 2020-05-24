@@ -1210,6 +1210,96 @@ function EliminarDocGes(id) {
 //------------------------------------------------------------
 //------------------------------------------------------------
 
+//-------------- Mantenedor usuario -----------------------
+function AgregarDatosUsuario(datos_usuario) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: datos_usuario,
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-nuevo-usuario')[0].reset(); //limpia el formulario
+                $("#carga_usuario").load("web/mant_usuarios.php");
+                alertify.success("Registro agregado con exito");
+            } else {
+                alertify.error("No es posible guardar el registro");
+            }
+        }
+    });
+}
+
+function AgrFormEditarUsuario(id_usuario) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/fun_json.php",
+        data: "id_usuario=" + id_usuario + "&seccion=usuario",
+        success: function(r) {
+            datos = jQuery.parseJSON(r);
+            $('#id_usuario').val(datos['id_usuario']);
+            $('#nombre_usuario_up').val(datos['nombre_usuario']);
+            $('#apellido_usuario_up').val(datos['apellido_usuario']);
+            $('#email_usuario_up').val(datos['correo_usuario']);
+            $('#usu_usuario_up').val(datos['usu_usuario']);
+            $('#privilegio_usuario_up').val(datos['privilegio_usuario']);
+            $('#estable_usuario_up').val(datos['estable_usuario']);
+            var mitoggle = document.getElementsByClassName("toggle")[1];
+            if (datos['estado_usuario'] == 1) {
+                if (mitoggle.className != "toggle btn btn-success") {
+                    mitoggle.className = "toggle btn btn-success";
+                }
+            } else {
+                if (mitoggle.className == "toggle btn btn-success") {
+                    mitoggle.className = "toggle btn btn-danger off";
+                }
+            }
+        }
+    });
+}
+
+function EditarUsuario(editar_usuario) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: editar_usuario,
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-editar-usuario')[0].reset(); //limpia el formulario
+                $("#carga_usuario").load("web/mant_usuarios.php");
+                alertify.success("Registro editado con exito");
+                $('#editar_usuario').modal('hide'); //cierra el modal carga masiva
+            } else {
+                alertify.error("No es posible editar el registro");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoUsuario(id_usuario) {
+    alertify.confirm('Eliminar Registro', '¿Está seguro de eliminar este registro?',
+        function() { EliminarUsuario(id_usuario); },
+        function() {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarUsuario(id) {
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "id=" + id + "&seccion=usuario",
+        success: function(r) {
+            if (r == 1) {
+                $("#carga_usuario").load("web/mant_usuarios.php");
+                alertify.success("Registro eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el registro");
+            }
+        }
+    });
+}
+//------------------------------------------------------------
+//------------------------------------------------------------
+
 //----------------- Mantenedor slider ------------------------
 function AgregarSlider() {
     var datos_slider = new FormData($("#frm-nuevo-slider")[0]);
@@ -1545,6 +1635,50 @@ function carga_quienes_somos() {
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
+//        carga mantenedor usuario
+//--------------------------------------------------------------
+function cargar_usuario() {
+    $("#carga_usuario").load("web/mant_usuarios.php");
+
+    $('#agregar-nuevo-usuario').click(function() {
+        nuevo_usuario = $('#frm-nuevo-usuario').serialize();
+        AgregarDatosUsuario(nuevo_usuario);
+    });
+
+    $('#editar-usuario').click(function() {
+        editar_usuario = $('#frm-editar-usuario').serialize();
+        EditarUsuario(editar_usuario);
+    });
+
+    $('#email_usuario').keyup(function() {
+        var email = $(this).val();
+        var dividir = email.split('@');
+        $('#usu_usuario').val(dividir[0]);
+    });
+    $('#email_usuario_up').keyup(function() {
+        var email = $(this).val();
+        var dividir = email.split('@');
+        $('#usu_usuario_up').val(dividir[0]);
+    });
+
+}
+
+function generar(modal) {
+    var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ2346789";
+    var contraseña = "";
+    for (i = 0; i < 6; i++) {
+        contraseña += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    if (modal == "nuevo") {
+        $('#pass_usuario').val(contraseña);
+    } else {
+        $('#pass_usuario_up').val(contraseña);
+    }
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
 //        carga tabs pagina informe ges
 //--------------------------------------------------------------
 function carga_informes_ges() {
@@ -1681,9 +1815,63 @@ function oculta() {
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 
+//--------------- funcion valida datos logeo ----------------------
+$(function() {
+    //ejecutamos la funcion al hacer unsubmite
+    $("#form_login").on("submit", function(e) {
+        e.preventDefault();
+        var f = $(this);
+        var formData = new FormData(document.getElementById("form_login"));
+        formData.append("dato", "valor");
+        d = new Date();
+
+        //enviamos los parametros
+        $.ajax({
+            url: "static/transaccion/validacion_login.php",
+            type: "post",
+            dataType: "html",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function() {
+                //en el caso de que este show, lo ocultamos
+                jQuery("#mensaje_validacion_login_refresh").hide("slow");
+                //ocultamos inputs
+                jQuery("#form_check").hide("slow");
+                //ocultamos submit
+                jQuery("#btn_submit").html("<img src='src/img/loader.gif' width='20px'>");
+                //$("#img_captcha").hide("slow");
+                jQuery("#post_captcha").val("");
+            },
+            success: function(response) {
+                //reseteamos el captcha
+                jQuery("#img_captcha").attr("src", "src/validaciones/captcha.php?" + d.getTime());
+                jQuery("#form_check").show("slow");
+                //ocultamos el mensaje de precarga
+                jQuery("#mensaje_validacion_login").hide("slow");
+                //mostramos submit
+                jQuery("#btn_submit").html("Iniciar sesión");
+                //return php
+                jQuery("#mensaje_validacion_login_refresh").show("slow");
+                jQuery("#mensaje_validacion_login_refresh").html(response);
+            }
+        })
+    });
+});
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 
 //--------------- llamado a las paginas desde el menu ----------
 $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+    //--------------- captcha ----------
+    jQuery("#captcha").show();
+    jQuery("#captcha").html("<img id='img_captcha' style='width:150px;'>");
+    jQuery("#img_captcha").attr("src", "static/transaccion/captcha.php");
+    //--------------------------------------------------------------
+    //--------------------------------------------------------------
     //   cambia el color de etiqueta i del icono del login mientras el input este en focus
     $(':input').focusin(function() {
         var wrapper = $(this).parent().find('span');
@@ -1783,6 +1971,20 @@ $(document).ready(function() {
     $('#menu-mant-slider').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/mant_slider_card.php");
+    })
+
+    $('#menu-mant-usuarios').click(function() {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_usuarios_card.php");
+    })
+
+    $('#menu_mi_perfil').click(function() {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/perfil_usuario.php");
+    })
+
+    $('#cerrar-sesion').click(function() {
+        location.href = 'static/transaccion/exit.php';
     })
 });
 //--------------------------------------------------------------

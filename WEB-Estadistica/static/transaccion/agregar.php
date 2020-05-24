@@ -173,4 +173,33 @@ switch ($seccion) {
             }
         }
         break;
+    case "usuario":
+        $nombre_usu = $_POST['nombre_usuario'];
+        $apellido_usu = $_POST['apellido_usuario'];
+        $correo_usu = $_POST['email_usuario'];
+        $usuario_usu = $_POST['usu_usuario'];
+        $pass_usu = $_POST['pass_usuario'];
+        $privilegio_usu = $_POST['privilegio_usuario'];
+        $estable_usu = $_POST['estable_usuario'];
+        $fecha_usu = date("Y-m-d");
+        if ( isset($_POST['estado_usuario']) && $_POST['estado_usuario'] == 'on'){
+            $estado_usu = 1;
+        }else{
+            $estado_usu = 0;
+        }
+        
+        $pass_usu_encriptada = password_hash( $_POST['pass_usuario'],PASSWORD_DEFAULT);
+        $sql_num_usu =$connection->query("SELECT count(*) FROM usuarios_sime");
+        $res_num_usu=mysqli_fetch_array($sql_num_usu);
+        if($res_num_usu[0]==0){
+            $cantidad_usu=1;
+        }else{
+            $cantidad_usu=$res_num_usu[0]+1;
+        }
+        $id_usu="USU".$cantidad_usu;
+
+        $sql_usuario = "INSERT INTO usuarios_sime(id_sime,nombre_sime,apellido_sime,correo_sime,usuario_sime,contrasena_sime,privilegio_sime,estable_sime,fecha_creacion_sime,estado_sime,avatar_sime)
+                            VALUES('$id_usu','$nombre_usu','$apellido_usu','$correo_usu','$usuario_usu','$pass_usu_encriptada',$privilegio_usu,$estable_usu,'$fecha_usu',$estado_usu,'')";
+        echo mysqli_query($connection, $sql_usuario);
+    break;
 }

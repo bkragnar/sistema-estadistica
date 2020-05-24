@@ -148,3 +148,28 @@
         /* IE < 9.0 */
         color: #fff;
     }
+    /* -----------------------------------------------------------*/
+    /*                  css perfil usuariio                       */
+    
+    .box-avatar-usu {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .box-avatar-usu img {
+        width: 100%;
+        height: auto;
+    }
+    
+    @supports(object-fit: cover) {
+        .box-avatar-usu img {
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+    }
+    
+    .datos-usu {
+        font-size: 18px;
+        ;
+    }

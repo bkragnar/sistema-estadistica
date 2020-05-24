@@ -88,6 +88,8 @@
                 <li><a href="#" class="dropdown-item" id="menu-mant-slider">Slider</a></li>
               </ul>
             </li>
+            <hr>
+            <li><a href="#" class="dropdown-item" id="menu-mant-usuarios">Usuarios</a></li>
             <!--
             <li><a href="#" class="dropdown-item">Some other action</a></li>
 
@@ -137,6 +139,8 @@
       <!-- derecha -->
       <span class="navbar-text">
         <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAcceso"><i class="fas fa-users"></i> Acceso</button>
+        <button class="btn btn-secondary" id="menu_mi_perfil"><i class="fas fa-user-cog ml-2"></i> Mi Perfil</button>
+        <i class="fas fa-sign-out-alt fa-lg ml-3" data-toggle="tooltip" data-placement="top" id="cerrar-sesion" title="Cerrar Sesion"></i>
       </span>
     </div>
   </div>
@@ -154,30 +158,35 @@
       </div>
       <div class="modal-body">
 
-        <form action="POST" id="form-login-user">
+        <form action="POST" id="form_login">
+          <input type="hidden" name="token_acceso" value="<?php echo $_SESSION['token']['publico']; ?>"> 
           <div class="input-group">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-user fa-lg"></i></span>
-              <input type="text" id="log-user" name="log-user" class="form-control input-sm" placeholder="Usuario" required>
+              <input type="text" id="log-user" name="<?php echo $_SESSION['acceso']['usuario']; ?>" class="form-control input-sm" placeholder="Usuario" required>
             </div>
           </div>
           <div class="input-group pt-3">
             <div class="input-group">
               <span id="pasw" class="input-group-text" onmousedown="revela()" onmouseup="oculta()"><i id="eye-pass" class="fas fa-eye-slash fa-sm"></i></span>
-              <input type="password" id="clave-user" name="clave-user" class="form-control input-sm" placeholder="Contraseña" required>
+              <input type="password" id="clave-user" name="<?php echo $_SESSION['acceso']['password']; ?>" class="form-control input-sm" placeholder="Contraseña" required>
             </div>
+          </div>
+          <div class="text-center mt-3">
+            <span id="captcha"></span>
           </div>
           <div class="input-group pt-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-keyboard"></i></i></span>
-              <input type="text" id="captcha" name="captcha" class="form-control input-sm text-center" required>
+              <input type="text" id="text-captcha" name="text-captcha" class="form-control input-sm text-center" required>
             </div>
           </div>
           <div class="pt-3">
             <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
           </div>
         </form>
-
+        <div id="mensaje_validacion_login"></div>
+        <div id="mensaje_validacion_login_refresh"></div> 
       </div>
       <div class="modal-footer text-info">
         Sub-Departamento de Estadísticas y Gestión de la Información

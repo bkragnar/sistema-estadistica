@@ -104,4 +104,11 @@ switch ($seccion) {
         $sql_slider = "DELETE FROM slider_inicio WHERE id_slider=$id_slider";
         echo mysqli_query($connection, $sql_slider);
         break;
+
+    case "usuario":
+        $id_usuario = $_POST['id'];
+
+        $sql_usuario = "DELETE FROM usuarios_sime WHERE id_sime='$id_usuario'";
+        echo mysqli_query($connection, $sql_usuario);
+        break;
 }

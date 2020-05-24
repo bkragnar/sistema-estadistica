@@ -54,4 +54,7 @@ switch ($seccion) {
     case "slider":
         echo json_encode($obj->obtslider($_POST['id_slider']));
         break;
+    case "usuario":
+        echo json_encode($obj->obtusuario($_POST['id_usuario']));
+    break;
 }
