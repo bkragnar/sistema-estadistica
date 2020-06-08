@@ -42,7 +42,7 @@ if (password_verify(cleanInput($_POST['text-captcha']), $_SESSION['captcha']['to
                         mysqli_query($connection, "INSERT INTO usser_log (ip_usser_log,nombre_usser_log,fecha_usser_log,estado_usser_log,token_usser_log)VALUES('$ipUser','$codigo_usuario','$fecha',0,'$token_sesion')");
                         //si todo esta correcto creamos session y redireccionamos
                         $_SESSION['session_usuario_codigo'] = $codigo_usuario;
-                        echo "<script>location.href='index.php?v=$token_publico'</script>";
+                        echo "<script>location.href='index.php?s=1&v=$token_publico'</script>";
                     } else {
                         mysqli_query($connection, "UPDATE usser_log SET fecha_usser_log = '$fecha', token_usser_log = '$token_sesion' WHERE nombre_usser_log = '$codigo_usuario'");
                         //si todo esta correcto creamos session y redireccionamos

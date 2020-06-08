@@ -189,6 +189,7 @@ switch ($seccion) {
         }
         
         $pass_usu_encriptada = password_hash( $_POST['pass_usuario'],PASSWORD_DEFAULT);
+        
         $sql_num_usu =$connection->query("SELECT count(*) FROM usuarios_sime");
         $res_num_usu=mysqli_fetch_array($sql_num_usu);
         if($res_num_usu[0]==0){

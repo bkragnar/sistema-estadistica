@@ -1,5 +1,19 @@
 <?php
 include "../cnx/connection.php";
+session_start();
+$usuariosime = $_SESSION['session_usuario_codigo'];
+
+$sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.correo_sime,u.usuario_sime,e.nombre_estable
+                                    FROM usuarios_sime u INNER JOIN establecimiento e on u.estable_sime=e.codigo_estable
+                                    WHERE u.id_sime='$usuariosime'");
+ while ($res_datos_usu = mysqli_fetch_array($sql_datos_usu)) {
+     $nombre_usu = $res_datos_usu[0];
+     $apellido_usu = $res_datos_usu[1];
+     $correo_usu = $res_datos_usu[2];
+     $usuario_usu = $res_datos_usu[3];
+     $estable_usu = $res_datos_usu[4];
+ }
+
 ?>
 
 
@@ -27,16 +41,16 @@ include "../cnx/connection.php";
                             <div class="ml-2">
                                 <div class="datos-usu mt-3">
                                     <div>
-                                        <label class="text-secondary" for="">Nombre:</label><label class="text-dark ml-2 font-weight-bolder" for="">oscar santander videla</label>
+                                        <label class="text-secondary" for="">Nombre:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $nombre_usu." ".$apellido_usu; ?></label>
                                     </div>
                                     <div>
-                                        <label class="text-secondary" for="">Correo:</label><label class="text-dark ml-2 font-weight-bolder" for="">oscar santander videla</label>
+                                        <label class="text-secondary" for="">Correo:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $correo_usu; ?></label>
                                     </div>
                                     <div>
-                                        <label class="text-secondary" for="">Usuario:</label><label class="text-dark ml-2 font-weight-bolder" for="">oscar santander videla</label>
+                                        <label class="text-secondary" for="">Usuario:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $usuario_usu; ?></label>
                                     </div>
                                     <div>
-                                        <label class="text-secondary" for="">Establecimiento:</label><label class="text-dark ml-2 font-weight-bolder" for="">oscar santander videla</label>
+                                        <label class="text-secondary" for="">Establecimiento:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $estable_usu; ?></label>
                                     </div>
                                     <hr>
                                     <div>
@@ -48,15 +62,15 @@ include "../cnx/connection.php";
                                                 <div class="col">
                                                     <div>
                                                         <label class="ml-4" for="">Contraseña Nueva</label>
-                                                        <span class="row">
+                                                        <span class="row input-group">
                                                             <span id="" class="input-group-text  ml-4" onmousedown="revelapass(1)" onmouseup="ocultapass(1)"><i id="eye-clas1" class="fas fa-eye-slash text-primary"></i></span>
-                                                            <input id="pass1" name="pass1" type="password"><i id="signo-pass1" class="far fa-check-square fa-lg ml-2"></i>
+                                                            <input id="pass1" name="pass1" class="form-control input-sm" type="password"><i id="signo-pass1" class="far fa-check-square fa-lg ml-2"></i>
                                                     </div>
                                                     <div>
                                                         <label class="ml-4" for="">Repetir Contraseña</label>
-                                                        <span class="row">
+                                                        <span class="row input-group">
                                                             <span id="" class="input-group-text  ml-4" onmousedown="revelapass(2)" onmouseup="ocultapass(2)"><i id="eye-clas2" class="fas fa-eye-slash text-primary"></i> </span>
-                                                            <input id="pass2" name="pass2" type="password"><i id="signo-pass2" class="far fa-check-square fa-lg ml-2"></i>
+                                                            <input id="pass2" name="pass2" class="form-control input-sm" type="password"><i id="signo-pass2" class="far fa-check-square fa-lg ml-2"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col">

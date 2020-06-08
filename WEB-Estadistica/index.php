@@ -18,6 +18,7 @@
             $token_publico = $_SESSION['token']['publico'];
             $token_privado = $_SESSION['token']['privado'];
             $token_sesion = $_SESSION['token']['sesion'];
+            include_once "static/transaccion/sesion_usuario.php";
     ?>
             <div id="control"></div>
             <script src="static/js/token_control.js"></script>
@@ -61,9 +62,17 @@
         </div>
     </section>
     <footer class="container-fluid navbar-dark bg-dark">
-        <?php include_once("static/nav/footer.php"); ?>
+        <?php include_once("static/nav/footer.php");?>
     </footer>
-
+<script>
+    $(document).ready(function(){
+        var primer_ingreso = '<?php echo $_GET['s'] ?>';
+        if (primer_ingreso == 1){
+            alertify.warning("Debe cambiar su Contraseña");
+            cambio_clave();
+        }
+    });
+</script>
 </body>
 
 </html>

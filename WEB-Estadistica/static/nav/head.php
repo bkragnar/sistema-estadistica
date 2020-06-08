@@ -33,35 +33,39 @@
 
           </ul>
         </li>
+        <?php
+        switch ($privilegio) {
+          case 2:
+          case 3:
 
-        <!-- nav dropdown -->
-        <li class="nav-item dropdown">
-
-          <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Mantenedores</a>
-          <ul class="dropdown-menu">
-
-            <!-- lvl 1 dropdown -->
-            <li class="dropdown-submenu">
-              <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">Estaticos</a>
+        ?>
+            <!-- nav dropdown -->
+            <li class="nav-item dropdown">
+              <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Mantenedores</a>
               <ul class="dropdown-menu">
-                <li><a href="#" class="dropdown-item" id="menu-mant-provincia">Provincia</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-comuna">Comuna</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-tipo-estable">Tipo Establecimiento</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-estable">Establecimiento</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-tipo-le">Tipo L.E.</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-linea-base">Linea Base L.E.</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-porcentaje-lb">Porcentaje COMGES</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-tipoges">Tipo GES</a></li>
 
-                <!-- lvl 2 dropdown -->
-                <!--
+                <!-- lvl 1 dropdown -->
+                <li class="dropdown-submenu">
+                  <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">Estaticos</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item" id="menu-mant-provincia">Provincia</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-comuna">Comuna</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-tipo-estable">Tipo Establecimiento</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-estable">Establecimiento</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-tipo-le">Tipo L.E.</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-linea-base">Linea Base L.E.</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-porcentaje-lb">Porcentaje COMGES</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-tipoges">Tipo GES</a></li>
+
+                    <!-- lvl 2 dropdown -->
+                    <!--
                 <li class="dropdown-submenu">
                   <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">level 2</a>
                   <ul class="dropdown-menu">
                     <li><a href="#" class="dropdown-item">level 3</a></li>
                     -->
-                <!-- lvl 3 dropdown -->
-                <!--
+                    <!-- lvl 3 dropdown -->
+                    <!--
                     <li class="dropdown-submenu">
                       <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">level 3</a>
                       <ul class="dropdown-menu">
@@ -75,22 +79,26 @@
                 <li><a href="#" class="dropdown-item">level 2</a></li>
                 <li><a href="#" class="dropdown-item">level 2</a></li>
                 -->
-              </ul>
-            </li>
+                  </ul>
+                </li>
 
-            <li class="dropdown-submenu">
-              <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">Dinamicos</a>
-              <ul class="dropdown-menu">
-                <li><a href="#" class="dropdown-item" id="menu-mant-egreso-le">Egresos L.E</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-casos-ges">Casos GES</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-red-siges">Red Siges</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-doc-ges">Documentos GES</a></li>
-                <li><a href="#" class="dropdown-item" id="menu-mant-slider">Slider</a></li>
-              </ul>
-            </li>
-            <hr>
-            <li><a href="#" class="dropdown-item" id="menu-mant-usuarios">Usuarios</a></li>
-            <!--
+                <li class="dropdown-submenu">
+                  <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">Dinamicos</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item" id="menu-mant-egreso-le">Egresos L.E</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-casos-ges">Casos GES</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-red-siges">Red Siges</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-doc-ges">Documentos GES</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-mant-slider">Slider</a></li>
+                  </ul>
+                </li>
+                <hr>
+                <?php
+                if ($privilegio == 3) {
+                ?>
+                  <li><a href="#" class="dropdown-item" id="menu-mant-usuarios">Usuarios</a></li>
+
+                  <!--
             <li><a href="#" class="dropdown-item">Some other action</a></li>
 
             <li class="dropdown-submenu">
@@ -127,10 +135,18 @@
               </ul>
             </li>
             -->
-          </ul>
-        </li>
+                <?php
+                }
+                ?>
+              </ul>
+            </li>
 
+        <?php
+            break;
+        }
+        ?>
         <li class="nav-item"><a href="#" class="nav-link" id="menu-conocenos">Conocenos</a></li>
+
         <!--
         <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
@@ -138,9 +154,18 @@
       </ul>
       <!-- derecha -->
       <span class="navbar-text">
-        <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAcceso"><i class="fas fa-users"></i> Acceso</button>
-        <button class="btn btn-secondary" id="menu_mi_perfil"><i class="fas fa-user-cog ml-2"></i> Mi Perfil</button>
-        <i class="fas fa-sign-out-alt fa-lg ml-3" data-toggle="tooltip" data-placement="top" id="cerrar-sesion" title="Cerrar Sesion"></i>
+        <?php
+        if (!$_SESSION['session_usuario_codigo']) {
+        ?>
+          <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAcceso"><i class="fas fa-users"></i> Acceso</button>
+        <?php
+        } else {
+        ?>
+          <button class="btn btn-secondary" id="menu_mi_perfil"><i class="fas fa-user-cog ml-2"></i> Mi Perfil</button>
+          <i class="fas fa-sign-out-alt fa-lg ml-3" data-toggle="tooltip" data-placement="top" id="cerrar-sesion" title="Cerrar Sesion"></i>
+        <?php
+        }
+        ?>
       </span>
     </div>
   </div>
@@ -163,7 +188,7 @@
           <div class="input-group">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-user fa-lg"></i></span>
-              <input type="text" id="log-user" name="<?php echo $_SESSION['acceso']['usuario']; ?>" class="form-control input-sm" placeholder="Usuario" required>
+              <input type="text" id="log-user" name="<?php echo $_SESSION['acceso']['usuario']; ?>" style="text-transform:lowercase;" onkeyup="javascript:this.value=this.value.toLowerCase();" class="form-control input-sm" placeholder="Usuario" required>
             </div>
           </div>
           <div class="input-group pt-3">

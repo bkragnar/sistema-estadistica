@@ -43,7 +43,7 @@ include "../cnx/connection.php";
                     <label for="">Apellido</label>
                     <input type="text" id="apellido_usuario" name="apellido_usuario" class="form-control input-sm">
                     <label for="">Correo</label>
-                    <input type="email" id="email_usuario" name="email_usuario" class="form-control input-sm">
+                    <input type="email" id="email_usuario" name="email_usuario" style="text-transform:lowercase;" onkeyup="javascript:this.value=this.value.toLowerCase();" class="form-control input-sm">
                     <label for="">Usuario</label>
                     <input type="text" id="usu_usuario" name="usu_usuario" class="form-control input-sm" readonly>
                     <label for="">Contraseña</label>
@@ -105,7 +105,7 @@ include "../cnx/connection.php";
                     <label for="">Apellido</label>
                     <input type="text" id="apellido_usuario_up" name="apellido_usuario_up" class="form-control input-sm">
                     <label for="">Correo</label>
-                    <input type="email" id="email_usuario_up" name="email_usuario_up" class="form-control input-sm">
+                    <input type="email" id="email_usuario_up" name="email_usuario_up" style="text-transform:lowercase;" onkeyup="javascript:this.value=this.value.toLowerCase();" class="form-control input-sm">
                     <label for="">Usuario</label>
                     <input type="text" id="usu_usuario_up" name="usu_usuario_up" class="form-control input-sm" readonly>
                     <label for="">Contraseña</label>

@@ -45,14 +45,14 @@ include "../cnx/connection.php";
     $(document).ready(function() {
         if ($('#tipo_estable_cne').val() == 1) {
             $('#select-comuna').show();
-            recargarLista_comuna();
+            recargarLista_comuna(1);
         } else {
             $('#select-comuna').hide();
         }
         $('#tipo_estable_cne').change(function() {
             if ($('#tipo_estable_cne').val() == 1) {
                 $('#select-comuna').show();
-                recargarLista_comuna();
+                recargarLista_comuna(1);
             } else {
                 $('#select-comuna').hide();
             }

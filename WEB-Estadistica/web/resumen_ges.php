@@ -18,11 +18,11 @@ $sql_anios = $connection->query("SELECT DISTINCT(anio_eg_ges) FROM egresos_ges W
                     <label>Seleccionar Año:</label><label class="ml-3" id="etiqueta-datalist"></label>
                 </div>
                 <div class="row ml-2">
-                    <input id="datal" name="datal" type="range" class="custom-range" list="lista-anios1" min="<?php echo $a_min ?>" max="<?php echo $a_max ?>" autocomplete="off">
+                    <input id="datal" name="datal" type="range" class="form-control-range" list="lista-anios1" min="<?php echo $a_min ?>" max="<?php echo $a_max ?>" autocomplete="off">
                     <datalist id="lista-anios1">
                         <?php
                         while ($res_anios = mysqli_fetch_array($sql_anios)) {
-                            echo  '<option value="' . $res_anios[0] . '"></option>'; // Format for adding options 
+                            echo  '<option value="' . $res_anios[0] . '"></option>'; // Format for adding options custom-range
                         }
                         ?>
                     </datalist>

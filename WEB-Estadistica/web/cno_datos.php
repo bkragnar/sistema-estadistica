@@ -23,7 +23,7 @@ if ($tipo_estable == 1) {
                 FROM establecimiento e INNER JOIN tipo_estable t ON e.tipo_estable=t.codigo_tipo 
                 INNER JOIN linea_base_le l ON l.codigo_estable_lb=e.codigo_estable INNER JOIN egresos_le eg 
                 ON eg.estable_eg=e.codigo_estable and eg.anio_eg=l.anio_lb
-                WHERE eg.anio_eg=$anio AND t.codigo_tipo=$tipo_estable and e.codigo_comuna=$comuna and eg.tipo_le_eg=1
+                WHERE eg.anio_eg=$anio AND t.codigo_tipo=$tipo_estable and e.codigo_comuna=$comuna and eg.tipo_le_eg=2
                 ORDER BY e.codigo_estable,eg.mes_eg");
     if (mysqli_num_rows($sql_datos) == 0) {
         echo '<script>alertify.warning("No se registran datos");</script>';
@@ -207,7 +207,7 @@ if ($tipo_estable == 1) {
     $sql_datos = $connection->query("SELECT e.nombre_estable,l.cantidad_lb,eg.mes_eg,eg.cantidad_eg
                 FROM establecimiento e INNER JOIN tipo_estable t ON e.tipo_estable=t.codigo_tipo 
                 INNER JOIN linea_base_le l ON l.codigo_estable_lb=e.codigo_estable INNER JOIN egresos_le eg 
-                ON eg.estable_eg=e.codigo_estable and eg.anio_eg=l.anio_lb and eg.tipo_le_eg=1
+                ON eg.estable_eg=e.codigo_estable and eg.anio_eg=l.anio_lb and eg.tipo_le_eg=2
                 WHERE eg.anio_eg=$anio AND t.codigo_tipo=$tipo_estable
                 ORDER BY e.codigo_estable,eg.mes_eg");
     if (mysqli_num_rows($sql_datos) == 0) {
@@ -370,14 +370,14 @@ echo '</pre>';
 ?>
 
 
-<div id="grafico"></div>
+<div id="grafico-cno"></div>
 
 <script>
     $(document).ready(function() {
         if (<?php echo mysqli_num_rows($sql_datos); ?> > 0) {
             var mtz1 = '<?php echo json_encode($valores); ?>';
             var mtz2 = '<?php echo json_encode($nombres); ?>';
-            cargar_grafico(mtz1, mtz2, 1);
+            cargar_grafico(mtz1, mtz2,2);
         }
     });
 </script>

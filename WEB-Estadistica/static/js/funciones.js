@@ -1218,9 +1218,21 @@ function AgregarDatosUsuario(datos_usuario) {
         data: datos_usuario,
         success: function(r) {
             if (r == 1) {
-                $('#frm-nuevo-usuario')[0].reset(); //limpia el formulario
-                $("#carga_usuario").load("web/mant_usuarios.php");
                 alertify.success("Registro agregado con exito");
+                //enviar el email
+                $.post('static/transaccion/email.php', datos_usuario + { "var": "nuevo" },
+                    function(res) {
+                        if (res == 1) {
+                            alertify.success("El Email fue enviado al Usuario");
+                            $('#frm-nuevo-usuario')[0].reset(); //limpia el formulario
+                            $("#carga_usuario").load("web/mant_usuarios.php");
+                        } else {
+                            alertify.error("El Email no fue enviado");
+                            $('#frm-nuevo-usuario')[0].reset(); //limpia el formulario
+                            $("#carga_usuario").load("web/mant_usuarios.php");
+                        }
+                    });
+
             } else {
                 alertify.error("No es posible guardar el registro");
             }
@@ -1263,10 +1275,21 @@ function EditarUsuario(editar_usuario) {
         data: editar_usuario,
         success: function(r) {
             if (r == 1) {
-                $('#frm-editar-usuario')[0].reset(); //limpia el formulario
-                $("#carga_usuario").load("web/mant_usuarios.php");
                 alertify.success("Registro editado con exito");
                 $('#editar_usuario').modal('hide'); //cierra el modal carga masiva
+                //enviar el email
+                $.post('static/transaccion/email.php', editar_usuario + { "var": "edicion" },
+                    function(res) {
+                        if (res == 1) {
+                            alertify.success("El Email fue enviado al Usuario");
+                            $('#frm-editar-usuario')[0].reset(); //limpia el formulario
+                            $("#carga_usuario").load("web/mant_usuarios.php");
+                        } else {
+                            alertify.error("El Email no fue enviado");
+                            $('#frm-editar-usuario')[0].reset(); //limpia el formulario
+                            $("#carga_usuario").load("web/mant_usuarios.php");
+                        }
+                    });
             } else {
                 alertify.error("No es posible editar el registro");
             }
@@ -1757,32 +1780,54 @@ function recargar_graficos_ges(anio_ges) {
 //--------------------------------------------------------------
 //        funciones recargar lista SELECT
 //--------------------------------------------------------------
-function recargarLista_comuna() {
-    $.ajax({
-        type: "POST",
-        url: "web/select.php",
-        data: "seleccion=comuna",
-        success: function(r) {
-            $('#select-comuna').html(r);
-        }
-    });
+function recargarLista_comuna(dato) {
+    if (dato == 1) {
+        $.ajax({
+            type: "POST",
+            url: "web/select.php",
+            data: "seleccion=comuna",
+            success: function(r) {
+                $('#select-comuna').html(r);
+            }
+        });
+    } else if (dato == 2) {
+        $.ajax({
+            type: "POST",
+            url: "web/select.php",
+            data: "seleccion=comuna",
+            success: function(r) {
+                $('#select-comuna-cno').html(r);
+            }
+        });
+    }
 }
 
 //--------------------------------------------------------------
-//        funciones tabs no-ges
+//        graficos no-ges
 //--------------------------------------------------------------
-function cargar_grafico(mtz1, mtz2) {
-    $.ajax({
-        type: "POST",
-        url: "web/grafico.php",
-        data: { 'arreglo1': mtz1, 'arreglo2': mtz2 },
-        success: function(r) {
-            $('#grafico').html(r);
-        }
-    });
+function cargar_grafico(mtz1, mtz2, prestacion) {
+    if (prestacion == 1) {
+        $.ajax({
+            type: "POST",
+            url: "web/grafico.php",
+            data: { 'arreglo1': mtz1, 'arreglo2': mtz2 },
+            success: function(r) {
+                $('#grafico').html(r);
+            }
+        });
+    } else if (prestacion == 2) {
+        $.ajax({
+            type: "POST",
+            url: "web/grafico.php",
+            data: { 'arreglo1': mtz1, 'arreglo2': mtz2 },
+            success: function(r) {
+                $('#grafico-cno').html(r);
+            }
+        });
+    }
 }
 //--------------------------------------------------------------
-//        funciones tabs no-ges
+//        carga cne_datos
 //--------------------------------------------------------------
 function ConsultaCNE(datosCNE) {
     $.ajax({
@@ -1862,7 +1907,9 @@ $(function() {
 });
 //--------------------------------------------------------------
 //--------------------------------------------------------------
-
+function cambio_clave() {
+    document.getElementById('menu_mi_perfil').click();
+}
 //--------------- llamado a las paginas desde el menu ----------
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
