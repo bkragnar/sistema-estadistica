@@ -13,7 +13,7 @@
         $imagen = imagecreatefromjpeg( "../img_fija/captcha.jpg" ); 
 
         // la funcion imagecolorallocate ( $imagen , rojo , verde , azul ) genera un color  
-        $colortext = imagecolorallocate($imagen, 0, 0, 400); 
+        $colortext = imagecolorallocate($imagen,255, 87, 51); 
         imagestring($imagen, 5, 30, 8, $ranStr, $colortext); 
         header( "Content-type: image/jpeg" );
         //Se crea la imagen 
@@ -30,7 +30,7 @@
         $imagen = imagecreatefromjpeg( "../img_fija/captcha.jpg" ); 
 
         // la funcion imagecolorallocate ( $imagen , rojo , verde , azul ) genera un color  
-        $colortext = imagecolorallocate($imagen, 0, 0, 400); 
+        $colortext = imagecolorallocate($imagen, 255, 87, 51); 
         imagestring($imagen, 5, 30, 8, $ranStr, $colortext); 
         header( "Content-type: image/jpeg" );
         //Se crea la imagen 

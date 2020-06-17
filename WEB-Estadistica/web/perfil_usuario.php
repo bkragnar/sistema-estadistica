@@ -3,16 +3,17 @@ include "../cnx/connection.php";
 session_start();
 $usuariosime = $_SESSION['session_usuario_codigo'];
 
-$sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.correo_sime,u.usuario_sime,e.nombre_estable
+$sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.correo_sime,u.usuario_sime,e.nombre_estable,u.avatar_sime
                                     FROM usuarios_sime u INNER JOIN establecimiento e on u.estable_sime=e.codigo_estable
                                     WHERE u.id_sime='$usuariosime'");
- while ($res_datos_usu = mysqli_fetch_array($sql_datos_usu)) {
-     $nombre_usu = $res_datos_usu[0];
-     $apellido_usu = $res_datos_usu[1];
-     $correo_usu = $res_datos_usu[2];
-     $usuario_usu = $res_datos_usu[3];
-     $estable_usu = $res_datos_usu[4];
- }
+while ($res_datos_usu = mysqli_fetch_array($sql_datos_usu)) {
+    $nombre_usu = $res_datos_usu[0];
+    $apellido_usu = $res_datos_usu[1];
+    $correo_usu = $res_datos_usu[2];
+    $usuario_usu = $res_datos_usu[3];
+    $estable_usu = $res_datos_usu[4];
+    $avatar_usu = $res_datos_usu[5];
+}
 
 ?>
 
@@ -28,12 +29,12 @@ $sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.cor
                     <div class="row">
                         <div class="col-sm-4 p-0">
                             <div class="box-avatar-usu mx-auto">
-                                <img id="img-muestra-avatar" class="rounded-circle" src="" alt="">
+                                <img id="img-muestra-avatar" class="rounded-circle" src="static/img_avatar/<?php echo $avatar_usu; ?>" alt="">
                             </div>
                             <div class="update-avatar-usu">
-                                <form action="">
+                                <form id="cambio-avatar" onsubmit="return false" action="">
                                     <input type="file" id="img-avatar-usu-up" name="img-avatar-usu-up" class="form-control form-control-sm">
-                                    <button class="btn btn-primary btn-block btn-sm mt-2">Actualizar imagen</button>
+                                    <button id="btn-up-avatar" class="btn btn-primary btn-block btn-sm mt-2">Actualizar imagen</button>
                                 </form>
                             </div>
                         </div>
@@ -41,7 +42,7 @@ $sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.cor
                             <div class="ml-2">
                                 <div class="datos-usu mt-3">
                                     <div>
-                                        <label class="text-secondary" for="">Nombre:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $nombre_usu." ".$apellido_usu; ?></label>
+                                        <label class="text-secondary" for="">Nombre:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $nombre_usu . " " . $apellido_usu; ?></label>
                                     </div>
                                     <div>
                                         <label class="text-secondary" for="">Correo:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $correo_usu; ?></label>
@@ -64,13 +65,13 @@ $sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.cor
                                                         <label class="ml-4" for="">Contraseña Nueva</label>
                                                         <span class="row input-group">
                                                             <span id="" class="input-group-text  ml-4" onmousedown="revelapass(1)" onmouseup="ocultapass(1)"><i id="eye-clas1" class="fas fa-eye-slash text-primary"></i></span>
-                                                            <input id="pass1" name="pass1" class="form-control input-sm" type="password"><i id="signo-pass1" class="far fa-check-square fa-lg ml-2"></i>
+                                                            <input id="pass1" name="pass1" class="form-control input-sm" type="password" autocomplete="off"><i id="signo-pass1" class="far fa-check-square fa-lg ml-2"></i>
                                                     </div>
                                                     <div>
                                                         <label class="ml-4" for="">Repetir Contraseña</label>
                                                         <span class="row input-group">
                                                             <span id="" class="input-group-text  ml-4" onmousedown="revelapass(2)" onmouseup="ocultapass(2)"><i id="eye-clas2" class="fas fa-eye-slash text-primary"></i> </span>
-                                                            <input id="pass2" name="pass2" class="form-control input-sm" type="password"><i id="signo-pass2" class="far fa-check-square fa-lg ml-2"></i>
+                                                            <input id="pass2" name="pass2" class="form-control input-sm" type="password" autocomplete="off"><i id="signo-pass2" class="far fa-check-square fa-lg ml-2"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col">
@@ -150,19 +151,72 @@ $sql_datos_usu = $connection->query("SELECT u.nombre_sime,u.apellido_sime, u.cor
                 $('#signo-pass2').hide();
             }
         }
-        
+
         //---------------------------------------------------------------
         //          boton actualiza clave de usuario
         $('#btn_actualiza_pass').click(function() {
             if ($('#pass1').val() != "" && $('#pass2').val() != "" && $('#pass1').val().length >= 6 && $('#pass2').val().length >= 6) {
                 if ($('#pass1').val() == $('#pass2').val()) {
-                    alertify.success("las claves coinciden");
+                    var clave_nueva = $('#pass1').val();
+                    //alertify.success("las claves coinciden");
+                    $.post('static/transaccion/editar.php', {
+                            "actualiza_pass": clave_nueva,
+                            "usu_sime": '<?php echo $usuariosime; ?>',
+                            "seccion": "cambio_clave"
+                        },
+                        function(res) {
+                            if (res == 1) {
+                                alertify.success("La contraseña fue actualizada con exito");
+                                $('#cambio-pass')[0].reset(); //limpia el formulario
+                                $.post('static/transaccion/email.php', {
+                                    "nombre": '<?php echo $nombre_usu; ?>',
+                                    "apellido": '<?php echo $apellido_usu; ?>',
+                                    "correo": '<?php echo $correo_usu; ?>',
+                                    "clave": clave_nueva,
+                                    "usuario": '<?php echo $usuario_usu; ?>',
+                                    "var_mail": "cambio_clave"
+                                }, function(res2) {
+                                    if (res2 == 1) {
+                                        alertify.success("Se envió un email a su correo con la nueva contraseña");
+                                    } else {
+                                        alertify.error("No fue posible enviar el email a su correo");
+                                    }
+                                });
+                            }
+                        });
                 } else {
                     alertify.warning("Las claves no coinciden");
                 }
             } else {
                 alertify.warning("La clave debe tener un minimo de 6 caracteres");
             }
+        });
+        //---------------------------------------------------------------
+        //---------------------------------------------------------------
+
+        //---------------------------------------------------------------
+        //          boton actualiza avatar
+        $('#btn-up-avatar').click(function() {
+            var archivo_avatar = new FormData($("#cambio-avatar")[0]);
+            archivo_avatar.append('usuario', '<?php echo $usuario_usu; ?>');
+            archivo_avatar.append('seccion', 'actualizar_avatar');
+            $.ajax({
+                type: "POST",
+                url: "static/transaccion/editar.php",
+                data: archivo_avatar,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(r) {
+                    alert(r);
+                    if (r == 1) {
+                        $("#img-avatar-usu-up").val(null); //limpia el formulario por id
+                        alertify.success("Avatar actualizado con exito");
+                    } else {
+                        alertify.error("No fue posible actualizar el Avatar ");
+                    }
+                }
+            });
         });
         //---------------------------------------------------------------
         //---------------------------------------------------------------

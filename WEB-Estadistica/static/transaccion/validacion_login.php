@@ -1,6 +1,6 @@
 <?php
 session_start();
-sleep(0);
+sleep(1);
 include "../../cnx/connection.php";
 require_once("filtro_input.php");
 //validamos captcha    

@@ -1,8 +1,7 @@
 <?php
 require_once("../librerias/phpmailer/vendor/autoload.php");
 
-$tipo_email = $_POST['var'];
-
+$tipo_email = $_POST['var_mail'];
 /* Start to develop here. Best regards https://php-download.com/ */
 // Import PHPMailer classes into the global namespace
 
@@ -28,24 +27,24 @@ if ($tipo_email == "nuevo") {
     $mensaje .= "Usuario: </b>$usuario_usu</b> <br><br>";
     $mensaje .= "Contraseña: </b>$pass_usu</b> <br><br>";
     $mensaje .= "<br><br><br>Servicio Salud Coquimbo";
-    $mensaje .= "<br><br><p style='font-size:10px'>No responda a este Correo. Mensaje generado automaticamente por sistema SIME SSCQ.</p>";
+    $mensaje .= "<br><br><p style='font-size:10px'>No responda a este Correo. Mensaje generado automaticamente por Sistema de Información y Monitoreo Estadístico (SIME) del SSCQ.</p>";
 
     try {
         //Server settings
         $mail->SMTPDebug = 0;                                 // Enable verbose debug output
         $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'mail.minsal.cl';                       // Specify main and backup SMTP servers
+        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'soporte.dssc@redsalud.gov.cl';     // SMTP username
-        $mail->Password = 'Minsal.281118';                    // SMTP password
+        $mail->Username = 'estadisticasygestion.dssc@gmail.com';     // SMTP username
+        $mail->Password = 'segi2020';                    // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('soporte.dssc@redsalud.gov.cl', 'Servicio Salud Coquimbo');
+        $mail->setFrom('estadisticasygestion.dssc@gmail.com', 'Subdepto de Estadísticas y Gestión de la Información');
         $mail->addAddress($para);      // Add a recipient
         //$mail->addAddress($para2);               // Name is optional
-        $mail->addReplyTo('soporte.dssc@redsalud.gov.cl', 'Soporte SSC');
+        $mail->addReplyTo('estadisticasygestion.dssc@gmail.com', 'Subdepto de Estadísticas y Gestión de la Información');
         //$mail->addCC('cc@example.com');
         //$mail->addBCC('bcc@example.com');
 
@@ -55,7 +54,7 @@ if ($tipo_email == "nuevo") {
 
         //Content
         $mail->isHTML(true); // Set email format to HTML
-        $mail->Subject = "[DSSC] - Cambio de clave";
+        $mail->Subject = "Credenciales de Acceso a sistema SIME";
         $mail->Body    = $mensaje;
         $mail->AltBody = ''; // Alternative body message without HTML codes or CSS styles (plain text)
 
@@ -66,7 +65,7 @@ if ($tipo_email == "nuevo") {
         echo 0;
         //echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
     }
-} else {
+} elseif ($tipo_email == "edicion") {
     $id_usu = $_POST['id_usuario'];
     $nombre_usu = $_POST['nombre_usuario_up'];
     $apellido_usu = $_POST['apellido_usuario_up'];
@@ -83,24 +82,24 @@ if ($tipo_email == "nuevo") {
     $mensaje .= "Usuario: </b>$usuario_usu</b> <br><br>";
     $mensaje .= "Contraseña: </b>$pass_usu</b> <br><br>";
     $mensaje .= "<br><br><br>Servicio Salud Coquimbo";
-    $mensaje .= "<br><br><p style='font-size:10px'>No responda a este Correo. Mensaje generado automaticamente por sistema SIME SSCQ.</p>";
+    $mensaje .= "<br><br><p style='font-size:10px'>No responda a este Correo. Mensaje generado automaticamente por Sistema de Información y Monitoreo Estadístico (SIME) del SSCQ.</p>";
 
     try {
         //Server settings
-        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'mail.minsal.cl';                       // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'soporte.dssc@redsalud.gov.cl';     // SMTP username
-        $mail->Password = 'Minsal.281118';                    // SMTP password
+        $mail->SMTPDebug = 0;                                    // Enable verbose debug output
+        $mail->isSMTP();                                        // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                          // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                                 // Enable SMTP authentication
+        $mail->Username = 'estadisticasygestion.dssc@gmail.com';     // SMTP username
+        $mail->Password = 'segi2020';                           // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('soporte.dssc@redsalud.gov.cl', 'Servicio Salud Coquimbo');
+        $mail->setFrom('estadisticasygestion.dssc@gmail.com', 'Subdepto de Estadísticas y Gestión de la Información');
         $mail->addAddress($para);      // Add a recipient
         //$mail->addAddress($para2);               // Name is optional
-        $mail->addReplyTo('soporte.dssc@redsalud.gov.cl', 'Soporte SSC');
+        $mail->addReplyTo('estadisticasygestion.dssc@gmail.com', 'Subdepto de Estadísticas y Gestión de la Información');
         //$mail->addCC('cc@example.com');
         //$mail->addBCC('bcc@example.com');
 
@@ -110,7 +109,59 @@ if ($tipo_email == "nuevo") {
 
         //Content
         $mail->isHTML(true); // Set email format to HTML
-        $mail->Subject = "[DSSC] - Cambio de clave";
+        $mail->Subject = "Actualizacion de datos sistema SIME";
+        $mail->Body    = $mensaje;
+        $mail->AltBody = ''; // Alternative body message without HTML codes or CSS styles (plain text)
+
+        $mail->send();
+        echo 1;
+        //echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo 0;
+        //echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+    }
+}else{
+    $nombre_usu = $_POST['nombre'];
+    $apellido_usu = $_POST['apellido'];
+    $correo_usu = $_POST['correo'];
+    $usuario_usu = $_POST['usuario'];
+    $pass_usu = $_POST['clave'];
+    $fecha_usu = date("Y-m-d");
+
+    $para = $correo_usu;
+    $mensaje = "<h3>Credenciales de acceso a sistema S.I.M.E.</h3>";
+    $mensaje .= "Hola $nombre_usu $apellido_usu!, su clave fue cambiada exitosamente: <br><br>";
+    $mensaje .= "Usuario: </b>$usuario_usu</b> <br><br>";
+    $mensaje .= "Contraseña nueva: </b>$pass_usu</b> <br><br>";
+    $mensaje .= "<br><br><br>Servicio Salud Coquimbo";
+    $mensaje .= "<br><br><p style='font-size:10px'>No responda a este Correo. Mensaje generado automaticamente por Sistema de Información y Monitoreo Estadístico (SIME) del SSCQ.</p>";
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'estadisticasygestion.dssc@gmail.com';     // SMTP username
+        $mail->Password = 'segi2020';                    // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('estadisticasygestion.dssc@gmail.com', 'Subdepto de Estadísticas y Gestión de la Información');
+        $mail->addAddress($para);      // Add a recipient
+        //$mail->addAddress($para2);               // Name is optional
+        $mail->addReplyTo('estadisticasygestion.dssc@gmail.com', 'Subdepto de Estadísticas y Gestión de la Información');
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
+
+        //Attachments
+        //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+        //Content
+        $mail->isHTML(true); // Set email format to HTML
+        $mail->Subject = "Credenciales de Acceso a sistema SIME";
         $mail->Body    = $mensaje;
         $mail->AltBody = ''; // Alternative body message without HTML codes or CSS styles (plain text)
 

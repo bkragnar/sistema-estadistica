@@ -155,6 +155,7 @@ switch ($seccion) {
             }
         }
         break;
+        
     case "slider":
         sleep(2);
         $img_slider = $_FILES['arch_slider']['name'];
@@ -182,25 +183,23 @@ switch ($seccion) {
         $privilegio_usu = $_POST['privilegio_usuario'];
         $estable_usu = $_POST['estable_usuario'];
         $fecha_usu = date("Y-m-d");
-        if ( isset($_POST['estado_usuario']) && $_POST['estado_usuario'] == 'on'){
+        if (isset($_POST['estado_usuario']) && $_POST['estado_usuario'] == 'on') {
             $estado_usu = 1;
-        }else{
+        } else {
             $estado_usu = 0;
         }
-        
-        $pass_usu_encriptada = password_hash( $_POST['pass_usuario'],PASSWORD_DEFAULT);
-        
-        $sql_num_usu =$connection->query("SELECT count(*) FROM usuarios_sime");
-        $res_num_usu=mysqli_fetch_array($sql_num_usu);
-        if($res_num_usu[0]==0){
-            $cantidad_usu=1;
-        }else{
-            $cantidad_usu=$res_num_usu[0]+1;
-        }
-        $id_usu="USU".$cantidad_usu;
+
+        $pass_usu_encriptada = password_hash($_POST['pass_usuario'], PASSWORD_DEFAULT);
+
+        $sql_usuario_usu = $connection->query("SELECT id_sime FROM usuarios_sime ORDER BY id_sime DESC LIMIT 1");
+        $res_num_usu = mysqli_fetch_array($sql_usuario_usu);
+        $ultimo_usu = $res_num_usu[0];
+        $varnum = substr($ultimo_usu, 3);
+        $varnum = $varnum + 1;
+        $id_usu = "USU" . $varnum;
 
         $sql_usuario = "INSERT INTO usuarios_sime(id_sime,nombre_sime,apellido_sime,correo_sime,usuario_sime,contrasena_sime,privilegio_sime,estable_sime,fecha_creacion_sime,estado_sime,avatar_sime)
                             VALUES('$id_usu','$nombre_usu','$apellido_usu','$correo_usu','$usuario_usu','$pass_usu_encriptada',$privilegio_usu,$estable_usu,'$fecha_usu',$estado_usu,'')";
         echo mysqli_query($connection, $sql_usuario);
-    break;
+        break;
 }

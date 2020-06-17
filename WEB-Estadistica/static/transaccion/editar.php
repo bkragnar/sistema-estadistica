@@ -148,7 +148,7 @@ switch ($seccion) {
         $apellido_usu = $_POST['apellido_usuario_up'];
         $correo_usu = $_POST['email_usuario_up'];
         $usuario_usu = $_POST['usu_usuario_up'];
-        $pass_usu = $_POST['pass_usuario_up'];
+        $pass_usu = password_hash($_POST['pass_usuario_up'], PASSWORD_DEFAULT);
         $privilegio_usu = $_POST['privilegio_usuario_up'];
         $estable_usu = $_POST['estable_usuario_up'];
         if (isset($_POST['estado_usuario_up']) && $_POST['estado_usuario_up'] == 'on') {
@@ -167,5 +167,27 @@ switch ($seccion) {
             echo mysqli_query($connection, $sql_usuario_up);
         }
 
+        break;
+
+    case "cambio_clave":
+        $nueva_pass = password_hash($_POST['actualiza_pass'], PASSWORD_DEFAULT);
+        $usu_sime = $_POST['usu_sime'];
+
+        $sql_pass_up = "UPDATE usuarios_sime SET contrasena_sime='$nueva_pass' 
+                        WHERE id_sime='$usu_sime'";
+        echo mysqli_query($connection, $sql_pass_up);
+        break;
+
+    case "actualizar_avatar":
+        $usu_avatar = $_POST['usuario'];
+        $nombre_archivo = $_FILES['img-avatar-usu-up']['name'];
+        $ruta = $_FILES['img-avatar-usu-up']['tmp_name'];
+        $extencion = pathinfo($nombre_archivo, PATHINFO_EXTENSION);
+        $nombre_avatar = "avatar_".$_POST['usuario'].".".$extencion;
+        
+        move_uploaded_file($ruta,'../img_avatar/' . $nombre_avatar);
+        $sql_update_avatar = "UPDATE usuarios_sime SET avatar_sime='$nombre_avatar' WHERE usuario_sime='$usu_avatar'";
+        echo mysqli_query($connection,$sql_update_avatar);
+        
         break;
 }

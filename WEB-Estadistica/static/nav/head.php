@@ -184,7 +184,7 @@
       <div class="modal-body">
 
         <form action="POST" id="form_login">
-          <input type="hidden" name="token_acceso" value="<?php echo $_SESSION['token']['publico']; ?>"> 
+          <input type="hidden" name="token_acceso" value="<?php echo $_SESSION['token']['publico']; ?>">
           <div class="input-group">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-user fa-lg"></i></span>
@@ -194,7 +194,7 @@
           <div class="input-group pt-3">
             <div class="input-group">
               <span id="pasw" class="input-group-text" onmousedown="revela()" onmouseup="oculta()"><i id="eye-pass" class="fas fa-eye-slash fa-sm"></i></span>
-              <input type="password" id="clave-user" name="<?php echo $_SESSION['acceso']['password']; ?>" class="form-control input-sm" placeholder="Contraseña" required>
+              <input type="password" id="clave-user" name="<?php echo $_SESSION['acceso']['password']; ?>" class="form-control input-sm" placeholder="Contraseña" autocomplete="off" required>
             </div>
           </div>
           <div class="text-center mt-3">
@@ -207,11 +207,11 @@
             </div>
           </div>
           <div class="pt-3">
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+            <button type="submit" id="btn_submit" class="btn btn-primary btn-block"></button>
           </div>
         </form>
         <div id="mensaje_validacion_login"></div>
-        <div id="mensaje_validacion_login_refresh"></div> 
+        <div id="mensaje_validacion_login_refresh"></div>
       </div>
       <div class="modal-footer text-info">
         Sub-Departamento de Estadísticas y Gestión de la Información

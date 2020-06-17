@@ -1212,6 +1212,7 @@ function EliminarDocGes(id) {
 
 //-------------- Mantenedor usuario -----------------------
 function AgregarDatosUsuario(datos_usuario) {
+    datos_usuario.push({ name: 'var_mail', value: 'nuevo' });
     $.ajax({
         type: "POST",
         url: "static/transaccion/agregar.php",
@@ -1220,7 +1221,7 @@ function AgregarDatosUsuario(datos_usuario) {
             if (r == 1) {
                 alertify.success("Registro agregado con exito");
                 //enviar el email
-                $.post('static/transaccion/email.php', datos_usuario + { "var": "nuevo" },
+                $.post('static/transaccion/email.php', datos_usuario,
                     function(res) {
                         if (res == 1) {
                             alertify.success("El Email fue enviado al Usuario");
@@ -1232,7 +1233,6 @@ function AgregarDatosUsuario(datos_usuario) {
                             $("#carga_usuario").load("web/mant_usuarios.php");
                         }
                     });
-
             } else {
                 alertify.error("No es posible guardar el registro");
             }
@@ -1269,6 +1269,7 @@ function AgrFormEditarUsuario(id_usuario) {
 }
 
 function EditarUsuario(editar_usuario) {
+    editar_usuario.push({ name: 'var_mail', value: 'edicion' });
     $.ajax({
         type: "POST",
         url: "static/transaccion/editar.php",
@@ -1278,7 +1279,7 @@ function EditarUsuario(editar_usuario) {
                 alertify.success("Registro editado con exito");
                 $('#editar_usuario').modal('hide'); //cierra el modal carga masiva
                 //enviar el email
-                $.post('static/transaccion/email.php', editar_usuario + { "var": "edicion" },
+                $.post('static/transaccion/email.php', editar_usuario,
                     function(res) {
                         if (res == 1) {
                             alertify.success("El Email fue enviado al Usuario");
@@ -1664,12 +1665,12 @@ function cargar_usuario() {
     $("#carga_usuario").load("web/mant_usuarios.php");
 
     $('#agregar-nuevo-usuario').click(function() {
-        nuevo_usuario = $('#frm-nuevo-usuario').serialize();
+        nuevo_usuario = $('#frm-nuevo-usuario').serializeArray();
         AgregarDatosUsuario(nuevo_usuario);
     });
 
     $('#editar-usuario').click(function() {
-        editar_usuario = $('#frm-editar-usuario').serialize();
+        editar_usuario = $('#frm-editar-usuario').serializeArray();
         EditarUsuario(editar_usuario);
     });
 
@@ -1886,13 +1887,13 @@ $(function() {
                 //ocultamos inputs
                 jQuery("#form_check").hide("slow");
                 //ocultamos submit
-                jQuery("#btn_submit").html("<img src='src/img/loader.gif' width='20px'>");
+                jQuery("#btn_submit").html("<img src='static/img_fija/loader.gif' width='20px'>");
                 //$("#img_captcha").hide("slow");
                 jQuery("#post_captcha").val("");
             },
             success: function(response) {
                 //reseteamos el captcha
-                jQuery("#img_captcha").attr("src", "src/validaciones/captcha.php?" + d.getTime());
+                $("#img_captcha").attr("src", "static/transaccion/captcha.php");
                 jQuery("#form_check").show("slow");
                 //ocultamos el mensaje de precarga
                 jQuery("#mensaje_validacion_login").hide("slow");
@@ -1912,6 +1913,7 @@ function cambio_clave() {
 }
 //--------------- llamado a las paginas desde el menu ----------
 $(document).ready(function() {
+    $('#btn_submit').html("Iniciar Sesion");
     $('[data-toggle="tooltip"]').tooltip();
     //--------------- captcha ----------
     jQuery("#captcha").show();
