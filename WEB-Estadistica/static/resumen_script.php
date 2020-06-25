@@ -15,22 +15,21 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="static/img_fija/favicon.ico" />
 <link rel="stylesheet" href="static/css/normalize.css">
-<link rel="stylesheet" href="static/librerias/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="static/librerias/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="static/librerias/datatable/bootstrap.css">
 <link rel="stylesheet" href="static/librerias/datatable/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="static/librerias/alertify/css/themes/bootstrap.min.css">
 <link rel="stylesheet" href="static/librerias/alertify/css/alertify.css">
-<link rel="stylesheet" href="static/css/all.min.css">
+<link rel="stylesheet" href="static/librerias/fontawesome/css/all.css">
 <link rel="stylesheet" href="static/css/styles.css">
 
 
 <script src="static/js/jquery-3.4.1.min.js"></script>
-<script src="static/librerias/bootstrap/js/popper.min.js"></script>
-<script src="static/librerias/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/librerias/bootstrap/js/bootstrap.js"></script>
 <script src="static/librerias/datatable/jquery.dataTables.min.js"></script>
 <script src="static/librerias/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="static/librerias/alertify/alertify.min.js"></script>
 <script src="static/js/bootstrap.bundle.js"></script>
-<script src="static/js/all.min.js"></script>
+<script src="static/librerias/fontawesome/js/all.js"></script>
 <script src="static/js/funciones.js"></script>
 <script src="static/js/plotly-latest.min.js"></script>

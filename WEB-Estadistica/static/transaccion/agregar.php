@@ -155,7 +155,7 @@ switch ($seccion) {
             }
         }
         break;
-        
+
     case "slider":
         sleep(2);
         $img_slider = $_FILES['arch_slider']['name'];
@@ -191,7 +191,10 @@ switch ($seccion) {
 
         $pass_usu_encriptada = password_hash($_POST['pass_usuario'], PASSWORD_DEFAULT);
 
-        $sql_usuario_usu = $connection->query("SELECT id_sime FROM usuarios_sime ORDER BY id_sime DESC LIMIT 1");
+        $sql_usuario_usu = $connection->query("SELECT id_sime
+                                               FROM usuarios_sime
+                                               ORDER BY convert(substring(id_sime, 4), UNSIGNED INTEGER) DESC, 
+                                               substring(id_sime, 1, 3) LIMIT 1");
         $res_num_usu = mysqli_fetch_array($sql_usuario_usu);
         $ultimo_usu = $res_num_usu[0];
         $varnum = substr($ultimo_usu, 3);

@@ -81,6 +81,7 @@ if ($tipo_email == "nuevo") {
     $mensaje .= "Hola $nombre_usu $apellido_usu!, sus credenciales de acceso o datos personales en sistema S.I.M.E., han sido actualizados: <br><br>";
     $mensaje .= "Usuario: </b>$usuario_usu</b> <br><br>";
     $mensaje .= "Contraseña: </b>$pass_usu</b> <br><br>";
+    $mensaje .= "** IMPORTANTE **  Si la contraseña esta vacia, quiere decir que aun mantiene su contraseña. <br><br>";
     $mensaje .= "<br><br><br>Servicio Salud Coquimbo";
     $mensaje .= "<br><br><p style='font-size:10px'>No responda a este Correo. Mensaje generado automaticamente por Sistema de Información y Monitoreo Estadístico (SIME) del SSCQ.</p>";
 

@@ -5,7 +5,12 @@ $sql_img_slider = $connection->query("SELECT * FROM slider_inicio");
 $cantidad_img = mysqli_num_rows($sql_img_slider);
 
 ?>
-
+<style>
+    .carousel-caption{
+        right: 0%;
+        left: 0%;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -13,7 +18,7 @@ $cantidad_img = mysqli_num_rows($sql_img_slider);
                 <div class="card-header">
                     Información
                 </div>
-                <div class="card-body">
+                <div class="card-body px-0">
                     <div id="demo" class="carousel slide" data-ride="carousel">
                         <ul class="carousel-indicators">
                             <?php
@@ -38,7 +43,7 @@ $cantidad_img = mysqli_num_rows($sql_img_slider);
                                 }
                             ?>
                                 <div class="carousel-item <?php echo $mclase ?>">
-                                    <img src="static/img_slider/<?php echo $res_slider[1] ?>" alt="Los Angeles" width="1100" height="500">
+                                    <img src="static/img_slider/<?php echo $res_slider[1] ?>" >
                                     <div class="carousel-caption fondo-slider-inicio">
                                         <h3><?php echo $res_slider[2] ?></h3>
                                         <p><?php echo $res_slider[3] ?></p>

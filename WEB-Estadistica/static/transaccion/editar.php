@@ -148,7 +148,7 @@ switch ($seccion) {
         $apellido_usu = $_POST['apellido_usuario_up'];
         $correo_usu = $_POST['email_usuario_up'];
         $usuario_usu = $_POST['usu_usuario_up'];
-        $pass_usu = password_hash($_POST['pass_usuario_up'], PASSWORD_DEFAULT);
+        $pass_usu = $_POST['pass_usuario_up'];
         $privilegio_usu = $_POST['privilegio_usuario_up'];
         $estable_usu = $_POST['estable_usuario_up'];
         if (isset($_POST['estado_usuario_up']) && $_POST['estado_usuario_up'] == 'on') {
@@ -158,6 +158,7 @@ switch ($seccion) {
         }
 
         if (!empty($pass_usu)) {
+            $pass_usu = password_hash($_POST['pass_usuario_up'], PASSWORD_DEFAULT);
             $sql_usuario_up = "UPDATE usuarios_sime SET nombre_sime='$nombre_usu',apellido_sime='$apellido_usu',correo_sime='$correo_usu',usuario_sime='$usuario_usu',contrasena_sime='$pass_usu',privilegio_sime=$privilegio_usu,estable_sime=$estable_usu ,estado_sime=$estado_usu
                             WHERE id_sime='$id_usu'";
             echo mysqli_query($connection, $sql_usuario_up);

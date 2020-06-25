@@ -134,10 +134,11 @@
     }
     /* -----------------------------------------------------------*/
     /*          css redimension imagenes slider                   */
+    /*width="1100" height="500"*/
     
     .carousel-inner img {
         width: 100%;
-        height: 100%;
+        height: 500px;
     }
     
     .fondo-slider-inicio {
@@ -172,4 +173,19 @@
     .datos-usu {
         font-size: 18px;
         ;
+    }
+    /* -----------------------------------------------------------*/
+    /*                  css boton cerrar sesion               */
+    
+    .cerrar-sesion {
+        color: gainsboro;
+    }
+    
+    .cerrar-sesion :hover {
+        color: dodgerblue;
+        transition: 0.4s;
+    }
+    
+    .paginas-salud a {
+        text-decoration: none;
     }

@@ -42,6 +42,9 @@ while ($res_datos_usu = mysqli_fetch_array($sql_datos_usu)) {
                             <div class="ml-2">
                                 <div class="datos-usu mt-3">
                                     <div>
+                                        <h5 class="text-left text-info">Mis Datos</h5>
+                                    </div>
+                                    <div>
                                         <label class="text-secondary" for="">Nombre:</label><label class="text-dark ml-2 font-weight-bolder" for=""><?php echo $nombre_usu . " " . $apellido_usu; ?></label>
                                     </div>
                                     <div>

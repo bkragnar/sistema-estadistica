@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card text-left">
                 <div class="card-header">
-                    COMGES Lista de Espera No GES
+                    Compromiso de Gestión Lista de Espera No GES
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-tabs nav-justified">

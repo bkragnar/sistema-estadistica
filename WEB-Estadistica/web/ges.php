@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card text-left">
                 <div class="card-header">
-                    Informes GES
+                    Informes de Garantías Explícitas en Salud (GES)
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-tabs nav-justified">

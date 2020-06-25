@@ -58,7 +58,7 @@ if (!empty($_GET['v'])) {
     <section>
         <div class="container">
             <!--###contenido###-->
-            <div id="contenido-index"></div>
+            <div id="contenido-index" class="py-5"></div>
             <!--###end contenido###-->
         </div>
     </section>

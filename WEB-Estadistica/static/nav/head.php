@@ -158,15 +158,20 @@
         if (!$_SESSION['session_usuario_codigo']) {
         ?>
           <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAcceso"><i class="fas fa-users"></i> Acceso</button>
-        <?php
-        } else {
-        ?>
-          <button class="btn btn-secondary" id="menu_mi_perfil"><i class="fas fa-user-cog ml-2"></i> Mi Perfil</button>
-          <i class="fas fa-sign-out-alt fa-lg ml-3" data-toggle="tooltip" data-placement="top" id="cerrar-sesion" title="Cerrar Sesion"></i>
-        <?php
-        }
-        ?>
       </span>
+    <?php
+        } else {
+    ?>
+      <span>
+        <button class="btn btn-secondary" id="menu_mi_perfil"><i class="fas fa-user-cog ml-2"></i> Mi Perfil</button>
+      </span>
+      <span class="cerrar-sesion">
+        <i class="fas fa-sign-out-alt fa-lg ml-3" data-toggle="tooltip" data-placement="top" id="cerrar-sesion" title="Cerrar Sesion"></i>
+      </span>
+    <?php
+        }
+    ?>
+
     </div>
   </div>
 </nav>

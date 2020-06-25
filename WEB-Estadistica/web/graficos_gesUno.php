@@ -158,7 +158,7 @@ $dato_YS = json_encode($dato_s);
                 y: 1.05,
                 xanchor: 'left',
                 yanchor: 'bottom',
-                text: 'Evolución de GO Retrasadas cortes oficiales País',
+                text: 'Evolución Garantías de Oportunidad Retrasadas País',
                 font: {
                     family: 'Arial',
                     size: 24,
@@ -303,7 +303,7 @@ $dato_YS = json_encode($dato_s);
                 y: 1.05,
                 xanchor: 'left',
                 yanchor: 'bottom',
-                text: 'Evolución de GO Retrasadas cortes oficiales Servicio de Salud Coquimbo',
+                text: 'Evolución Garantías de Oportunidad Retrasadas Servicio de Salud Coquimbo',
                 font: {
                     family: 'Arial',
                     size: 24,
