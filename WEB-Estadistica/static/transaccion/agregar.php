@@ -64,9 +64,10 @@ switch ($seccion) {
         $codigo_estable_lb = $_POST['estable_linea_base'];
         $cantidad_lb = $_POST['cantidad_linea_base'];
         $anio_lb = $_POST['anio_linea_base'];
+        $tipo_le_lb = $_POST['tipo_le_linea_base'];
         $id_lb = "lb_" . $codigo_estable_lb . "_" . $anio_lb;
 
-        $sql_linea_base = "INSERT INTO linea_base_le (id_lb,codigo_estable_lb,cantidad_lb,anio_lb) VALUES('$id_lb',$codigo_estable_lb,$cantidad_lb,$anio_lb)";
+        $sql_linea_base = "INSERT INTO linea_base_le (id_lb,codigo_estable_lb,cantidad_lb,anio_lb,tipo_le_lb) VALUES('$id_lb',$codigo_estable_lb,$cantidad_lb,$anio_lb,$tipo_le_lb)";
         echo mysqli_query($connection, $sql_linea_base);
         break;
 

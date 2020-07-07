@@ -1,8 +1,9 @@
 <?php
 include "../cnx/connection.php";
 
-$sql_linea_base = "SELECT l.id_lb,e.nombre_estable,l.cantidad_lb,l.anio_lb
+$sql_linea_base = "SELECT l.id_lb,e.nombre_estable,l.cantidad_lb,l.anio_lb,t.nombre_tipo_le
                 FROM establecimiento e INNER JOIN linea_base_le l ON e.codigo_estable=l.codigo_estable_lb
+                INNER JOIN tipo_le t ON l.tipo_le_lb=t.codigo_tipo_le
                 ORDER BY l.codigo_estable_lb";
 $resul_linea_base = mysqli_query($connection, $sql_linea_base);
 ?>
@@ -15,6 +16,7 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
                     <td>Establecimiento</td>
                     <td>Cantidad</td>
                     <td>Año</td>
+                    <td>Tipo</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
                 </tr>
@@ -24,6 +26,7 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
                     <td>Establecimiento</td>
                     <td>Cantidad</td>
                     <td>Año</td>
+                    <td>Tipo</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
                 </tr>
@@ -36,6 +39,7 @@ $resul_linea_base = mysqli_query($connection, $sql_linea_base);
                         <td><?php echo $most_linea_base[1]; ?></td>
                         <td><?php echo $most_linea_base[2]; ?></td>
                         <td><?php echo $most_linea_base[3]; ?></td>
+                        <td><?php echo $most_linea_base[4]; ?></td>
                         <td style="text-align: center;">
                             <span class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editar_linea-base" onclick="AgrFormEditarLineaBase('<?php echo $most_linea_base[0]; ?>')">
                                 <span class="far fa-edit fa-lg"></span>

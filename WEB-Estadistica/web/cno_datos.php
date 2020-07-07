@@ -1,8 +1,8 @@
 <?php
 include "../cnx/connection.php";
 
-$anio = $_POST['anio_eg_cne'];
-$tipo_estable = $_POST['tipo_estable_cne'];
+$anio = $_POST['anio_eg_cno'];
+$tipo_estable = $_POST['tipo_estable_cno'];
 $comuna = $_POST['comuna_no_ges'];
 
 $sql_porcentajes = $connection->query("SELECT * FROM porcentaje_lb WHERE tipo_estable_porc_lb=$tipo_estable");
@@ -36,6 +36,7 @@ if ($tipo_estable == 1) {
 
         $mtz_ordenada = [];
         $mtz_muestra = [];
+        $cant_vueltas = 0;
         $i = 0;
         $sum = 0;
         $porc = 0;
@@ -43,8 +44,9 @@ if ($tipo_estable == 1) {
         $lbtotal = 0;
         $ddd=0;
 
-        for ($x = 0; $x <= (count($matriz_datos) - 1); $x = $x + $mes_max) {
+        for ($x = 0; $x <= (count($matriz_datos) - 1); $x = $x + $cant_vueltas) {
             $aux = $x;
+            $cant_vueltas = 0;
             for ($y = 1; $y <= $mes_max; $y++) {
                 if (in_array($matriz_datos[$aux][0], $mtz_ordenada[$i][0])) {
                     if ($matriz_datos[$aux][2] == $y) {
@@ -122,7 +124,19 @@ if ($tipo_estable == 1) {
                     }
                 }
                 $mtz_muestra[$i][2] = number_format(($sum / $mtz_muestra[$i][1]) * 100, 2, ",", ".");
-                $aux++;
+
+                if ($matriz_datos[$aux][2] <= $y and $matriz_datos[$aux][0] == $matriz_datos[$aux + 1][0]) {
+                    $aux++;
+                    $cant_vueltas++;
+                } else {
+                    if ($matriz_datos[$aux][2] > $y) {
+                    } else {
+                        if ($matriz_datos[$aux][0] != $matriz_datos[$aux + 1][0]) {
+                            $cant_vueltas++;
+                            break;
+                        }
+                    }
+                }
             }
             $i++;
             $sum = 0;
@@ -220,12 +234,14 @@ if ($tipo_estable == 1) {
 
         $mtz_ordenada = [];
         $mtz_muestra = [];
+        $cant_vueltas = 0;
         $i = 0;
         $sum = 0;
         $porc = 0;
         $suma_cmp = 0;
-        for ($x = 0; $x <= (count($matriz_datos) - 1); $x = $x + $mes_max) {
+        for ($x = 0; $x <= (count($matriz_datos) - 1); $x = $x + $cant_vueltas) {
             $aux = $x;
+            $cant_vueltas = 0;
             for ($y = 1; $y <= $mes_max; $y++) {
 
                 if (in_array($matriz_datos[$aux][0], $mtz_ordenada[$i][0])) {
@@ -304,7 +320,19 @@ if ($tipo_estable == 1) {
                     }
                 }
                 $mtz_muestra[$i][2] = number_format(($sum / $mtz_muestra[$i][1]) * 100, 2, ",", ".");
-                $aux++;
+                
+                if ($matriz_datos[$aux][2] <= $y and $matriz_datos[$aux][0] == $matriz_datos[$aux + 1][0]) {
+                    $aux++;
+                    $cant_vueltas++;
+                } else {
+                    if ($matriz_datos[$aux][2] > $y) {
+                    } else {
+                        if ($matriz_datos[$aux][0] != $matriz_datos[$aux + 1][0]) {
+                            $cant_vueltas++;
+                            break;
+                        }
+                    }
+                }
             }
             $i++;
             $sum = 0;

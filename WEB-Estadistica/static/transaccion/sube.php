@@ -107,17 +107,18 @@ switch ($seccion) {
             $codigo_estable_lb = $objPHPExcel->getActiveSheet()->getCell('A' . $i)->getCalculatedValue();
             $cantidad_lb = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
             $anio_lb = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
+            $tipole_lb = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
 
-            $id_lb = "lb" . "_" . $codigo_estable_lb . "_" . $anio_lb;
+            $id_lb = "lb_" . $codigo_estable_lb . "_" . $anio_lb . "_" . $tipole_lb;
 
             $sql_linea_base = $connection->query("SELECT * FROM linea_base_le WHERE id_lb='$id_lb'");
             if (mysqli_num_rows($sql_linea_base) > 0) {
-                $sql_linea_base_up = "UPDATE linea_base_le SET codigo_estable_lb=$codigo_estable_lb, cantidad_lb=$cantidad_lb, anio_lb=$anio_lb WHERE id_lb='$id_lb'";
+                $sql_linea_base_up = "UPDATE linea_base_le SET codigo_estable_lb=$codigo_estable_lb, cantidad_lb=$cantidad_lb, anio_lb=$anio_lb, tipo_le_lb=$tipole_lb WHERE id_lb='$id_lb'";
                 if (mysqli_query($connection, $sql_linea_base_up)) {
                     $carga = $carga + 1;
                 }
             } else {
-                $sql_linea_base_ins = "INSERT INTO linea_base_le (id_lb,codigo_estable_lb,cantidad_lb,anio_lb) VALUES('$id_lb',$codigo_estable_lb,$cantidad_lb,$anio_lb)";
+                $sql_linea_base_ins = "INSERT INTO linea_base_le (id_lb,codigo_estable_lb,cantidad_lb,anio_lb,tipo_le_lb) VALUES('$id_lb',$codigo_estable_lb,$cantidad_lb,$anio_lb,$tipole_lb)";
                 if (mysqli_query($connection, $sql_linea_base_ins)) {
                     $carga = $carga + 1;
                 }

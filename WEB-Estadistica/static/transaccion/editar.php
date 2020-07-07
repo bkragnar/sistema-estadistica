@@ -62,8 +62,9 @@ switch ($seccion) {
         $codigo_estable_lb = $_POST['estable_linea_base_up'];
         $cantidad_lb = $_POST['cantidad_linea_base_up'];
         $anio_lb = $_POST['anio_linea_base_up'];
+        $tipo_le_lb = $_POST['tipo_le_linea_base_up'];
 
-        $sql_linea_base_up = "UPDATE linea_base_le SET codigo_estable_lb=$codigo_estable_lb, cantidad_lb=$cantidad_lb, anio_lb=$anio_lb WHERE id_lb='$id_lb'";
+        $sql_linea_base_up = "UPDATE linea_base_le SET codigo_estable_lb=$codigo_estable_lb, cantidad_lb=$cantidad_lb, anio_lb=$anio_lb, tipo_le_lb=$tipo_le_lb WHERE id_lb='$id_lb'";
         echo mysqli_query($connection, $sql_linea_base_up);
         break;
 

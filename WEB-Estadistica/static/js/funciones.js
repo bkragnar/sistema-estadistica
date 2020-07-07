@@ -1800,6 +1800,15 @@ function recargarLista_comuna(dato) {
                 $('#select-comuna-cno').html(r);
             }
         });
+    } else if (dato == 4) {
+        $.ajax({
+            type: "POST",
+            url: "web/select.php",
+            data: "seleccion=comuna",
+            success: function(r) {
+                $('#select-comuna-iq').html(r);
+            }
+        });
     }
 }
 
@@ -1825,6 +1834,15 @@ function cargar_grafico(mtz1, mtz2, prestacion) {
                 $('#grafico-cno').html(r);
             }
         });
+    } else if (prestacion == 4) {
+        $.ajax({
+            type: "POST",
+            url: "web/grafico.php",
+            data: { 'arreglo1': mtz1, 'arreglo2': mtz2 },
+            success: function(r) {
+                $('#grafico-iq').html(r);
+            }
+        });
     }
 }
 //--------------------------------------------------------------
@@ -1837,6 +1855,22 @@ function ConsultaCNE(datosCNE) {
         data: datosCNE,
         success: function(r) {
             $('#carga-cne-datos').html(r);
+        }
+    });
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//        carga iq_datos
+//--------------------------------------------------------------
+function ConsultaIQ(datosIQ) {
+    $.ajax({
+        type: "POST",
+        url: "web/iq_datos.php",
+        data: datosIQ,
+        success: function(r) {
+            $('#carga-iq-datos').html(r);
         }
     });
 }

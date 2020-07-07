@@ -1,15 +1,15 @@
 <?php
 include "../cnx/connection.php";
 
-$anio = $_POST['anio_eg_cne'];
-$tipo_estable = $_POST['tipo_estable_cne'];
+$anio = $_POST['anio_eg_iq'];
+$tipo_estable = $_POST['tipo_estable_iq'];
 $comuna = $_POST['comuna_no_ges'];
 
 $sql_porcentajes = $connection->query("SELECT * FROM porcentaje_lb WHERE tipo_estable_porc_lb=$tipo_estable");
 $res_porcentaje = mysqli_fetch_array($sql_porcentajes);
 
 
-$sql_mes_max = $connection->query("SELECT max(mes_eg) FROM egresos_le");
+$sql_mes_max = $connection->query("SELECT max(mes_eg) FROM egresos_le WHERE tipo_le_eg=4 or tipo_le_eg=5");
 $res_mes_max = mysqli_fetch_array($sql_mes_max);
 $mes_max = $res_mes_max[0];
 
@@ -23,7 +23,7 @@ if ($tipo_estable == 1) {
                 FROM establecimiento e INNER JOIN tipo_estable t ON e.tipo_estable=t.codigo_tipo 
                 INNER JOIN linea_base_le l ON l.codigo_estable_lb=e.codigo_estable INNER JOIN egresos_le eg 
                 ON eg.estable_eg=e.codigo_estable and eg.anio_eg=l.anio_lb
-                WHERE eg.anio_eg=$anio AND t.codigo_tipo=$tipo_estable and e.codigo_comuna=$comuna and eg.tipo_le_eg=1
+                WHERE eg.anio_eg=$anio AND t.codigo_tipo=$tipo_estable and e.codigo_comuna=$comuna and eg.tipo_le_eg=4 or eg.tipo_le_eg=5
                 ORDER BY e.codigo_estable,eg.mes_eg");
     if (mysqli_num_rows($sql_datos) == 0) {
         echo '<script>alertify.warning("No se registran datos");</script>';
@@ -33,6 +33,11 @@ if ($tipo_estable == 1) {
             array_push($matriz_datos, [$res_datos[0], $res_datos[1], $res_datos[2], $res_datos[3]]);
         }
 
+        /*
+        echo '<pre>';
+        print_r($matriz_datos);
+        echo '</pre>';
+        */
 
         $mtz_ordenada = [];
         $mtz_muestra = [];
@@ -42,7 +47,7 @@ if ($tipo_estable == 1) {
         $porc = 0;
         $suma_cmp = 0;
         $lbtotal = 0;
-        $ddd=0;
+        $ddd = 0;
 
         for ($x = 0; $x <= (count($matriz_datos) - 1); $x = $x + $cant_vueltas) {
             $aux = $x;
@@ -124,6 +129,7 @@ if ($tipo_estable == 1) {
                     }
                 }
                 $mtz_muestra[$i][2] = number_format(($sum / $mtz_muestra[$i][1]) * 100, 2, ",", ".");
+                
                 if ($matriz_datos[$aux][2] <= $y and $matriz_datos[$aux][0] == $matriz_datos[$aux + 1][0]) {
                     $aux++;
                     $cant_vueltas++;
@@ -141,6 +147,12 @@ if ($tipo_estable == 1) {
             $sum = 0;
         }
 
+        /*
+        echo '<pre>';
+        print_r($mtz_ordenada);
+        echo '</pre>';
+        */
+
         //hacer nuevamente el for y validar que esten los datos por trimestre, en caso de no estarlo quedar con el valor ultimo maximo
         $tm = 0;
         $tj = 0;
@@ -153,11 +165,11 @@ if ($tipo_estable == 1) {
             $ts = $ts + $mtz_muestra[$x][5];
             $td = $td + $mtz_muestra[$x][6];
         }
-        
+
         $porc_comuna = 0;
         $var_temp = $tm + $tj + $ts + $td;
         $porc_comuna = number_format(($suma_cmp / $lbtotal) * 100, 2, ",", ".");
-        array_push($mtz_muestra, ["Comuna de ".$nom_comuna, $lbtotal, $porc_comuna, $tm, $tj, $ts, $td]);
+        array_push($mtz_muestra, ["Comuna de " . $nom_comuna, $lbtotal, $porc_comuna, $tm, $tj, $ts, $td]);
 
 ?>
 
@@ -216,11 +228,12 @@ if ($tipo_estable == 1) {
             $nombres[] = $mtz_ordenada[$i][0];
         }
     } //cierra el if si hay datos o no
+
 } else {
     $sql_datos = $connection->query("SELECT e.nombre_estable,l.cantidad_lb,eg.mes_eg,eg.cantidad_eg
                 FROM establecimiento e INNER JOIN tipo_estable t ON e.tipo_estable=t.codigo_tipo 
                 INNER JOIN linea_base_le l ON l.codigo_estable_lb=e.codigo_estable INNER JOIN egresos_le eg 
-                ON eg.estable_eg=e.codigo_estable and eg.anio_eg=l.anio_lb and eg.tipo_le_eg=1
+                ON eg.estable_eg=e.codigo_estable and eg.anio_eg=l.anio_lb and eg.tipo_le_eg=4 or eg.tipo_le_eg=5
                 WHERE eg.anio_eg=$anio AND t.codigo_tipo=$tipo_estable
                 ORDER BY e.codigo_estable,eg.mes_eg");
     if (mysqli_num_rows($sql_datos) == 0) {
@@ -230,6 +243,13 @@ if ($tipo_estable == 1) {
         while ($res_datos = mysqli_fetch_array($sql_datos)) {
             array_push($matriz_datos, [$res_datos[0], $res_datos[1], $res_datos[2], $res_datos[3]]);
         }
+
+        /*
+        echo "matriz datos:";
+        echo '<pre>';
+        print_r($matriz_datos);
+        echo '</pre>';
+        */
 
         $mtz_ordenada = [];
         $mtz_muestra = [];
@@ -242,7 +262,6 @@ if ($tipo_estable == 1) {
             $aux = $x;
             $cant_vueltas = 0;
             for ($y = 1; $y <= $mes_max; $y++) {
-
                 if (in_array($matriz_datos[$aux][0], $mtz_ordenada[$i][0])) {
                     if ($matriz_datos[$aux][2] == $y) {
                         $mtz_ordenada[$i][$y + 1] = $matriz_datos[$aux][3];
@@ -335,11 +354,14 @@ if ($tipo_estable == 1) {
             $i++;
             $sum = 0;
         }
+
         /*
-echo '<pre>';
-print_r($mtz_ordenada);
-echo '</pre>';
-*/
+        echo "matriz ordenada:";
+        echo '<pre>';
+        print_r($mtz_ordenada);
+        echo '</pre>';
+        */
+
         ?>
 
         <div>
@@ -396,14 +418,14 @@ echo '</pre>';
 ?>
 
 
-<div id="grafico"></div>
+<div id="grafico-iq"></div>
 
 <script>
     $(document).ready(function() {
         if (<?php echo mysqli_num_rows($sql_datos); ?> > 0) {
             var mtz1 = '<?php echo json_encode($valores); ?>';
             var mtz2 = '<?php echo json_encode($nombres); ?>';
-            cargar_grafico(mtz1, mtz2, 1);
+            cargar_grafico(mtz1, mtz2, 4);
         }
     });
 </script>

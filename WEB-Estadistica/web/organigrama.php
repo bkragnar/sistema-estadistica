@@ -13,7 +13,7 @@
     }
 </style>
 
-<div class="container" id="">
+<div class="container">
     <div class="organigrama">
         <img src="static/img_fija/organigrama_segi.png" alt="">
     </div>

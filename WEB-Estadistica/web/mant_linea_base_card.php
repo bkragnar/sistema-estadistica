@@ -53,6 +53,16 @@ include "../cnx/connection.php";
                     <input type="text" id="cantidad_linea_base" name="cantidad_linea_base" class="form-control input-sm">
                     <label for="">Año</label>
                     <input type="text" id="anio_linea_base" name="anio_linea_base" class="form-control input-sm">
+                    <label for="">Tipo Lista de Espera</label>
+                    <select id="tipo_le_linea_base" name="tipo_le_linea_base" class="form-control input-sm">
+                        <option value="0" disabled>Seleccione:</option>
+                        <?php
+                        $sql_tipole_lb = $connection->query("SELECT * FROM tipo_le ORDER BY codigo_tipo_le ASC");
+                        while ($res_tipole_lb = mysqli_fetch_array($sql_tipole_lb)) {
+                            echo '<option value="' . $res_tipole_lb[1] . '">' . $res_tipole_lb[2] . '</option>';
+                        }
+                        ?>
+                    </select>
                     <input type="text" hidden="" name="seccion" value="linea-base">
                 </form>
             </div>
@@ -93,6 +103,16 @@ include "../cnx/connection.php";
                     <input type="text" id="cantidad_linea_base_up" name="cantidad_linea_base_up" class="form-control input-sm">
                     <label for="">Año</label>
                     <input type="text" id="anio_linea_base_up" name="anio_linea_base_up" class="form-control input-sm">
+                    <label for="">Tipo Lista de Espera</label>
+                    <select id="tipo_le_linea_base_up" name="tipo_le_linea_base_up" class="form-control input-sm">
+                        <option value="0" disabled>Seleccione:</option>
+                        <?php
+                        $sql_tipole_lb = $connection->query("SELECT * FROM tipo_le ORDER BY codigo_tipo_le ASC");
+                        while ($res_tipole_lb = mysqli_fetch_array($sql_tipole_lb)) {
+                            echo '<option value="' . $res_tipole_lb[1] . '">' . $res_tipole_lb[2] . '</option>';
+                        }
+                        ?>
+                    </select>
                     <input type="text" hidden="" name="seccion" value="linea-base">
                 </form>
             </div>
