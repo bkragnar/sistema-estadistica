@@ -132,7 +132,7 @@
 
         <div class="card" style="width: 18rem;">
             <div class="box mx-auto mt-1">
-                <img class="card-img-top" src="" alt="">
+                <img class="card-img-top" src="static/img_fija/sharyn_pereira.JPG" alt="">
             </div>
             <div class="card-body">
                 <div class="row">

@@ -1,9 +1,13 @@
 <?php
 include "../cnx/connection.php";
 
+$anio_filtro = $_POST['anio_filtro'];
+$tipole_filtro = $_POST['tipoges_filtro'];
+
 $sql_casos_ges = "SELECT eg.id_eg_ges,e.nombre_estable,t.nombre_tipo_ges,mes_eg_ges,anio_eg_ges,cantidad_eg_ges
                 FROM establecimiento e INNER JOIN egresos_ges eg on e.codigo_estable=eg.estable_eg_ges INNER JOIN
                 tipo_ges t on t.codigo_tipo_ges=eg.codigo_tipo_ges_eg_ges
+                WHERE eg.anio_eg_ges=$anio_filtro and eg.codigo_tipo_ges_eg_ges=$tipole_filtro
                 ORDER BY e.codigo_estable ASC";
 $resul_casos_ges = mysqli_query($connection, $sql_casos_ges);
 ?>

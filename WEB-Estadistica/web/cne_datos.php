@@ -5,7 +5,7 @@ $anio = $_POST['anio_eg_cne'];
 $tipo_estable = $_POST['tipo_estable_cne'];
 $comuna = $_POST['comuna_no_ges'];
 
-$sql_porcentajes = $connection->query("SELECT * FROM porcentaje_lb WHERE tipo_estable_porc_lb=$tipo_estable");
+$sql_porcentajes = $connection->query("SELECT * FROM porcentaje_lb WHERE tipo_estable_porc_lb=$tipo_estable and anio_corte_porc_lb=$anio");
 $res_porcentaje = mysqli_fetch_array($sql_porcentajes);
 
 
@@ -156,7 +156,7 @@ if ($tipo_estable == 1) {
         
         $porc_comuna = 0;
         $var_temp = $tm + $tj + $ts + $td;
-        $porc_comuna = number_format(($suma_cmp / $lbtotal) * 100, 2, ",", ".");
+        $porc_comuna = number_format(($var_temp / $lbtotal) * 100, 2, ",", ".");
         array_push($mtz_muestra, ["Comuna de ".$nom_comuna, $lbtotal, $porc_comuna, $tm, $tj, $ts, $td]);
 
 ?>

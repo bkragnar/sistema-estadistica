@@ -16,6 +16,32 @@ include "../cnx/connection.php";
                     <span class="btn btn-primary" data-toggle="modal" data-target="#masivo_linea-base">Carga Masiva
                         <span class="fas fa-upload"></span>
                     </span>
+                    <div class="float-right">
+                        <label class="mb-0">Tipo Lista de Espera:</label>
+                        <select id="tipo_lb_filtro" name="tipo_lb_filtro" class="form-control input-sm">
+                            <option value="0" disabled>Seleccione:</option>
+                            <?php
+                            $sql_tipo_lb_filtro = $connection->query("SELECT distinct(t.codigo_tipo_le), t.nombre_tipo_le FROM tipo_le t INNER JOIN linea_base_le l on t.codigo_tipo_le=l.tipo_le_lb ORDER BY t.codigo_tipo_le ASC");
+                            while ($res_tipo_lb_filtro = mysqli_fetch_array($sql_tipo_lb_filtro)) {
+                                echo '<option value="' . $res_tipo_lb_filtro[0] . '">' . $res_tipo_lb_filtro[1] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="float-right mr-2">
+                        <label class="mb-0">Año:</label>
+                        <select id="anio_lb_filtro" name="anio_lb_filtro" class="form-control input-sm">
+                            <option value="0" disabled>Seleccione:</option>
+                            <?php
+                            $sql_anio_lb_filtro = $connection->query("SELECT distinct(anio_lb) FROM linea_base_le ORDER BY anio_lb ASC");
+                            while ($res_anio_lb_filtro = mysqli_fetch_array($sql_anio_lb_filtro)) {
+                                echo '<option value="' . $res_anio_lb_filtro[0] . '">' . $res_anio_lb_filtro[0] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <br>
+                    <br>
                     <hr>
                     <div id="carga_linea-base"></div>
                 </div>
@@ -159,21 +185,5 @@ include "../cnx/connection.php";
 <script type="text/javascript">
     $(document).ready(function() {
         mant_linea_base();
-
-        $('#spinner-lb').hide();
-
-        $('#agregar-linea-base').click(function() {
-            datos_linea_base = $('#frm-nuevo-lines-base').serialize();
-            AgregarDatosLineaBase(datos_linea_base);
-        });
-
-        $('#editar-linea-base').click(function() {
-            editar_linea_base = $('#frm-editar-lines-base').serialize();
-            EditarLineaBase(editar_linea_base);
-        });
-
-        $('#cargar-masivo-linea-base').click(function() {
-            MasivoDatosLineaBase();
-        });
     });
 </script>

@@ -202,7 +202,6 @@ function MasivoDatosComuna() {
             $('#spinner-comuna').show();
         },
         success: function(r) {
-            alert(r);
             if (r == 1) {
                 $('#archivo_comuna').val(null); //limpia el formulario por id
                 $("#carga_comuna").load("web/mant_comuna.php");
@@ -386,7 +385,6 @@ function MasivoDatosEstable() {
         contentType: false,
         processData: false,
         success: function(r) {
-            alert(r);
             if (r == "valido") {
                 $('#frm-carga-estable')[0].reset(); //limpia el formulario
                 $("#carga_estable").load("web/mant_estable.php");
@@ -732,7 +730,7 @@ function AgregarDatosEgresoLE(datos_egreso_le) {
         success: function(r) {
             if (r == 1) {
                 $('#frm-nuevo-egreso-le')[0].reset(); //limpia el formulario
-                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                filtros_le();
                 alertify.success("Registro agregado con exito");
             } else {
                 alertify.error("No es posible guardar el registro");
@@ -766,7 +764,7 @@ function EditarEgresoLE(editar_egreso_le) {
         success: function(r) {
             if (r == 1) {
                 $('#frm-editar-egreso-le')[0].reset(); //limpia el formulario
-                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                filtros_le();
                 alertify.success("Registro editado con exito");
                 $('#editar_egreso_le').modal('hide'); //cierra el modal carga masiva
             } else {
@@ -791,7 +789,7 @@ function EliminarEgresoLE(id) {
         data: "id=" + id + "&seccion=egreso-le",
         success: function(r) {
             if (r == 1) {
-                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                filtros_le();
                 alertify.success("Registro eliminado con exito");
             } else {
                 alertify.error("No es posible eliminar el registro");
@@ -814,17 +812,16 @@ function MasivoDatosEgresoLE() {
             $('#spinner-egreso-le').show();
         },
         success: function(r) {
-            alert(r);
             if (r == 1) {
                 $("#arch_egreso_le").val(null); //limpia el formulario por id
-                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                filtros_le();
                 alertify.success("Registros agregados y/o actualizados con exito");
                 $('#form-masivo-egreso-le').show();
                 $('#spinner-egreso-le').hide();
                 $('#masivo_egreso_le').modal('hide'); //cierra el modal carga masiva
             } else if (r == 2) {
                 $("#arch_egreso_le").val(null); //limpia el formulario por id
-                $('#carga_egreso_le').load('web/mant_egreso_le.php');
+                filtros_le();
                 alertify.warning("No fue posible agregar y/o actualizar todos los registros");
                 $('#form-masivo-egreso-le').show();
                 $('#spinner-egreso-le').hide();
@@ -1006,7 +1003,6 @@ function MasivoDatosCasosGes() {
             $('#spinner-casos-ges').show();
         },
         success: function(r) {
-            alert(r);
             if (r == 1) {
                 $("#arch_casos_ges").val(null); //limpia el formulario por id
                 $("#carga_casos_ges").load("web/mant_casos_ges.php");
@@ -1422,8 +1418,40 @@ function EliminarSlider(id) {
 //--------------------------------------------------------------
 //        carga mant_linea_base
 //--------------------------------------------------------------
+function filtros_lb() {
+    var valor_anio = $('#anio_lb_filtro').val();
+    var valor_tipo = $('#tipo_lb_filtro').val();
+    $.post('web/mant_linea_base.php', { 'anio_filtro': valor_anio, 'tipole_filtro': valor_tipo },
+        function(res) {
+            $('#carga_linea-base').html(res);
+        });
+}
+
 function mant_linea_base() {
-    $("#carga_linea-base").load("web/mant_linea_base.php");
+    //$("#carga_linea-base").load("web/mant_linea_base.php");
+    filtros_lb();
+    $('#anio_lb_filtro').on("change", function() {
+        filtros_lb();
+    });
+    $('#tipo_lb_filtro').on("change", function() {
+        filtros_lb();
+    });
+
+    $('#spinner-lb').hide();
+
+    $('#agregar-linea-base').click(function() {
+        datos_linea_base = $('#frm-nuevo-lines-base').serialize();
+        AgregarDatosLineaBase(datos_linea_base);
+    });
+
+    $('#editar-linea-base').click(function() {
+        editar_linea_base = $('#frm-editar-lines-base').serialize();
+        EditarLineaBase(editar_linea_base);
+    });
+
+    $('#cargar-masivo-linea-base').click(function() {
+        MasivoDatosLineaBase();
+    });
 }
 //--------------------------------------------------------------
 //        carga mant_porcentaje_lb
@@ -1434,8 +1462,41 @@ function mant_porcentaje_lb() {
 //--------------------------------------------------------------
 //        carga mant_egreso_le
 //--------------------------------------------------------------
+function filtros_le() {
+    var valor_anio = $('#anio_le_filtro').val();
+    var valor_tipo = $('#tipo_le_filtro').val();
+    $.post('web/mant_egreso_le.php', { 'anio_filtro': valor_anio, 'tipole_filtro': valor_tipo },
+        function(res) {
+            $('#carga_egreso_le').html(res);
+        });
+}
+
 function mant_egreso_le() {
-    $('#carga_egreso_le').load('web/mant_egreso_le.php');
+    filtros_le();
+
+    $('#anio_le_filtro').on("change", function() {
+        filtros_le();
+    });
+    $('#tipo_le_filtro').on("change", function() {
+        filtros_le();
+    });
+
+    $('#spinner-egreso-le').hide();
+
+    $('#agregar-egreso-le').click(function() {
+        datos_egreso_le = $('#frm-nuevo-egreso-le').serialize();
+        AgregarDatosEgresoLE(datos_egreso_le);
+    });
+
+    $('#editar-egreso-le').click(function() {
+        editar_egreso_le = $('#frm-editar-egreso-le').serialize();
+        EditarEgresoLE(editar_egreso_le);
+    });
+
+    $('#cargar-masivo-egreso-le').click(function() {
+        MasivoDatosEgresoLE();
+    });
+
 }
 //------------------------------------------------------------
 //------------------------------------------------------------
@@ -1479,8 +1540,24 @@ function carga_no_ges() {
 //--------------------------------------------------------------
 //        carga pagina mant_tipoges_card
 //--------------------------------------------------------------
+function filtros_ges() {
+    var valor_anio = $('#anio_ges_filtro').val();
+    var valor_tipo = $('#tipo_ges_filtro').val();
+    $.post('web/mant_casos_ges.php', { 'anio_filtro': valor_anio, 'tipoges_filtro': valor_tipo },
+        function(res) {
+            $('#carga_casos_ges').html(res);
+        });
+}
+
 function carga_casos_ges() {
-    $("#carga_casos_ges").load("web/mant_casos_ges.php");
+    filtros_ges();
+
+    $('#anio_ges_filtro').on("change", function() {
+        filtros_ges();
+    });
+    $('#tipo_ges_filtro').on("change", function() {
+        filtros_ges();
+    });
 
     $('#spinner-casos-ges').hide();
 
@@ -1846,6 +1923,385 @@ function cargar_grafico(mtz1, mtz2, prestacion) {
     }
 }
 //--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//      mantenedor directorio noges
+//--------------------------------------------------------------
+function agregar_dir_noges(directorio) {
+    ruta = document.getElementById('referencia_ruta').textContent;
+    directorio.push({ name: 'referencia_ruta_noges', value: ruta });
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: directorio,
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-nuevo-directorio_noges')[0].reset();
+                mostrar_directorio();
+                //$('#agregar_directorio_noges').hide();
+                //$("#menu-directorio-noges").trigger("click");
+                alertify.success("Carpeta creada con exito");
+            } else {
+                alertify.error("No fue posible crear la carpeta o ya existe");
+            }
+        }
+    });
+}
+
+function editar_dir_noges(directorio) {
+    ruta = document.getElementById('editar_referencia_ruta').textContent;
+    directorio.push({ name: 'editar_referencia_ruta_noges', value: ruta });
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/editar.php",
+        data: directorio,
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-editar-directorio_noges')[0].reset();
+                mostrar_directorio();
+                alertify.success("Nombre cambiado con exito");
+            } else {
+                alertify.error("No fue posible cambiar el nombre de la carpeta o ya existe");
+            }
+        }
+    });
+}
+
+function PreguntarSioNoDirNoges() {
+    alertify.confirm('<i class="fas fa-exclamation-triangle fa-lg text-warning"></i><span class="ml-2">Eliminar Directorio</span>', '¿Está seguro de eliminar este directorio? <br><br> Si confima la eliminación, se borrarán <b><u>todos los archivos</u></b> contenidos en el directorio seleccionado',
+        function() { EliminarDirNoges(); },
+        function() {
+            alertify.error('Se ha cancelado la eliminación');
+        }).set('labels', { ok: 'Si', cancel: 'No' });
+}
+
+function EliminarDirNoges() {
+    var eliminar_ruta = document.getElementById('eliminar_referencia_ruta').textContent;
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: "ruta=" + eliminar_ruta + "&seccion=directorio_noges",
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-eliminar-directorio_noges')[0].reset();
+                mostrar_directorio();
+                alertify.success("Directorio eliminado con exito");
+            } else {
+                alertify.error("No es posible eliminar el directorio");
+            }
+        }
+    });
+}
+/*
+function AgregarArchivoNoges() {
+    var archivo_noges = new FormData($("#frm-nuevo-archivo-noges")[0]);
+    var ruta = document.getElementById('referencia_ruta_archivo').textContent;
+    archivo_noges.append('referencia_ruta_archivo', ruta);
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/agregar.php",
+        data: archivo_noges,
+        cache: false,
+        contentType: false,
+        processData: false,
+                beforeSend: function() {
+                    $('#frm-nuevo-archivo-noges').hide();
+                    $('#info-carga-archivo-noges').show();
+                },
+        success: function(r) {
+            alert(r);
+            if (r == 1) {
+                $('#frm-nuevo-archivo-noges')[0].reset();
+                mostrar_directorio();
+                alertify.success("Archivo cargado con exito");
+                document.getElementById('referencia_ruta_archivo').textContent = "";
+                carga_archivo_directorio_noges("");
+                guardaRutaArchivo("");
+                $('#info-carga-archivo-noges').hide();
+                $('#frm-nuevo-archivo-noges').show();
+            } else if (r == 2) {
+                $('#frm-nuevo-archivo-noges')[0].reset();
+                mostrar_directorio();
+                alertify.warning("El archivo ya existe en este directorio");
+            } else if (r == 3) {
+                alertify.warning("Debe seleccionar un archivo");
+            } else {
+                alertify.error("No fue posible cargar el archivo");
+            }
+        }
+    });
+}
+*/
+
+function EliminarArchivoNoges(elim_archivo) {
+    var eliminar_ruta = document.getElementById('elimina_referencia_ruta_archivo').textContent;
+    elim_archivo.push({ name: 'ruta_archivo_noges', value: eliminar_ruta });
+    $.ajax({
+        type: "POST",
+        url: "static/transaccion/eliminar.php",
+        data: elim_archivo,
+        success: function(r) {
+            if (r == 1) {
+                $('#frm-eliminar-archivo-noges')[0].reset();
+                mostrar_directorio();
+                alertify.success("Archivo eliminado con exito");
+                document.getElementById('elimina_referencia_ruta_archivo').textContent = "";
+                carga_eliminar_archivo_directorio_noges("");
+                EliminarguardaRutaArchivo("");
+            } else {
+                alertify.error("No es posible eliminar el Archivo");
+            }
+        }
+    });
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+//       directorio noges
+//--------------------------------------------------------------
+function directorio_noges() {
+    $('[data-toggle="tooltip"]').tooltip(); //para que funcione los tooltip mensajes flotantes
+    $('#info-carga-archivo-noges').hide();
+    mostrar_directorio();
+
+    ruta = "";
+    carga_directorio_noges(ruta);
+    carga_eliminar_directorio_noges(ruta);
+    carga_editar_directorio_noges(ruta);
+
+    carga_archivo_directorio_noges(ruta);
+    carga_eliminar_archivo_directorio_noges(ruta);
+
+    $('#agregar-nuevo-directorio-noges').click(function() {
+        dir_noges = $('#frm-nuevo-directorio_noges').serializeArray();
+        agregar_dir_noges(dir_noges);
+    });
+    $('#editar-nuevo-directorio-noges').click(function() {
+        dir_noges = $('#frm-editar-directorio_noges').serializeArray();
+        editar_dir_noges(dir_noges);
+    });
+    $('#eliminar-directorio-noges').click(function() {
+        PreguntarSioNoDirNoges();
+    });
+    /* aca comienza lo referente al archivo */
+    $('#agregar-archivo-noges').click(function() {
+        //AgregarArchivoNoges();
+        //uploadFile();
+    });
+
+    $('#eliminar-archivo-directorio-noges').click(function() {
+        del_archivo = $('#frm-eliminar-archivo-noges').serializeArray();
+        EliminarArchivoNoges(del_archivo);
+    });
+
+    $('#directorio_no_ges').on("change", function() {
+        mostrar_directorio();
+    });
+
+    //vuelve el directorio en 1 nivel (select agregar carpeta nuevo)
+    $('#volver_ruta_noges').click(function() {
+        girar_volver("volver_ruta_noges");
+        ruta = $('#referencia_ruta').text();
+        final = ruta.lastIndexOf("/");
+        if (ruta != "") {
+            nueva_ruta = ruta.substr(0, final);
+            document.getElementById('referencia_ruta').textContent = nueva_ruta;
+            carga_directorio_noges(nueva_ruta);
+        }
+    });
+
+    //vuelve el directorio en 1 nivel (select editar carpeta)
+    $('#editar_volver_ruta_noges').click(function() {
+        girar_volver("editar_volver_ruta_noges");
+        ruta = $('#editar_referencia_ruta').text();
+        final = ruta.lastIndexOf("/");
+        if (ruta != "") {
+            nueva_ruta = ruta.substr(0, final);
+            document.getElementById('editar_referencia_ruta').textContent = nueva_ruta;
+            carga_editar_directorio_noges(nueva_ruta);
+        }
+    });
+
+    //vuelve el directorio en 1 nivel (select eliminar carpeta)
+    $('#eliminar_volver_ruta_noges').click(function() {
+        girar_volver("eliminar_volver_ruta_noges");
+        ruta = $('#eliminar_referencia_ruta').text();
+        final = ruta.lastIndexOf("/");
+        if (ruta != "") {
+            nueva_ruta = ruta.substr(0, final);
+            document.getElementById('eliminar_referencia_ruta').textContent = nueva_ruta;
+            carga_eliminar_directorio_noges(nueva_ruta);
+        }
+    });
+
+    //vuelve el directorio en 1 nivel (select agregar archivo)
+    $('#volver_ruta_noges_archivo').click(function() {
+        girar_volver("volver_ruta_noges_archivo");
+        ruta = $('#referencia_ruta_archivo').text();
+        final = ruta.lastIndexOf("/");
+        if (ruta != "") {
+            nueva_ruta = ruta.substr(0, final);
+            document.getElementById('referencia_ruta_archivo').textContent = nueva_ruta;
+            $('#ref_ruta_arch').val(nueva_ruta); //ruta del input hide del cargar archivo
+            carga_archivo_directorio_noges(nueva_ruta);
+        }
+    });
+
+    //vuelve el directorio en 1 nivel (select eliminar archivo)
+    $('#volver_elimina_referencia_ruta_noges').click(function() {
+        girar_volver("volver_elimina_referencia_ruta_noges");
+        ruta = $('#elimina_referencia_ruta_archivo').text();
+        final = ruta.lastIndexOf("/");
+        if (ruta != "") {
+            nueva_ruta = ruta.substr(0, final);
+            document.getElementById('elimina_referencia_ruta_archivo').textContent = nueva_ruta;
+            carga_eliminar_archivo_directorio_noges(nueva_ruta);
+            carga_archivos_eliminar_noges(nueva_ruta);
+        }
+    });
+}
+
+//muestra el directorio
+function mostrar_directorio() {
+    var carpeta_dir = "/" + $('#directorio_no_ges').val();
+    $.post('web/mant_directorio_noges.php', { 'carpeta_dir': carpeta_dir },
+        function(res) {
+            $('#carga_directorio_noges').html(res);
+        });
+}
+//hace girar en 360º la flecha de volver
+function girar_volver(id) {
+    var gv = $('#' + id);
+    $({ rotation: 0 }).animate({ rotation: -360 }, {
+        duration: 400,
+        easing: 'linear',
+        step: function() {
+            gv.css({
+                transform: 'rotate(' + this.rotation + 'deg)'
+            });
+            //console.log(this.rotation);
+        }
+    });
+}
+
+//recarga el select del directorio "el agregar carpeta"
+function guardaRuta(valor) {
+    if (valor != "") {
+        document.getElementById('referencia_ruta').textContent += "/" + valor;
+    }
+    carga_directorio_noges($('#referencia_ruta').text());
+}
+//recarga el select del eliminar directorio "el agregar carpeta"
+function editar_guardaRuta(valor) {
+    if (valor != "") {
+        document.getElementById('editar_referencia_ruta').textContent += "/" + valor;
+    }
+    carga_editar_directorio_noges($('#editar_referencia_ruta').text());
+}
+//recarga el select del eliminar directorio "el agregar carpeta"
+function eliminar_guardaRuta(valor) {
+    if (valor != "") {
+        document.getElementById('eliminar_referencia_ruta').textContent += "/" + valor;
+    }
+    carga_eliminar_directorio_noges($('#eliminar_referencia_ruta').text());
+}
+
+//recarga el select del directorio "el agregar archivo"
+function guardaRutaArchivo(valor) {
+    if (valor != "") {
+        document.getElementById('referencia_ruta_archivo').textContent += "/" + valor;
+        $('#ref_ruta_arch').val(document.getElementById('referencia_ruta_archivo').textContent); //ruta del input hide del cargar archivo
+    }
+    carga_archivo_directorio_noges($('#referencia_ruta_archivo').text());
+}
+//recarga el select con el directorio para eliminar archivo
+function EliminarguardaRutaArchivo(valor) {
+    if (valor != "") {
+        document.getElementById('elimina_referencia_ruta_archivo').textContent += "/" + valor;
+    }
+    carga_eliminar_archivo_directorio_noges($('#elimina_referencia_ruta_archivo').text());
+    carga_archivos_eliminar_noges($('#elimina_referencia_ruta_archivo').text());
+}
+
+//carga el select del directorio para agregar nueva carpeta
+function carga_directorio_noges(ruta) {
+    dir = "../static/directorio_noges" + ruta;
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "ruta=" + dir + "&seleccion=directorio_noges",
+        success: function(r) {
+            $('#select-directorio-noges').html(r);
+        }
+    });
+}
+//carga el select del directorio para editar carpeta
+function carga_editar_directorio_noges(ruta) {
+    dir = "../static/directorio_noges" + ruta;
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "ruta=" + dir + "&seleccion=editar_directorio_noges",
+        success: function(r) {
+            $('#select-editar-directorio-noges').html(r);
+        }
+    });
+}
+//carga el select del directorio para eliminar carpeta
+function carga_eliminar_directorio_noges(ruta) {
+    dir = "../static/directorio_noges" + ruta;
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "ruta=" + dir + "&seleccion=eliminar_directorio_noges",
+        success: function(r) {
+            $('#select-eliminar-directorio-noges').html(r);
+        }
+    });
+}
+
+//carga el select del directorio para cargar archivo
+function carga_archivo_directorio_noges(ruta) {
+    dir = "../static/directorio_noges" + ruta;
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "ruta=" + dir + "&seleccion=archivo-directorio_noges",
+        success: function(r) {
+            $('#select-archivo-directorio-noges').html(r);
+        }
+    });
+}
+//carga el select del directorio para eliminar archivo
+function carga_eliminar_archivo_directorio_noges(ruta) {
+    dir = "../static/directorio_noges" + ruta;
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "ruta=" + dir + "&seleccion=eliminar-archivo-directorio-noges",
+        success: function(r) {
+            $('#select-elimina-ruta-dir').html(r);
+        }
+    });
+}
+//carga el select con archivos para eliminar
+function carga_archivos_eliminar_noges(ruta) {
+    dir = "../static/directorio_noges" + ruta;
+    $.ajax({
+        type: "POST",
+        url: "web/select.php",
+        data: "ruta=" + dir + "&seleccion=eliminar-archivo-noges",
+        success: function(r) {
+            $('#select-elimina-archivo').html(r);
+        }
+    });
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
 //        carga cne_datos
 //--------------------------------------------------------------
 function ConsultaCNE(datosCNE) {
@@ -1967,6 +2423,21 @@ $(document).ready(function() {
         wrapper.css({ 'color': '#2B2A2A' });
     });
     //------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------
+
+    //-------------------------fijar el menu en la parte superior-------------------------
+    var menu = document.getElementById('menu_principal');
+    var altura = menu.offsetTop; //determina la altura desde top al menu
+    window.addEventListener('scroll', function() {
+        "use strict";
+        if (window.pageYOffset > altura) {
+            menu.classList.add('menu_fijo');
+        } else {
+            menu.classList.remove('menu_fijo');
+        }
+    });
+    //------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------
 
     $("#contenido-index").empty();
     $("#contenido-index").load("web/slider.php");
@@ -2064,6 +2535,16 @@ $(document).ready(function() {
     $('#menu_mi_perfil').click(function() {
         $("#contenido-index").empty();
         $("#contenido-index").load("web/perfil_usuario.php");
+    })
+
+    $('#menu-directorio-noges').click(function() {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/mant_directorio_noges_card.php");
+    })
+
+    $('#menu-directorio-archivo-noges').click(function() {
+        $("#contenido-index").empty();
+        $("#contenido-index").load("web/directorio_noges_filtro.php");
     })
 
     $('#cerrar-sesion').click(function() {

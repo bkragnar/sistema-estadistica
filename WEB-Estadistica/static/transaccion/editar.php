@@ -185,11 +185,43 @@ switch ($seccion) {
         $nombre_archivo = $_FILES['img-avatar-usu-up']['name'];
         $ruta = $_FILES['img-avatar-usu-up']['tmp_name'];
         $extencion = pathinfo($nombre_archivo, PATHINFO_EXTENSION);
-        $nombre_avatar = "avatar_".$_POST['usuario'].".".$extencion;
-        
-        move_uploaded_file($ruta,'../img_avatar/' . $nombre_avatar);
+        $nombre_avatar = "avatar_" . $_POST['usuario'] . "." . $extencion;
+
+        move_uploaded_file($ruta, '../img_avatar/' . $nombre_avatar);
         $sql_update_avatar = "UPDATE usuarios_sime SET avatar_sime='$nombre_avatar' WHERE usuario_sime='$usu_avatar'";
-        echo mysqli_query($connection,$sql_update_avatar);
-        
+        echo mysqli_query($connection, $sql_update_avatar);
+
+        break;
+
+    case "directorio_noges":
+        $nombre_nuevo = htmlspecialchars($_POST['editar_nombre_directorio_noges']);
+        $ruta_carpeta = htmlspecialchars($_POST['editar_referencia_ruta_noges']);
+        $raiz = "../directorio_noges";
+        $origen = $raiz . $ruta_carpeta;
+
+        $posicion = strrpos($origen, '/');
+        $abrir_dir = substr($origen, 0, $posicion);
+
+        $pos_dos = strrpos($origen, '/');
+        $nombre_acambiar = substr($origen, $pos_dos + 1);
+
+        //echo $abrir_dir." este es el nombre de origen: ".$nombre_acambiar." y este es el nombre nuevo: ".$nombre_carpeta;
+
+        if ($temporal_dir = opendir($abrir_dir)) {
+            while (($file = readdir($temporal_dir)) !== FALSE) {
+                if ($file != "." && $file != ".." && $file != ".DS_Store") {
+                    if (is_dir($abrir_dir . "/" . $file) && $file == $nombre_acambiar) {
+                        if (rename($origen, $abrir_dir."/".$nombre_nuevo)) {
+                            echo 1;
+                        } else {
+                            echo 0;
+                        }
+                    }
+                }
+            }
+            closedir($temporal_dir);
+        }
+
+
         break;
 }

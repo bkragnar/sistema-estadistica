@@ -71,4 +71,191 @@ switch ($seleccion) {
         echo $cadena . "</datalist>" . '<script> etiquetaMes(); </script>';
 
         break;
+
+    case "directorio_noges":
+        $ruta = $_POST['ruta'];
+
+        $cadena = "<select id=\"ruta_directorio_noges\" name=\"ruta_directorio_noges\" class=\"form-control input-sm\" onchange=\"guardaRuta(this.value)\">
+        <option value=\"\">Seleccione</option>";
+
+        if (is_dir($ruta)) {
+            $gestor = opendir($ruta);
+            while (($archivo = readdir($gestor)) !== false) {
+                $ruta_completa = $ruta . "/" . $archivo;
+                if ($archivo != "." && $archivo != ".." && $archivo != ".DS_Store") {
+                    if (is_dir($ruta_completa)) {
+                        $list_dir[] = $archivo;
+                    }
+                }
+            }
+            closedir($gestor);
+        }
+        sort($list_dir);
+
+        foreach ($list_dir as $llave => $dato) {
+            $cadena .=  "<option value=\"$dato\">$dato</option>";
+        }
+
+        $cadena .= "</select>";
+
+        echo $cadena;
+
+        break;
+
+    case "eliminar_directorio_noges":
+        $ruta = $_POST['ruta'];
+
+        $cadena = "<select id=\"eliminar_ruta_directorio_noges\" name=\"eliminar_ruta_directorio_noges\" class=\"form-control input-sm\" onchange=\"eliminar_guardaRuta(this.value)\">
+        <option value=\"\">Seleccione</option>";
+
+        if (is_dir($ruta)) {
+            $gestor = opendir($ruta);
+            while (($archivo = readdir($gestor)) !== false) {
+                $ruta_completa = $ruta . "/" . $archivo;
+                if ($archivo != "." && $archivo != ".." && $archivo != ".DS_Store") {
+                    if (is_dir($ruta_completa)) {
+                        $list_dir[] = $archivo;
+                    }
+                }
+            }
+            closedir($gestor);
+        }
+        sort($list_dir);
+
+        foreach ($list_dir as $llave => $dato) {
+            $cadena .=  "<option value=\"$dato\">$dato</option>";
+        }
+
+        $cadena .= "</select>";
+
+        echo $cadena;
+
+        break;
+
+    case "editar_directorio_noges":
+        $ruta = $_POST['ruta'];
+
+        $cadena = "<select id=\"editar_ruta_directorio_noges\" name=\"editar_ruta_directorio_noges\" class=\"form-control input-sm\" onchange=\"editar_guardaRuta(this.value)\">
+            <option value=\"\">Seleccione</option>";
+
+        if (is_dir($ruta)) {
+            $gestor = opendir($ruta);
+            while (($archivo = readdir($gestor)) !== false) {
+                $ruta_completa = $ruta . "/" . $archivo;
+                if ($archivo != "." && $archivo != ".." && $archivo != ".DS_Store") {
+                    if (is_dir($ruta_completa)) {
+                        $list_dir[] = $archivo;
+                    }
+                }
+            }
+            closedir($gestor);
+        }
+        sort($list_dir);
+
+        foreach ($list_dir as $llave => $dato) {
+            $cadena .=  "<option value=\"$dato\">$dato</option>";
+        }
+
+        $cadena .= "</select>";
+
+        echo $cadena;
+
+        break;
+
+    case "archivo-directorio_noges":
+        $ruta = $_POST['ruta'];
+
+        $cadena = "<select id=\"ruta_archivo_noges\" name=\"ruta_archivo_noges\" class=\"form-control input-sm\" onchange=\"guardaRutaArchivo(this.value)\">
+        <option value=\"\">Seleccione</option>";
+
+        if (is_dir($ruta)) {
+            $gestor = opendir($ruta);
+            while (($archivo = readdir($gestor)) !== false) {
+                $ruta_completa = $ruta . "/" . $archivo;
+                if ($archivo != "." && $archivo != ".." && $archivo != ".DS_Store") {
+                    if (is_dir($ruta_completa)) {
+                        $list_dir[] = $archivo;
+                    }
+                }
+            }
+            closedir($gestor);
+        }
+        sort($list_dir);
+
+        foreach ($list_dir as $llave => $dato) {
+            $cadena .=  "<option value=\"$dato\">$dato</option>";
+        }
+
+        $cadena .= "</select>";
+
+        echo $cadena;
+        break;
+
+    case "eliminar-archivo-directorio-noges":
+        $ruta = $_POST['ruta'];
+
+        $cadena = "<select id=\"eliminar_ruta_archivo_noges\" name=\"eliminar_ruta_archivo_noges\" class=\"form-control input-sm\" onchange=\"EliminarguardaRutaArchivo(this.value)\">
+        <option value=\"\">Seleccione</option>";
+
+        if (is_dir($ruta)) {
+            $gestor = opendir($ruta);
+            while (($archivo = readdir($gestor)) !== false) {
+                $ruta_completa = $ruta . "/" . $archivo;
+                if ($archivo != "." && $archivo != ".." && $archivo != ".DS_Store") {
+                    if (is_dir($ruta_completa)) {
+                        $list_dir[] = $archivo;
+                    }
+                }
+            }
+            closedir($gestor);
+        }
+        sort($list_dir);
+
+        foreach ($list_dir as $llave => $dato) {
+            $cadena .=  "<option value=\"$dato\">$dato</option>";
+        }
+
+        $cadena .= "</select>";
+
+        echo $cadena;
+        break;
+
+    case "eliminar-archivo-noges":
+        $ruta = $_POST['ruta'];
+
+        $cadena = "<select id=\"eliminar_archivo_noges\" name=\"eliminar_archivo_noges\" class=\"form-control input-sm\">
+        <option value=\"\">Seleccione</option>";
+
+        if (is_dir($ruta)) {
+            $gestor = opendir($ruta);
+            while (($archivo = readdir($gestor)) !== false) {
+                $ruta_completa = $ruta . "/" . $archivo;
+                if ($archivo != "." && $archivo != ".." && $archivo != ".DS_Store") {
+                    if (is_file($ruta_completa)) {
+                        $list_dir[] = $archivo;
+                    }
+                }
+            }
+            closedir($gestor);
+        }
+        sort($list_dir);
+
+        foreach ($list_dir as $llave => $dato) {
+            $cadena .=  "<option value=\"$dato\">$dato</option>";
+        }
+
+        $cadena .= "</select>";
+
+        echo $cadena;
+        break;
+
+    case "descarga":
+        $archivo = $_POST['nombre'];
+        $src =  '../' . $_POST['ruta'];
+
+        header("Content-type: application/octet-stream");
+        header("Content-Type: application/force-download");
+        header("Content-Disposition: attachment; filename=$archivo");
+        readfile($src);
+        break;
 }

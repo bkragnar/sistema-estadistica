@@ -8,14 +8,16 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs nav-justified">
                         <li class="nav-item" id="cne">
-                            <a class="nav-link active" href="#">Consulta Nueva de Especialidad</a>
+                            <a class="nav-link active" href="#">Consulta Nueva <br> de Especialidad</a>
                         </li>
                         <li class="nav-item" id="cneo">
                             <a class="nav-link" href="#">Consulta Nueva de Especialidad Odontológica</a>
                         </li>
+                        <!--
                         <li class="nav-item" id="proced">
                             <a class="nav-link" href="#">Consulta Nueva de Procedimientos</a>
                         </li>
+                        -->
                         <li class="nav-item" id="iq">
                             <a class="nav-link" href="#">Intervención Quirurgica <br>(incluye IQ Complejas)</a>
                         </li>

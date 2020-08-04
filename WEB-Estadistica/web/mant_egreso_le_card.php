@@ -16,6 +16,32 @@ include "../cnx/connection.php";
                     <span class="btn btn-primary" data-toggle="modal" data-target="#masivo_egreso_le">Carga Masiva
                         <span class="fas fa-upload"></span>
                     </span>
+                    <div class="float-right">
+                        <label class="mb-0">Tipo Lista de Espera:</label>
+                        <select id="tipo_le_filtro" name="tipo_le_filtro" class="form-control input-sm">
+                            <option value="0" disabled>Seleccione:</option>
+                            <?php
+                            $sql_tipo_le_filtro = $connection->query("SELECT distinct(t.codigo_tipo_le), t.nombre_tipo_le FROM tipo_le t INNER JOIN egresos_le e on t.codigo_tipo_le=e.tipo_le_eg ORDER BY codigo_tipo_le ASC");
+                            while ($res_tipo_le_filtro = mysqli_fetch_array($sql_tipo_le_filtro)) {
+                                echo '<option value="' . $res_tipo_le_filtro[0] . '">' . $res_tipo_le_filtro[1] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="float-right mr-2">
+                        <label class="mb-0">Año:</label>
+                        <select id="anio_le_filtro" name="anio_le_filtro" class="form-control input-sm">
+                            <option value="0" disabled>Seleccione:</option>
+                            <?php
+                            $sql_anio_le_filtro = $connection->query("SELECT distinct(anio_eg) FROM egresos_le ORDER BY anio_eg ASC");
+                            while ($res_anio_le_filtro = mysqli_fetch_array($sql_anio_le_filtro)) {
+                                echo '<option value="' . $res_anio_le_filtro[0] . '">' . $res_anio_le_filtro[0] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <br>
+                    <br>
                     <hr>
                     <div id="carga_egreso_le"></div>
                 </div>
@@ -191,22 +217,5 @@ include "../cnx/connection.php";
 <script type="text/javascript">
     $(document).ready(function() {
         mant_egreso_le();
-
-        $('#spinner-egreso-le').hide();
-
-        $('#agregar-egreso-le').click(function() {
-            datos_egreso_le = $('#frm-nuevo-egreso-le').serialize();
-            AgregarDatosEgresoLE(datos_egreso_le);
-        });
-
-        $('#editar-egreso-le').click(function() {
-            editar_egreso_le = $('#frm-editar-egreso-le').serialize();
-            EditarEgresoLE(editar_egreso_le);
-        });
-
-        $('#cargar-masivo-egreso-le').click(function() {
-            MasivoDatosEgresoLE();
-        });
-
     });
 </script>

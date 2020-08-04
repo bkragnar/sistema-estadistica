@@ -206,4 +206,44 @@ switch ($seccion) {
                             VALUES('$id_usu','$nombre_usu','$apellido_usu','$correo_usu','$usuario_usu','$pass_usu_encriptada',$privilegio_usu,$estable_usu,'$fecha_usu',$estado_usu,'')";
         echo mysqli_query($connection, $sql_usuario);
         break;
+
+    case "directorio_noges":
+        $nombre_carpeta = htmlspecialchars($_POST['nombre_directorio_noges']);
+        $ruta_carpeta = htmlspecialchars($_POST['referencia_ruta_noges']);
+
+        $dir_nuevo = "../directorio_noges" . $ruta_carpeta . "/" . $nombre_carpeta;
+
+        if (!is_dir($dir_nuevo)) {
+            $crear = mkdir($dir_nuevo, 0777, true);
+            if ($crear) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+        break;
+    case "archivo-directorio_noges":
+        $nombre_archivo = $_FILES['archivo_directorio_noges']['name'];
+        $ruta_tmp_archivo = $_FILES['archivo_directorio_noges']['tmp_name'];
+        //$ruta_carpeta = htmlspecialchars($_POST['referencia_ruta_archivo']);
+        $ruta_carpeta = $_POST['ref_ruta_arch'];
+        $raiz = "../directorio_noges";
+        $ruta_completa = $raiz . $ruta_carpeta;
+        
+        if ($nombre_archivo != "") {
+            if (file_exists($ruta_completa . '/' . $nombre_archivo)) {
+                echo 2;
+            } else {
+                if (move_uploaded_file($ruta_tmp_archivo, $ruta_completa . '/' . $nombre_archivo)) {
+                    echo 1;
+                } else {
+                    echo 0;
+                }
+            }
+        } else {
+            echo 3;
+        }
+        break;
 }

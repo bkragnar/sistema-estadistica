@@ -132,6 +132,10 @@
     .pdf {
         color: #E10000;
     }
+    
+    .imagen {
+        color: #43C4F4;
+    }
     /* -----------------------------------------------------------*/
     /*          css redimension imagenes slider                   */
     /*width="1100" height="500"*/
@@ -188,4 +192,11 @@
     
     .paginas-salud a {
         text-decoration: none;
+    }
+    
+    .menu_fijo {
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+        top: 0;
     }

@@ -5,7 +5,7 @@ $anio = $_POST['anio_eg_cno'];
 $tipo_estable = $_POST['tipo_estable_cno'];
 $comuna = $_POST['comuna_no_ges'];
 
-$sql_porcentajes = $connection->query("SELECT * FROM porcentaje_lb WHERE tipo_estable_porc_lb=$tipo_estable");
+$sql_porcentajes = $connection->query("SELECT * FROM porcentaje_lb WHERE tipo_estable_porc_lb=$tipo_estable and anio_corte_porc_lb=$anio");
 $res_porcentaje = mysqli_fetch_array($sql_porcentajes);
 
 

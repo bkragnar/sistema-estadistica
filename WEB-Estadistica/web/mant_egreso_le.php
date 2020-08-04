@@ -1,9 +1,12 @@
 <?php
 include "../cnx/connection.php";
 
+$anio_filtro = $_POST['anio_filtro'];
+$tipole_filtro = $_POST['tipole_filtro'];
+
 $sql_egreso_le = "SELECT l.id_egreso,e.nombre_estable,l.cantidad_eg,l.mes_eg,l.anio_eg,t.nombre_tipo_le
                 FROM egresos_le l INNER JOIN establecimiento e on l.estable_eg=e.codigo_estable INNER JOIN tipo_le t on t.codigo_tipo_le=l.tipo_le_eg
-                WHERE l.tipo_le_eg=1
+                WHERE l.anio_eg=$anio_filtro and tipo_le_eg=$tipole_filtro
                 ORDER BY l.estable_eg,l.mes_eg ASC";
 $resul_egreso_le = mysqli_query($connection, $sql_egreso_le);
 ?>

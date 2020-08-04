@@ -33,3 +33,4 @@
 <script src="static/librerias/fontawesome/js/all.js"></script>
 <script src="static/js/funciones.js"></script>
 <script src="static/js/plotly-latest.min.js"></script>
+<script src="static/js/jquery.form.js"></script> 

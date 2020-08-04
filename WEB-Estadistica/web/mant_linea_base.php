@@ -1,9 +1,13 @@
 <?php
 include "../cnx/connection.php";
 
+$anio_filtro = $_POST['anio_filtro'];
+$tipole_filtro = $_POST['tipole_filtro'];
+
 $sql_linea_base = "SELECT l.id_lb,e.nombre_estable,l.cantidad_lb,l.anio_lb,t.nombre_tipo_le
                 FROM establecimiento e INNER JOIN linea_base_le l ON e.codigo_estable=l.codigo_estable_lb
                 INNER JOIN tipo_le t ON l.tipo_le_lb=t.codigo_tipo_le
+                WHERE l.anio_lb=$anio_filtro and l.tipo_le_lb=$tipole_filtro
                 ORDER BY l.codigo_estable_lb";
 $resul_linea_base = mysqli_query($connection, $sql_linea_base);
 ?>

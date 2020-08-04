@@ -13,6 +13,7 @@ if (!empty($_GET['v'])) {
         $token_privado = $_SESSION['token']['privado'];
         $token_sesion = $_SESSION['token']['sesion'];
         include_once "static/transaccion/sesion_usuario.php";
+        
 ?>
 
 <?php
@@ -33,7 +34,7 @@ if (!empty($_GET['v'])) {
 </head>
 
 <body>
-
+    <?php echo "<input type=\"hidden\" id=\"token_publico_descarga\" value=\"$token_publico\">"; ?>
     <header>
         <div class="header-container">
             <div class="container-fluid">

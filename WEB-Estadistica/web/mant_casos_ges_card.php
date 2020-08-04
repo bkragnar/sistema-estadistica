@@ -16,6 +16,32 @@ include "../cnx/connection.php";
                     <span class="btn btn-primary" data-toggle="modal" data-target="#masivo_casos_ges">Carga Masiva
                         <span class="fas fa-upload"></span>
                     </span>
+                    <div class="float-right">
+                        <label class="mb-0">Tipo GES:</label>
+                        <select id="tipo_ges_filtro" name="tipo_ges_filtro" class="form-control input-sm">
+                            <option value="0" disabled>Seleccione:</option>
+                            <?php
+                            $sql_tipo_ges_filtro = $connection->query("SELECT distinct(t.codigo_tipo_ges), t.nombre_tipo_ges FROM tipo_ges t INNER JOIN egresos_ges e on t.codigo_tipo_ges=e.codigo_tipo_ges_eg_ges ORDER BY t.codigo_tipo_ges ASC");
+                            while ($res_tipo_ges_filtro = mysqli_fetch_array($sql_tipo_ges_filtro)) {
+                                echo '<option value="' . $res_tipo_ges_filtro[0] . '">' . $res_tipo_ges_filtro[1] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="float-right mr-2">
+                        <label class="mb-0">Año:</label>
+                        <select id="anio_ges_filtro" name="anio_ges_filtro" class="form-control input-sm">
+                            <option value="0" disabled>Seleccione:</option>
+                            <?php
+                            $sql_anio_le_filtro = $connection->query("SELECT distinct(anio_eg_ges) FROM egresos_ges ORDER BY anio_eg_ges ASC");
+                            while ($res_anio_le_filtro = mysqli_fetch_array($sql_anio_le_filtro)) {
+                                echo '<option value="' . $res_anio_le_filtro[0] . '">' . $res_anio_le_filtro[0] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <br>
+                    <br>
                     <hr>
                     <div id="carga_casos_ges"></div>
                 </div>

@@ -111,4 +111,36 @@ switch ($seccion) {
         $sql_usuario = "DELETE FROM usuarios_sime WHERE id_sime='$id_usuario'";
         echo mysqli_query($connection, $sql_usuario);
         break;
+
+    case "directorio_noges":
+        $eliminar_ruta = "../directorio_noges" . $_POST['ruta'];
+        $dir_eliminar = scandir($eliminar_ruta);
+
+        foreach ($dir_eliminar as $llave => $file) {
+            if (!is_dir($file) && $file != "." && $file != "..") {
+                $del_ruta = $eliminar_ruta . '/' . $file;
+                if (unlink($del_ruta)) {
+                }
+            }
+        }
+
+        if (rmdir($eliminar_ruta)) {
+            echo 1;
+        } else {
+            echo 0;
+        }
+
+
+        break;
+
+    case "archivo-directorio-noges":
+        $archivo_eliminar = $_POST['eliminar_archivo_noges'];
+        $ruta_elimina_archivo = $_POST['ruta_archivo_noges'];
+        $origen = "../directorio_noges";
+        if(unlink($origen . $ruta_elimina_archivo . "/" . $archivo_eliminar)){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    break;
 }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark py-0 shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark py-0 shadow-sm" id="menu_principal">
   <div class="container">
     <a href="#" class="navbar-brand font-weight-bold" id="menu-inicio">Inicio</a>
 
@@ -27,10 +27,21 @@
 
           <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Listas de Espera</a>
           <ul class="dropdown-menu">
-
             <li><a href="#" class="dropdown-item" id="menu-rep-ges">GES</a></li>
-            <li><a href="#" class="dropdown-item" id="menu-rep-no-ges">No GES</a></li>
-
+            <!-- 2do nivel -->
+            <li class="dropdown-submenu">
+              <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">NO GES</a>
+              <ul class="dropdown-menu">
+                <li><a href="#" class="dropdown-item" id="menu-rep-no-ges">COMGES</a></li>
+                <?php
+                  if($privilegio>=1 && $privilegio<=3){
+                ?>
+                <li><a href="#" class="dropdown-item" id="menu-directorio-archivo-noges">Documentos</a></li>
+                <?php
+                  }
+                ?>
+              </ul>
+            </li>
           </ul>
         </li>
         <?php
@@ -43,7 +54,6 @@
             <li class="nav-item dropdown">
               <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Mantenedores</a>
               <ul class="dropdown-menu">
-
                 <!-- lvl 1 dropdown -->
                 <li class="dropdown-submenu">
                   <a href="#" role="button" data-toggle="dropdown" class="dropdown-item dropdown-toggle">Estaticos</a>
@@ -56,6 +66,7 @@
                     <li><a href="#" class="dropdown-item" id="menu-mant-linea-base">Linea Base L.E.</a></li>
                     <li><a href="#" class="dropdown-item" id="menu-mant-porcentaje-lb">Porcentaje COMGES</a></li>
                     <li><a href="#" class="dropdown-item" id="menu-mant-tipoges">Tipo GES</a></li>
+                    <li><a href="#" class="dropdown-item" id="menu-directorio-noges">Directorio NO GES</a></li>
 
                     <!-- lvl 2 dropdown -->
                     <!--
